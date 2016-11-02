@@ -8,7 +8,7 @@ package dao;
 
 /**
  *
- * @author Suguru
+ * @author Suguru, Daniel, Sneh
  */
 public class ProfileDAO {
     
