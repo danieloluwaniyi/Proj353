@@ -11,4 +11,10 @@ package model;
  */
 public class ProfileBean {
     
+    private String firstName;
+    
+    
+    
+    
+    
 }
