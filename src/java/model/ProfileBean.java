@@ -7,7 +7,7 @@ package model;
 
 /**
  *
- * @author daniel
+ * @author Daniel, Suguru, Sneh
  */
 public class ProfileBean {
     

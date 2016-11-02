@@ -7,7 +7,7 @@ package controller;
 
 /**
  *
- * @author Suguru
+ * @author Suguru, Daniel, Sneh
  */
 public class ProfileController {
     
