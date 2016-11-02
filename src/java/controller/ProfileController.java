@@ -5,10 +5,21 @@
  */
 package controller;
 
+import javax.annotation.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import model.ProfileBean;
+
 /**
  *
  * @author Suguru, Daniel, Sneh
  */
+@ManagedBean
+@SessionScoped
 public class ProfileController {
     
+    private ProfileBean profileBean;
+    
+    public ProfileController() {
+        profileBean = new ProfileBean();
+    }
 }
