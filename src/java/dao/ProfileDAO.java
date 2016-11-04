@@ -34,7 +34,7 @@ public class ProfileDAO {
         
         String query = "SELECT * FROM user WHERE userid = ?";
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/profile";
+        String myDB = "jdbc:derby://localhost:1527/project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         
         try {
@@ -62,7 +62,7 @@ public class ProfileDAO {
             System.exit(0);
         }
         
-        String myDB = "jdbc:derby://localhost:1527/profile";
+        String myDB = "jdbc:derby://localhost:1527/project353";
         try {
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             String insertString = "INSERT INTO User (firstName, lastName, userName, Email, Password, Paid) VALUES (?, ?, ?, ?, ?, ?)";
