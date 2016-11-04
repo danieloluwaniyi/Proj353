@@ -64,7 +64,7 @@ public class ProfileController {
         }
         return retVal;
     }
-        public String registerCard() {
+        public String registerCreditCard() {
             String retVal = null;
             ProfileDAO aProfilDAO = new ProfileDAO();
             int status = aProfilDAO.addCreditCard(profile);

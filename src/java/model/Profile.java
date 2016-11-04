@@ -39,18 +39,6 @@ public class Profile {
                 months.put(label, i);
             }
         }
-//        months.put("01", 1);
-//        months.put("02", 2);
-//        months.put("03", 3);
-//        months.put("04", 4);
-//        months.put("05", 5);
-//        months.put("06", 6);
-//        months.put("07", 7);
-//        months.put("08", 8);
-//        months.put("09", 9);
-//        months.put("10", 10);
-//        months.put("11", 11);
-//        months.put("12", 12);
         
         for (int i = 2016; i < 2130; i++) {
             getYears().add(i);
