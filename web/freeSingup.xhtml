@@ -9,93 +9,60 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-    <head>
+    <h:head>
         <title>Singup for Free Members</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <style>
-            body {
+            .header {
                 font-family: Arial;
-                /*background-color: Lightblue;*/
+                font-weight: normal;
+                font-size: 150%;
+            }
+            .outputLabel {
+                font-family: Arial;
+                font-weight: bold;
+                font-size: 80%;
+            }
+            .inputText {
+                height: 20px;
+                width: 200px;
+                font-size: 100%;
+            }
+            .button {
+                height: 50px;
+                width: 210px;
+                font-size: 130%;
+                background-color: #F4A460;
             }
         </style>
-    </head>
+    </h:head>
     <body>
-        <center> 
-            <!--        <h:form>
-                        <p:growl id="growl" sticky="true" showDetail="true"/>
-                        <p:wizard flowListener="#{profileControll}">
-                            <p:tab id="name" title="Name">
-                                <p:panel header ="Name">
-                                    <p:messages />
-                                    <h:panelGrid columns="2" columnClasses="label, value" cellpadding="10">
-                                        <h:outputText value="First name:" />
-                                        <p:inputText value ="#{profileController.profile.firstName}" required="true" label="FirstName"/>
-            
-                                        <h:outputText value="Last name:" />
-                                        <p:inputText value="#{profileController.profile.lastName}" required="true" label="LastName"/>
-            
-                                        <h:outputText value="User name"/>
-                                        <p:inputText value="#{profileContoller.profile.userName}" required="true" label="userName"/>
-                                    </h:panelGrid>
-                                </p:panel>
-                            </p:tab>
-            
-            
-                            <p:tab id="emails" title="Email">
-                                <p:panel header ="Email">
-                                    <p:messages />
-                                    <h:panelGrid columns="2" columnClasses="label, value" cellpadding="10">
-                                        <h:outputText value="Email:" />
-                                        <p:inputText value="#{profileController.profile.email}" required="true" label="email" id="email"/>
-                                        
-                                        <h:outputText value="Email Confirmation:" />
-                                        <p:inputText required="true" label="emailConfirmation" id="emailConfirmation"/>
-                                        
-                                    </h:panelGrid>
-                                </p:panel>
-                            </p:tab>
-            
-                            <p:tab id="passwords" title="Password">
-                                <p:panel header="Password">
-                                    <p:messages />
-                                    <h:panelGrid columns="2" columnClasses="label, value" cellpadding="10">
-                                        <h:outputText value="Password"/>
-                                        <p:inputText value="#{profileController.profile.password}" required="true" label="password" id="password"/>
-                                        
-                                        <h:outputText value="passwordConfirmation"/>
-                                        <p:inputText required="true" label="passwordConfirmation" id="passwordConfirmation"/>
-                                        
-                                    </h:panelGrid>
-                                    <p:commandButton value="Singup" actionListener="#{profileController.singup()}" update="growl"/>
-                                </p:panel>
-                            </p:tab>
-                        </p:wizard>
-            
-                    </h:form>-->
-           
+        <center>
             <h:form>
-                <h:panelGrid id="panel" columns="1" border="0" cellpadding="15"
+                <h:panelGrid id="panel" columns="1" border="0" cellpadding="2"
                              cellspacing="0">
                     <f:facet name="header">
-                        <h:outputText value="Free Member Sing up" />
+                        <h:outputText class="header" value="Free Member Sing up" />
                     </f:facet>
-                    <p:outputLabel value="First Name" />
-                    <h:inputText id="firstName" value="#{profileController.profile.firstName}" />
-                    <p:outputLabel value="Last Name:" />
-                    <h:inputText id="lastName" value="#{profileController.profile.lastName}" />
-                    <p:outputLabel value="User Name:" />
-                    <h:inputText id="userName" value="#{profileController.profile.userName}" />
-                    <p:outputLabel value="Email:" />
-                    <h:inputText id="email" value="#{profileController.profile.email}" />
-                    <p:outputLabel value="Password:" />
-                    <p:password id="password" value="#{profileController.profile.password}" feedback="true" inline="true"/>
-                    <p:outputLabel value="Password Confirmaton:" />
-                    <h:inputSecret id="passwordConf"/>
-                    <f:facet name="footer">
-                        <h:panelGroup style="display:block; text-align:center">
-                            <h:commandButton id="submit" value="Singup" action="#{profileController.freeSingup()}"/>
-                        </h:panelGroup>
-                    </f:facet>
+                    <p:outputLabel class="outputLabel" value="First Name"/>
+                    <p:inputText class="inputText" id="firstName" value="#{profileController.profile.firstName}" />
+
+                    <p:outputLabel class="outputLabel" value="Last Name" />
+                    <p:inputText class="inputText"  id="lastName" value="#{profileController.profile.lastName}" />
+
+                    <p:outputLabel class="outputLabel" value="User Name" />
+                    <p:inputText class="inputText"  id="userName" value="#{profileController.profile.userName}" />
+
+                    <p:outputLabel class="outputLabel" value="Email" />
+                    <p:inputText class="inputText"  id="email" value="#{profileController.profile.email}" />
+
+                    <p:outputLabel class="outputLabel" value="Password" />
+                    <p:password class="inputText"  id="password" value="#{profileController.profile.password}" placeholder="At least 6 characters"  feedback="true" inline="true"/>
+
+                    <p:outputLabel class="outputLabel" value="Password again" />
+                    <p:password class="inputText"  id="passwordConf"/>
+                    
+                    <p:commandButton class="button" id="submit" value="Singup" action="#{profileController.freeSingup()}"/>
                 </h:panelGrid>
             </h:form>
         </center>
