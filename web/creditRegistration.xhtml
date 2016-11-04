@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Credit Card Authentication</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style>
+            .header1 {
+                font-family: Arial;
+                font-weight: normal;
+                font-size: 150%;
+            }
+            .outputLabel {
+                font-family: Arial;
+                font-weight: bold;
+                font-size: 90%;
+            }
+            .inputText {
+                height: 20px;
+                width: 200px;
+                font-size: 100%;
+            }
+            .dropdown {
+                height: 20px;
+                width: 200px;
+                font-size: 100%;
+            }
+            .button {
+                height: 45px;
+                width: 250px;
+                font-size: 130%;
+                background-color: #F4A460;
+                text-align: center;
+            }
+        </style>
+    </h:head>
+    <body>
+        <center>
+            <h:form>
+                <h:panelGrid columns="1">
+                    <f:facet name="header">
+                        <h:outputText class="header1" value="Credit Card Authentication"/>
+                    </f:facet>
+                    <p:outputLabel class="outputLabel" value="Name on card"/>
+                    <p:inputText class="inputText" value="#{profileController.profile.nameOnCard}" placeholder="Name"/>
+
+                    <p:outputLabel class="outputLabel" value="Card number"/>
+                    <p:inputText class="inputText" value = "#{profileController.profile.creditCardNum}" placeholder="Card number"/>
+                    
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <p:outputLabel class="outputLabel" value="Expiratio date"/>
+                        <p:outputLabel/>
+                        <p:selectOneMenu value="#{profileController.profile.expirationMonth}">
+                            <f:selectItems value="#{profileController.profile.months}"/>
+                        </p:selectOneMenu>
+                        
+                        <p:selectOneMenu id="year" value="#{profileController.profile.expirationYear}" style="width:80px">
+                            <f:selectItems class="dropdown" value="#{profileController.profile.years}" />                
+                        </p:selectOneMenu>
+                        
+                    </h:panelGrid>
+                    <p:commandButton class="button" value="Register your card" action="#{profileController.registerCreditCard()}"/>
+                </h:panelGrid>
+            </h:form>
+        </center>
+    </body>
+</html>

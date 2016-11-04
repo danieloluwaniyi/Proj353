@@ -8,21 +8,13 @@ package controller;
 import dao.ProfileDAO;
 import javax.faces.bean.SessionScoped;
 import model.Profile;
-import java.io.Serializable;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import org.primefaces.event.FlowEvent;
-import org.primefaces.*;
-
 /**
  *
  * @author Suguru, Daniel, Sneh
  */
 @ManagedBean
 @SessionScoped
-@ViewScoped
 public class ProfileController {
 
     private Profile profile;
@@ -66,36 +58,32 @@ public class ProfileController {
         profile.setPaid(true);
         int status = aProfileDAO.createUser(profile);
         if (status == 1) {
-            retVal = "---.xhtml";
+            retVal = "creditRegistration.xhtml";
         } else {
             retVal = "error.xhtml";
         }
         return retVal;
     }
-    
-    
-    public void save() {
-        FacesMessage msg = new FacesMessage("Successful", "Welcome :" + profile.getFirstName());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
-
-    public boolean isSkip() {
-        return skip;
-    }
-
-    public void setSkip(boolean skip) {
-        this.skip = skip;
-    }
-
-    public String onFlowProcess(FlowEvent event) {
-        if (skip) {
-            skip = false;   //reset in case user goes back
-            return "confirm";
-        } else {
-            return event.getNewStep();
+        public String registerCard() {
+            String retVal = null;
+            ProfileDAO aProfilDAO = new ProfileDAO();
+            int status = aProfilDAO.addCreditCard(profile);
+            if (status==1) {
+                retVal = "-----.xhtml";
+            } else {
+                retVal = "error.xhtml";
+            }
+            
+            return retVal;
         }
-    }
     //End of singup page methods by Suguru
+        
+    //For Dropdown menu
+        
+        
+        
+        
+    // For Dropdown menu
 
 
 

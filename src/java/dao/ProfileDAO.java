@@ -82,6 +82,13 @@ public class ProfileDAO {
         return retVal;
     }    
     
+    public int addCreditCard(Profile profile) {
+        int retVal = 0;
+        
+        
+        return retVal;
+    }
+    
     
     
 
