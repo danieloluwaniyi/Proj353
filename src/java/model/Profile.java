@@ -9,11 +9,12 @@ package model;
  *
  * @author Daniel, Suguru, Sneh
  */
-public class ProfileBean {
+public class Profile {
 
     private String firstName;
     private String lastName;
     private String userName;
+    private String email;
     private String password;
     private String paid;
 
@@ -60,6 +61,20 @@ public class ProfileBean {
     }
 
     /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
      * @return the password
      */
     public String getPassword() {
@@ -86,4 +101,5 @@ public class ProfileBean {
     public void setPaid(String paid) {
         this.paid = paid;
     }
+    
 }

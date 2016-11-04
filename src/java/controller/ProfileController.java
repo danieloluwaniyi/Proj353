@@ -5,9 +5,15 @@
  */
 package controller;
 
-import javax.annotation.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import model.ProfileBean;
+import model.Profile;
+import java.io.Serializable;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.FlowEvent;
+import org.primefaces.*;
 
 /**
  *
@@ -15,11 +21,62 @@ import model.ProfileBean;
  */
 @ManagedBean
 @SessionScoped
+@ViewScoped
 public class ProfileController {
-    
-    private ProfileBean profileBean;
-    
+
+    private Profile profile;
+    private boolean skip;
+
     public ProfileController() {
-        profileBean = new ProfileBean();
+        profile = new Profile();
     }
+
+    /**
+     * @return the profile
+     */
+    public Profile getProfile() {
+        return profile;
+    }
+    
+        /**
+     * @param profile the profile to set
+     */
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
+    //Beginning of signup page methods by Suguru
+    public String singup() {
+        String retVal = null;
+        
+        
+        return retVal;
+    }
+    
+    
+    public void save() {
+        FacesMessage msg = new FacesMessage("Successful", "Welcome :" + profile.getFirstName());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public boolean isSkip() {
+        return skip;
+    }
+
+    public void setSkip(boolean skip) {
+        this.skip = skip;
+    }
+
+    public String onFlowProcess(FlowEvent event) {
+        if (skip) {
+            skip = false;   //reset in case user goes back
+            return "confirm";
+        } else {
+            return event.getNewStep();
+        }
+    }
+    //End of singup page methods by Suguru
+
+
+
 }
