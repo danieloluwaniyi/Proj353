@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.ProfileDAO;
 import javax.faces.bean.SessionScoped;
 import model.Profile;
 import java.io.Serializable;
@@ -46,10 +47,29 @@ public class ProfileController {
     }
 
     //Beginning of signup page methods by Suguru
-    public String singup() {
+    public String freeSingup() {
         String retVal = null;
-        
-        
+        ProfileDAO aProfileDAO = new ProfileDAO();
+        profile.setPaid(false);
+        int status = aProfileDAO.createUser(profile);
+        if (status == 1) {
+            retVal = "---.xhtml";
+        } else {
+            retVal = "error.xhtml";
+        }
+        return retVal;
+    }
+    
+        public String paidSingup() {
+        String retVal = null;
+        ProfileDAO aProfileDAO = new ProfileDAO();
+        profile.setPaid(true);
+        int status = aProfileDAO.createUser(profile);
+        if (status == 1) {
+            retVal = "---.xhtml";
+        } else {
+            retVal = "error.xhtml";
+        }
         return retVal;
     }
     

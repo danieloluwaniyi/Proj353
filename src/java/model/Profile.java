@@ -16,7 +16,7 @@ public class Profile {
     private String userName;
     private String email;
     private String password;
-    private String paid;
+    private boolean paid = false;
 
     /**
      * @return the firstName
@@ -91,15 +91,14 @@ public class Profile {
     /**
      * @return the paid
      */
-    public String getPaid() {
+    public boolean getPaid() {
         return paid;
     }
 
     /**
      * @param paid the paid to set
      */
-    public void setPaid(String paid) {
+    public void setPaid(boolean paid) {
         this.paid = paid;
     }
-    
 }
