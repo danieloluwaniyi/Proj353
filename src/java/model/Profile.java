@@ -26,6 +26,7 @@ public class Profile {
     private int expirationYear;
     private TreeMap<String, Integer> months = new TreeMap<>();
     private ArrayList<Integer> years = new ArrayList<>();
+    private String userID;
     
     
     {
@@ -185,6 +186,7 @@ public class Profile {
     public void setExpirationYear(int expirationYear) {
         this.expirationYear = expirationYear;
     }
+    
 
     /**
      * @return the months
@@ -214,6 +216,9 @@ public class Profile {
         this.years = years;
     }
     
-    
+    public String getUserID(){
+        return userID;
+    }
+
 
 }

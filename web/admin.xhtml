@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Admin Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        
+        <style>
+            .header1 {
+                font-family: Arial;
+                font-weight: normal;
+                font-size: 150%;
+            }
+            .outputLabel {
+                font-family: Arial;
+                font-weight: bold;
+                font-size: 90%;
+            }
+            .inputText {
+                height: 20px;
+                width: 200px;
+                font-size: 100%;
+            }
+            .dropdown {
+                height: 20px;
+                width: 200px;
+                font-size: 100%;
+            }
+            .button {
+                height: 45px;
+                width: 250px;
+                font-size: 130%;
+                background-color: #F4A460;
+                text-align: center;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h:form>
+            
+            <h:commandButton id="email" value ="email" action="#{adminContoller.email()}"/>
+            
+        </h:form>
+    </h:body>
+</html>

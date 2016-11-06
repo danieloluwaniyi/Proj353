@@ -172,6 +172,9 @@ public class ProfileDAO {
         
     }
     
+    
+    
+    
     private ArrayList getAllSubmissions(String query){
         ArrayList<Submission> submissionCollection = new ArrayList();
         Submission submission = null;
@@ -211,4 +214,46 @@ public class ProfileDAO {
         
         return submissionCollection;
     }
+    
+    
+    
+    
+    
+    
+    public boolean payUser(String userID){
+        boolean userPaid = false;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(0);
+        }
+        try {
+            String myDB = "jdbc:derby://localhost:1527/project353";
+            Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
+             String query = "Update project353.submissions set paid =" +true+" where USER_ID="+userID+";";
+             PreparedStatement stmt = DBConn.prepareStatement(query);
+             userPaid = true;
+            DBConn.close();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        
+        return userPaid;
+    }
+
+    public boolean payRoalty(String UserID) {
+        boolean roaltyPaid = false;
+        
+        System.out.println("Roalty is paid to: "+UserID);
+        roaltyPaid = true;
+        
+        
+        return roaltyPaid;
+    }
+    
+    
+
+    
 }
