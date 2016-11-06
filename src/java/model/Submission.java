@@ -5,10 +5,15 @@
  */
 package model;
 
+import dao.ProfileDAO;
+import java.io.ByteArrayInputStream;
 import javax.inject.Named;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
 import org.primefaces.model.*;
 
 
@@ -22,15 +27,20 @@ public class Submission implements Serializable {
 
     private double rating;
     private StreamedContent submission;
-    private String submissionId;
+    private int submissionId;
+    private byte[] content;
     private List<Submission> submissionList;
     /**
      * Creates a new instance of SubmissionBean
      */
     public Submission() {
-        
-        
-        
+          
+    }
+    
+    public Submission(double rating, byte[] content,int submissionId){
+        this.submissionId = submissionId;
+        this.rating = rating;
+        this.content = content;
     }
 
     /**
@@ -51,7 +61,16 @@ public class Submission implements Serializable {
      * @return the submission
      */
     public StreamedContent getSubmission() {
-        return submission;
+        
+        FacesContext context  =  FacesContext.getCurrentInstance();
+        if(context.getCurrentPhaseId()==PhaseId.RENDER_RESPONSE){
+            return new DefaultStreamedContent();
+        }
+        else{
+            String id = context.getExternalContext().getRequestParameterMap().get("sid");
+            byte[] image = new ProfileDAO().getSubmissionContent(id);
+            return new DefaultStreamedContent(new ByteArrayInputStream(image));
+        }
     }
 
     /**
@@ -61,24 +80,15 @@ public class Submission implements Serializable {
         this.submission = submission;
     }
 
-    /**
-     * @return the submissionId
-     */
-    public String getSubmissionId() {
-        return submissionId;
-    }
-
-    /**
-     * @param submissionId the submissionId to set
-     */
-    public void setSubmissionId(String submissionId) {
-        this.submissionId = submissionId;
-    }
 
     /**
      * @return the submissionList
      */
     public List<Submission> getSubmissionList() {
+        if(submissionList==null){
+            ArrayList sub = (new ProfileDAO().findAllSubmissions());
+            this.submissionList = sub;
+        }
         return submissionList;
     }
 
@@ -89,4 +99,22 @@ public class Submission implements Serializable {
         this.submissionList = submissionList;
     }
     
+    public void insertImage(){
+        ProfileDAO dao = new ProfileDAO();
+        dao.insertImage();
+    }
+
+    /**
+     * @return the submissionId
+     */
+    public int getSubmissionId() {
+        return submissionId;
+    }
+
+    /**
+     * @param submissionId the submissionId to set
+     */
+    public void setSubmissionId(int submissionId) {
+        this.submissionId = submissionId;
+    }
 }

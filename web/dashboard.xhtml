@@ -5,12 +5,29 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>Dashoard</title>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Dashboard</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:commandButton id="insert" value ="Insert" action="#{submissionController.theModel.insertImage()}"/>
+            <p:outputPanel>
+                <p:dataTable id="sTable" var ="image" value="#{submissionController.theModel.submissionList}"
+                             editable="false">
+                    <p:column headerText="Image" style="width:50%">
+                        <p:graphicImage value="#{submissionController.theModel.submission}">
+                            <f:param name="sid" value="#{image.submissionId}"/>
+                        </p:graphicImage>
+                        
+                    </p:column>
+                </p:dataTable>
+            </p:outputPanel>
+        </h:form>
+    </h:body>
 </html>
