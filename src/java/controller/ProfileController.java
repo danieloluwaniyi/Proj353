@@ -71,7 +71,7 @@ public class ProfileController {
     //Beginning of signup page methods by Suguru
     public void checkUserExistence() {
         ProfileDAO aProfileDAO = new ProfileDAO();
-        
+
         if (aProfileDAO.CheckUserExists(profile)) {
             this.setUserExists(true);
         } else {
@@ -79,15 +79,14 @@ public class ProfileController {
             this.setErrorMsg("This user name is already taken. Please select a new one.");
         }
     }
-    
-    
+
     public String freeSingup() {
         String retVal = null;
         ProfileDAO aProfileDAO = new ProfileDAO();
         profile.setPaid(false);
         int status = aProfileDAO.createUser(profile);
         if (status == 1) {
-            retVal = "---.xhtml";
+            retVal = "registrationConfirmation.xhtml";
         } else {
             retVal = "error.xhtml";
         }
@@ -120,7 +119,4 @@ public class ProfileController {
         return retVal;
     }
     //End of singup page methods by Suguru
-
-    //For Dropdown menu
-    // For Dropdown menu
 }

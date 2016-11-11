@@ -18,6 +18,7 @@ and open the template in the editor.
                 font-family: Arial;
                 font-weight: normal;
                 font-size: 150%;
+                text-align: center;
             }
             .outputLabel {
                 font-family: Arial;
@@ -35,12 +36,14 @@ and open the template in the editor.
                 font-size: 130%;
                 background-color: #F4A460;
             }
+            .panelGrid {
+                margin: 0 auto;
+            }
         </style>
     </h:head>
     <body>
-        <center>
             <h:form>
-                <h:panelGrid id="panel" columns="1" border="0" cellpadding="2"
+                <h:panelGrid class="panelGrid" id="panel" columns="1" border="0" cellpadding="2"
                              cellspacing="0">
                     <f:facet name="header">
                         <h:outputText class="header" value="Premiere Member Sing Up" />
@@ -52,7 +55,7 @@ and open the template in the editor.
                     <p:inputText class="inputText"  id="lastName" value="#{profileController.profile.lastName}" />
 
                     <p:outputLabel class="outputLabel" value="User Name" />
-                    <p:inputText class="inputText"  id="userName" value="#{profileController.profile.userName}" >
+                    <p:inputText class="inputText"  id="userName" value="#{profileController.profile.userID}" >
                         <f:validateRequired for="userNake"/>
                         <f:ajax event="keyup" render="userNameOut"/>                        
                     </p:inputText>
@@ -72,7 +75,6 @@ and open the template in the editor.
                     <p:commandButton class="button" id="submit" value="Singup" action="#{profileController.paidSingup()}"/>
                 </h:panelGrid>
             </h:form>
-        </center>
         <h:outputScript library="js" name="proj353.js" />
     </body>
 </html>
