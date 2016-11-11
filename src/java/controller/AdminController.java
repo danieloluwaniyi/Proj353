@@ -104,6 +104,4 @@ public class AdminController {
         }
         return roalty;
     }
-     
-     
 }

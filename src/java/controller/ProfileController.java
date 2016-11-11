@@ -9,6 +9,7 @@ import dao.ProfileDAO;
 import javax.faces.bean.SessionScoped;
 import model.Profile;
 import javax.faces.bean.ManagedBean;
+
 /**
  *
  * @author Suguru, Daniel, Sneh
@@ -18,7 +19,8 @@ import javax.faces.bean.ManagedBean;
 public class ProfileController {
 
     private Profile profile;
-    private boolean skip;
+    private boolean userExists;
+    private String errorMsg;
 
     public ProfileController() {
         profile = new Profile();
@@ -30,15 +32,55 @@ public class ProfileController {
     public Profile getProfile() {
         return profile;
     }
-    
-        /**
+
+    /**
      * @param profile the profile to set
      */
     public void setProfile(Profile profile) {
         this.profile = profile;
     }
 
+    /**
+     * @return the userExists
+     */
+    public boolean isUserExists() {
+        return userExists;
+    }
+
+    /**
+     * @param userExists the userExists to set
+     */
+    public void setUserExists(boolean userExists) {
+        this.userExists = userExists;
+    }
+
+    /**
+     * @return the errorMsg
+     */
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    /**
+     * @param errorMsg the errorMsg to set
+     */
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
+
     //Beginning of signup page methods by Suguru
+    public void checkUserExistence() {
+        ProfileDAO aProfileDAO = new ProfileDAO();
+        
+        if (aProfileDAO.CheckUserExists(profile)) {
+            this.setUserExists(true);
+        } else {
+            this.setUserExists(false);
+            this.setErrorMsg("This user name is already taken. Please select a new one.");
+        }
+    }
+    
+    
     public String freeSingup() {
         String retVal = null;
         ProfileDAO aProfileDAO = new ProfileDAO();
@@ -51,8 +93,8 @@ public class ProfileController {
         }
         return retVal;
     }
-    
-        public String paidSingup() {
+
+    public String paidSingup() {
         String retVal = null;
         ProfileDAO aProfileDAO = new ProfileDAO();
         profile.setPaid(true);
@@ -64,27 +106,21 @@ public class ProfileController {
         }
         return retVal;
     }
-        public String registerCreditCard() {
-            String retVal = null;
-            ProfileDAO aProfilDAO = new ProfileDAO();
-            int status = aProfilDAO.addCreditCard(profile);
-            if (status==1) {
-                retVal = "-----.xhtml";
-            } else {
-                retVal = "error.xhtml";
-            }
-            
-            return retVal;
+
+    public String registerCreditCard() {
+        String retVal = null;
+        ProfileDAO aProfilDAO = new ProfileDAO();
+        int status = aProfilDAO.addCreditCard(profile);
+        if (status == 1) {
+            retVal = "-----.xhtml";
+        } else {
+            retVal = "error.xhtml";
         }
+
+        return retVal;
+    }
     //End of singup page methods by Suguru
-        
+
     //For Dropdown menu
-        
-        
-        
-        
     // For Dropdown menu
-
-
-
 }

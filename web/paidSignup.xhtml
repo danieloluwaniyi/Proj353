@@ -8,7 +8,8 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Premiere Members Sign Up</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -51,7 +52,13 @@ and open the template in the editor.
                     <p:inputText class="inputText"  id="lastName" value="#{profileController.profile.lastName}" />
 
                     <p:outputLabel class="outputLabel" value="User Name" />
-                    <p:inputText class="inputText"  id="userName" value="#{profileController.profile.userName}" />
+                    <p:inputText class="inputText"  id="userName" value="#{profileController.profile.userName}" >
+                        <f:validateRequired for="userNake"/>
+                        <f:ajax event="keyup" render="userNameOut"/>                        
+                    </p:inputText>
+                    <c:if test="${profileController.userExists == true}">
+                        <p:outputLabel style="color: red" id="userNameOut" value="#{profileController.errorMsg}"/>
+                    </c:if>
 
                     <p:outputLabel class="outputLabel" value="Email" />
                     <p:inputText class="inputText"  id="email" value="#{profileController.profile.email}" />
@@ -61,7 +68,7 @@ and open the template in the editor.
 
                     <p:outputLabel class="outputLabel" value="Password again" />
                     <p:password class="inputText"  id="passwordConf"/>
-                    
+
                     <p:commandButton class="button" id="submit" value="Singup" action="#{profileController.paidSingup()}"/>
                 </h:panelGrid>
             </h:form>

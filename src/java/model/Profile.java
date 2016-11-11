@@ -16,7 +16,7 @@ public class Profile {
 
     private String firstName;
     private String lastName;
-    private String userName;
+    private String userID;
     private String email;
     private String password;
     private boolean paid = false;
@@ -26,9 +26,7 @@ public class Profile {
     private int expirationYear;
     private TreeMap<String, Integer> months = new TreeMap<>();
     private ArrayList<Integer> years = new ArrayList<>();
-    private String userID;
-    
-    
+
     {
         for (int i = 1; i <= 12; i++) {
             String label;
@@ -40,10 +38,10 @@ public class Profile {
                 months.put(label, i);
             }
         }
-        
+
         for (int i = 2016; i < 2130; i++) {
             getYears().add(i);
-            
+
         }
     }
 
@@ -78,15 +76,15 @@ public class Profile {
     /**
      * @return the userName
      */
-    public String getUserName() {
-        return userName;
+    public String getUserID() {
+        return userID;
     }
 
     /**
      * @param userName the userName to set
      */
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     /**
@@ -186,7 +184,6 @@ public class Profile {
     public void setExpirationYear(int expirationYear) {
         this.expirationYear = expirationYear;
     }
-    
 
     /**
      * @return the months
@@ -215,10 +212,5 @@ public class Profile {
     public void setYears(ArrayList<Integer> years) {
         this.years = years;
     }
-    
-    public String getUserID(){
-        return userID;
-    }
-
 
 }

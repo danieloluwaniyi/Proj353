@@ -45,7 +45,7 @@ public class ProfileDAO {
         
         try {
             PreparedStatement pstmt = DBConn.prepareStatement(query);
-            pstmt.setString(1, profile.getUserName());
+            pstmt.setString(1, profile.getUserID());
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 retVal = true;
@@ -75,7 +75,7 @@ public class ProfileDAO {
             PreparedStatement pstmt = DBConn.prepareStatement(insertString);
             pstmt.setString(1, profile.getFirstName());
             pstmt.setString(2, profile.getLastName());
-            pstmt.setString(3, profile.getUserName());
+            pstmt.setString(3, profile.getUserID());
             pstmt.setString(4, profile.getEmail());
             pstmt.setString(5, profile.getPassword());
             pstmt.setBoolean(6, profile.getPaid());

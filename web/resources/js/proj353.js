@@ -2,6 +2,7 @@ function checkpassword(form) {
   var pass = form.password.getValue;
 
   if (pass.length < 6) {
+    alert("Password needs to be at least 6 characters.")
     return false;
   }
   if (pass.indexOf(""))
