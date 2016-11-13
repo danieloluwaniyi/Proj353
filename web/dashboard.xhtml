@@ -15,7 +15,7 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        <h:form>
+        <!--h:form>
             <h:commandButton id="insert" value ="Insert" action="#{submissionController.theModel.insertImage()}"/>
             <p:outputPanel>
                 <p:dataTable id="sTable" var ="image" value="#{submissionController.theModel.submissionList}"
@@ -24,10 +24,54 @@ and open the template in the editor.
                         <p:graphicImage value="#{submissionController.theModel.submission}">
                             <f:param name="sid" value="#{image.submissionId}"/>
                         </p:graphicImage>
-                        
+
                     </p:column>
                 </p:dataTable>
             </p:outputPanel>
+        </h:form-->
+        <h:form id="form">
+            <h:commandButton id="insert" value ="Insert" action="#{submissionController.theModel.insertImage()}"/>
+            <p:dataGrid var="image" value="#{submissionController.theModel.submissionList}" columns="3" layout="grid"
+                        rows="12" paginator="true" id="image"
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="6,12,16">
+
+                <f:facet name="header">
+                    Submissions
+                </f:facet>
+
+                <p:panel header="#{image.submissionId}" style="text-align:center">
+                    <h:panelGrid columns="1" style="width:100%">
+                        <p:graphicImage value="#{submissionController.theModel.submission}">
+                            <f:param name="sid" value="#{image.submissionId}"/>
+                        </p:graphicImage>
+
+                        <h:outputText value="#{image.rating}" />
+
+                        <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail">
+                            <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
+                            <f:setPropertyActionListener value="#{car}" target="#{dataGridView.selectedCar}" />
+                        </p:commandLink>
+                    </h:panelGrid>
+                </p:panel>
+
+            </p:dataGrid>
+
+            <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="carDetail" style="text-align:center;">
+                    <p:panelGrid  columns="2" rendered="#{not empty dataGridView.selectedCar}" columnClasses="label,value">
+                        <f:facet name="header">
+                            <p:graphicImage value="#{submissionController.theModel.submission}">
+                                <f:param name="sid" value="#{image.submissionId}"/>
+                            </p:graphicImage>
+                        </f:facet>
+
+                        <h:outputText value="Id:" />
+                        <h:outputText value="#{image.submissionId}" />
+
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
         </h:form>
     </h:body>
 </html>
