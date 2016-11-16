@@ -72,7 +72,7 @@ public class ProfileController {
     public void checkUserExistence() {
         ProfileDAO aProfileDAO = new ProfileDAO();
 
-        if (aProfileDAO.CheckUserExists(profile)) {
+        if (aProfileDAO.CheckUserExists(profile.getUserID())) {
             this.setUserExists(true);
         } else {
             this.setUserExists(false);

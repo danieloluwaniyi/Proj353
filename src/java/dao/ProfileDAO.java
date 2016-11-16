@@ -35,17 +35,17 @@ public class ProfileDAO {
     
     
     //Signup methods
-    public boolean CheckUserExists(Profile profile) {
+    public boolean CheckUserExists(String userID) {
         boolean retVal = false;
         
-        String query = "SELECT * FROM user WHERE userid = ?";
+        String query = "SELECT * FROM project353.users WHERE user_id = ?";
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
         String myDB = "jdbc:derby://localhost:1527/project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         
         try {
             PreparedStatement pstmt = DBConn.prepareStatement(query);
-            pstmt.setString(1, profile.getUserID());
+            pstmt.setString(1, userID);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 retVal = true;
@@ -252,8 +252,5 @@ public class ProfileDAO {
         
         return roaltyPaid;
     }
-    
-    
-
     
 }
