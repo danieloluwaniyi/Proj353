@@ -1,8 +1,6 @@
 package dao;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,8 +11,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Profile;
 import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import model.Submission;
 
@@ -130,7 +126,7 @@ public class ProfileDAO {
         return submission;
     }
 
-    public  void insertImage() {
+    public  void insertImage(byte[] file) {
         PreparedStatement ps;
 
         try {
@@ -146,19 +142,17 @@ public class ProfileDAO {
             ps = DBConn.prepareStatement("insert into project353.submissions(USER_ID, RATING, SUBMISSION_CONTENT) " + "values(?,?,?)");
             ps.setString(1, "doluwan");
             ps.setDouble(2, 5.0);
-
-           // byte[] array = Files.readAllBytes(new File("/path/to/file").toPath());
-            Path path = Paths.get("I:\\NetBeansApps\\Proj353\\downloaded_optimus.jpg");
-            byte[] data = Files.readAllBytes(path);
-            ps.setBytes(3, data);
+            
+          
+ //           byte[] data = Files.readAllBytes(new File("/Proj353/downloaded_optimus.jpg").toPath());
+//            Path path = Paths.get("downloaded_optimus.jpg");
+//            byte[] data = Files.readAllBytes(path);
+            ps.setBytes(3, file);
             ps.execute();
             ps.close();
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-                    
         }
 
     }
