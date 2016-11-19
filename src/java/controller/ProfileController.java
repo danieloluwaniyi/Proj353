@@ -6,9 +6,11 @@
 package controller;
 
 import dao.ProfileDAO;
+import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.bean.SessionScoped;
 import model.Profile;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -86,6 +88,9 @@ public class ProfileController {
         profile.setPaid(false);
         int status = aProfileDAO.createUser(profile);
         if (status == 1) {
+            FacesContext fc = FacesContext.getCurrentInstance();
+            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+            nav.performNavigation("registrationConfirmation?faces-redirect=true");
             retVal = "registrationConfirmation.xhtml";
         } else {
             retVal = "error.xhtml";
@@ -99,6 +104,9 @@ public class ProfileController {
         profile.setPaid(true);
         int status = aProfileDAO.createUser(profile);
         if (status == 1) {
+            FacesContext fc = FacesContext.getCurrentInstance();
+            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+            nav.performNavigation("creditRegistration?faces-redirect=true");
             retVal = "creditRegistration.xhtml";
         } else {
             retVal = "error.xhtml";
@@ -111,8 +119,14 @@ public class ProfileController {
         ProfileDAO aProfilDAO = new ProfileDAO();
         int status = aProfilDAO.addCreditCard(profile);
         if (status == 1) {
+            FacesContext fc = FacesContext.getCurrentInstance();
+            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+            nav.performNavigation("?faces-redirect=true");
             retVal = "-----.xhtml";
         } else {
+            FacesContext fc = FacesContext.getCurrentInstance();
+            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+            nav.performNavigation("error?faces-redirect=true");
             retVal = "error.xhtml";
         }
 
