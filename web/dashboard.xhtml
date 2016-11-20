@@ -15,14 +15,15 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
+        
         <!--h:form>
-            <h:commandButton id="insert" value ="Insert" action="#{submissionController.theModel.insertImage()}"/>
+            <h:commandButton id="insert" value ="Insert" action="{submissionController.theModel.insertImage()}"/>
             <p:outputPanel>
-                <p:dataTable id="sTable" var ="image" value="#{submissionController.theModel.submissionList}"
+                <p:dataTable id="sTable" var ="image" value="{submissionController.theModel.submissionList}"
                              editable="false">
                     <p:column headerText="Image" style="width:50%">
-                        <p:graphicImage value="#{submissionController.theModel.submission}">
-                            <f:param name="sid" value="#{image.submissionId}"/>
+                        <p:graphicImage value="{submissionController.theModel.submission}">
+                            <f:param name="sid" value="{image.submissionId}"/>
                         </p:graphicImage>
 
                     </p:column>
@@ -30,7 +31,7 @@ and open the template in the editor.
             </p:outputPanel>
         </h:form-->
         <h:form id="form">
-            <h:commandButton id="insert" value ="Insert" action="#{submissionController.theModel.insertImage()}"/>
+            
             <p:dataGrid var="image" value="#{submissionController.theModel.submissionList}" columns="3" layout="grid"
                         rows="12" paginator="true" id="image"
                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -42,15 +43,20 @@ and open the template in the editor.
 
                 <p:panel header="#{image.submissionId}" style="text-align:center">
                     <h:panelGrid columns="1" style="width:100%">
-                        <p:graphicImage value="#{submissionController.theModel.submission}">
+                        <p:graphicImage width="375" height="300" value="#{submissionController.theModel.submission}">
                             <f:param name="sid" value="#{image.submissionId}"/>
                         </p:graphicImage>
-
-                        <h:outputText value="#{image.rating}" />
+                        <h:panelGrid columns="2" style="margin: 0 auto">
+                        <h:outputText value="Rating: " />
+                        <p:rating value="#{image.intRating}" stars="5" style="text-align:center"/></h:panelGrid>
+                        <p:commandButton value="Add to Cart" id="ajax" styleClass="ui-priority-primary" />
+                        
+                     
+                        
 
                         <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail">
                             <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
-                            <f:setPropertyActionListener value="#{car}" target="#{dataGridView.selectedCar}" />
+                            <f:setPropertyActionListener value="#{image}" target="#{submissionController.theModel}" />
                         </p:commandLink>
                     </h:panelGrid>
                 </p:panel>
@@ -59,19 +65,19 @@ and open the template in the editor.
 
             <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                 <p:outputPanel id="carDetail" style="text-align:center;">
-                    <p:panelGrid  columns="2" rendered="#{not empty dataGridView.selectedCar}" columnClasses="label,value">
-                        <f:facet name="header">
-                            <p:graphicImage value="#{submissionController.theModel.submission}">
-                                <f:param name="sid" value="#{image.submissionId}"/>
-                            </p:graphicImage>
-                        </f:facet>
+                    <p:panelGrid  columns="2" rendered="#{not empty submissionController.theModel}" columnClasses="label,value">
+                       
 
                         <h:outputText value="Id:" />
-                        <h:outputText value="#{image.submissionId}" />
+                        <h:outputText value="#{submissionController.theModel.submissionId}" />
+                        
+                        <h:outputText value="Rating:" />
+                        <h:outputText value="#{submissionController.theModel.rating}" />
 
                     </p:panelGrid>
                 </p:outputPanel>
             </p:dialog>
         </h:form>
+      
     </h:body>
 </html>
