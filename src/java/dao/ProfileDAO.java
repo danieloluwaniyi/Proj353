@@ -31,7 +31,7 @@ public class ProfileDAO {
 
     //Signup methods
     
-    public boolean validateForFreeUser(Profile profile) {
+    public boolean validateNewUser(Profile profile) {
         boolean retVal = false;
         
         retVal = this.CheckUserExists(profile.getUserID());

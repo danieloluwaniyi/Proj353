@@ -20,12 +20,14 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @SessionScoped
 public class ProfileController {
-    
+
     @ManagedProperty("#{profile}")
     private Profile profile;
+    @ManagedProperty("#{aProfileDAO}")
+    private ProfileDAO aProfileDAO;
     private boolean userExists;
     private String errorMsg;
-    
+
     /**
      * @return the profile
      */
@@ -73,8 +75,6 @@ public class ProfileController {
 
     //Beginning of signup page methods by Suguru
     public void checkUserExistence() {
-        ProfileDAO aProfileDAO = new ProfileDAO();
-
         if (aProfileDAO.CheckUserExists(profile.getUserID())) {
             this.setUserExists(true);
         } else {
@@ -85,23 +85,25 @@ public class ProfileController {
 
     public String freeSingup() {
         String retVal = null;
-        ProfileDAO aProfileDAO = new ProfileDAO();
         profile.setPaid(false);
-        
+
         boolean inputValid = false;
         int status = 0;
-        inputValid = aProfileDAO.validateForFreeUser(profile);
-        
+        inputValid = aProfileDAO.validateNewUser(profile);
+
         if (inputValid) {
-        status = aProfileDAO.createUser(profile);            
+            status = aProfileDAO.createUser(profile);
         }
         if (status == 1) {
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
             nav.performNavigation("registrationConfirmation?faces-redirect=true");
-            retVal = "registrationConfirmation.xhtml";
+//            retVal = "registrationConfirmation.xhtml";
         } else {
-            retVal = "error.xhtml";
+            FacesContext fc = FacesContext.getCurrentInstance();
+            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+            nav.performNavigation("freeSignup?faces-redirect=true");
+//            retVal = "error.xhtml";
         }
         return retVal;
     }
@@ -109,15 +111,25 @@ public class ProfileController {
     public String paidSingup() {
         String retVal = null;
         ProfileDAO aProfileDAO = new ProfileDAO();
+
+        boolean inputValid = false;
+        int status = 0;
+        inputValid = aProfileDAO.validateNewUser(profile);
+
         profile.setPaid(true);
-        int status = aProfileDAO.createUser(profile);
+        if (inputValid) {
+            status = aProfileDAO.createUser(profile);
+        }
         if (status == 1) {
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
             nav.performNavigation("creditRegistration?faces-redirect=true");
-            retVal = "creditRegistration.xhtml";
+//            retVal = "creditRegistration.xhtml";
         } else {
-            retVal = "error.xhtml";
+            FacesContext fc = FacesContext.getCurrentInstance();
+            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+            nav.performNavigation("paidSignup?faces-redirect=true");
+//            retVal = "error.xhtml";
         }
         return retVal;
     }
@@ -129,13 +141,13 @@ public class ProfileController {
         if (status == 1) {
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-            nav.performNavigation("?faces-redirect=true");
-            retVal = "-----.xhtml";
+            nav.performNavigation("registrationConfirmation?faces-redirect=true");
+            retVal = "registrationConfirmation.xhtml";
         } else {
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-            nav.performNavigation("error?faces-redirect=true");
-            retVal = "error.xhtml";
+            nav.performNavigation("creditRegistration?faces-redirect=true");
+//            retVal = "creditRegistration.xhtml";
         }
 
         return retVal;
