@@ -10,6 +10,7 @@ import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.bean.SessionScoped;
 import model.Profile;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
 /**
@@ -19,19 +20,19 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @SessionScoped
 public class ProfileController {
-
+    
+    @ManagedProperty("#{profile}")
     private Profile profile;
     private boolean userExists;
     private String errorMsg;
-
-    public ProfileController() {
-        profile = new Profile();
-    }
-
+    
     /**
      * @return the profile
      */
     public Profile getProfile() {
+        if (profile == null) {
+            profile = new Profile();
+        }
         return profile;
     }
 
@@ -86,7 +87,14 @@ public class ProfileController {
         String retVal = null;
         ProfileDAO aProfileDAO = new ProfileDAO();
         profile.setPaid(false);
-        int status = aProfileDAO.createUser(profile);
+        
+        boolean inputValid = false;
+        int status = 0;
+        inputValid = aProfileDAO.validateForFreeUser(profile);
+        
+        if (inputValid) {
+        status = aProfileDAO.createUser(profile);            
+        }
         if (status == 1) {
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();

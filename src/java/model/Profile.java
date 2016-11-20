@@ -21,6 +21,7 @@ public class Profile {
     private String userID;
     private String email;
     private String password;
+    private String passwordConf;
     private boolean paid = false;
     private String nameOnCard;
     private Integer creditCardNum;
@@ -115,6 +116,20 @@ public class Profile {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * @return the passwordConf
+     */
+    public String getPasswordConf() {
+        return passwordConf;
+    }
+
+    /**
+     * @param passwordConf the passwordConf to set
+     */
+    public void setPasswordConf(String passwordConf) {
+        this.passwordConf = passwordConf;
     }
 
     /**
@@ -217,7 +232,7 @@ public class Profile {
 
     boolean checkPassword(String password) {
         boolean retVal = false;
-        
+
 //        Pattern checkRegex = Pattern.compile("[A-Za-z0-9_@#$%]{2,}");
 //        Matcher regexMatcher = checkRegex.matcher(password);
 //        
@@ -226,13 +241,15 @@ public class Profile {
 //                retVal = true;
 //            }
 //        }
-        
-        if (password.length() < 7)
+        if (password.length() < 7) {
             retVal = false;
-        if (password.indexOf("ABCDEFGHIJKLMNOPQRSTUVWXYZ") != -1)
+        }
+        if (password.indexOf("ABCDEFGHIJKLMNOPQRSTUVWXYZ") != -1) {
             retVal = false;
-        if (password.indexOf("@") != -1 || password.indexOf("#") != -1 || password.indexOf("$") != -1 || password.indexOf("%") != -1)
+        }
+        if (password.indexOf("@") != -1 || password.indexOf("#") != -1 || password.indexOf("$") != -1 || password.indexOf("%") != -1) {
             retVal = false;
+        }
         return retVal;
     }
 
