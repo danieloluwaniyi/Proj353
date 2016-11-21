@@ -32,7 +32,7 @@ and open the template in the editor.
         </h:form-->
         <h:form id="form">
             
-            <p:dataGrid var="image" value="#{submissionController.theModel.submissionList}" columns="3" layout="grid"
+            <p:dataGrid var="image" value="#{submissionController.theModel.submissionList}" columns="3"
                         rows="12" paginator="true" id="image"
                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                         rowsPerPageTemplate="6,12,16">
@@ -49,6 +49,9 @@ and open the template in the editor.
                         <h:panelGrid columns="2" style="margin: 0 auto">
                         <h:outputText value="Rating: " />
                         <p:rating value="#{image.intRating}" stars="5" style="text-align:center"/></h:panelGrid>
+                        <h:panelGrid columns="2" style="margin: 0 auto">
+                        <h:outputText value="Price:" />
+                        <h:outputText value="$#{image.price}" /></h:panelGrid>
                         <p:commandButton value="Add to Cart" id="ajax" styleClass="ui-priority-primary" />
                         
                      

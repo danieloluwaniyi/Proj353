@@ -289,13 +289,15 @@ public class ProfileDAO {
             double rating = 0.0;
             byte[] image = null;
             int id = 0;
+            double price;
             while (rs.next()) {
                 username = rs.getString("user_id");
                 rating = rs.getDouble("rating");
                 id = rs.getInt("submission_id");
+                price = rs.getDouble("price");
                 image = rs.getBytes("submission_content");
 
-                submission = new Submission(rating, image, id);
+                submission = new Submission(rating, image, id, price);
                 submissionCollection.add(submission);
             }
 
