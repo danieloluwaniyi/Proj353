@@ -252,6 +252,10 @@ public class ProfileDAO {
         
         return roaltyPaid;
     }
+
+    public boolean addToCartDAO(String userID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 
