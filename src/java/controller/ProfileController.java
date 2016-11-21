@@ -44,6 +44,23 @@ public class ProfileController {
     public void setProfile(Profile profile) {
         this.profile = profile;
     }
+    
+    /**
+     * @return the aProfileDAO
+     */
+    public ProfileDAO getaProfileDAO() {
+        if (aProfileDAO == null) {
+            aProfileDAO = new ProfileDAO();
+        }
+        return aProfileDAO;
+    }
+
+    /**
+     * @param aProfileDAO the aProfileDAO to set
+     */
+    public void setaProfileDAO(ProfileDAO aProfileDAO) {
+        this.aProfileDAO = aProfileDAO;
+    }
 
     /**
      * @return the userExists
@@ -75,7 +92,7 @@ public class ProfileController {
 
     //Beginning of signup page methods by Suguru
     public void checkUserExistence() {
-        if (aProfileDAO.CheckUserExists(profile.getUserID())) {
+        if (getaProfileDAO().checkUserExists(profile.getUserID())) {
             this.setUserExists(true);
         } else {
             this.setUserExists(false);
@@ -86,14 +103,9 @@ public class ProfileController {
     public String freeSingup() {
         String retVal = null;
         profile.setPaid(false);
+        
+        int status = getaProfileDAO().createUser(profile);
 
-        boolean inputValid = false;
-        int status = 0;
-        inputValid = aProfileDAO.validateNewUser(profile);
-
-        if (inputValid) {
-            status = aProfileDAO.createUser(profile);
-        }
         if (status == 1) {
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
@@ -110,16 +122,9 @@ public class ProfileController {
 
     public String paidSingup() {
         String retVal = null;
-        ProfileDAO aProfileDAO = new ProfileDAO();
 
-        boolean inputValid = false;
-        int status = 0;
-        inputValid = aProfileDAO.validateNewUser(profile);
+        int status = getaProfileDAO().createUser(profile);
 
-        profile.setPaid(true);
-        if (inputValid) {
-            status = aProfileDAO.createUser(profile);
-        }
         if (status == 1) {
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
@@ -153,4 +158,6 @@ public class ProfileController {
         return retVal;
     }
     //End of singup page methods by Suguru
+
+    
 }

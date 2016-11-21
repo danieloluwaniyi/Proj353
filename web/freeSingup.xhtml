@@ -39,50 +39,65 @@ and open the template in the editor.
                 background-color: #F4A460;
             }
             .panelGrid {
-/*                display:block;
-                text-align: center;*/
+                /*                display:block;
+                                text-align: center;*/
                 margin: 0 auto;
             }
             .message {
                 font-family: arial;
                 color: red;
             }
+            .warning {
+                font-family: arial;
+                color: red;
+            }
         </style>
-        <h:outputScript library="js" name="proj353.js"/>
+        <!--<h:outputScript library="js" name="proj353.js"/>-->
     </h:head>
     <body>
         <h:form id="freeSingupForm">
             <p:outputLabel class="top" value="Free Account Sign Up"/>
             <h:panelGrid class="panelGrid" id="panel" columns="1" border="0" cellpadding="2"
                          cellspacing="0">
-
+                <!--First name-->
                 <p:outputLabel class="outputLabel" value="First Name"/>
-                <p:inputText class="inputText" id="firstName" value="#{profileController.profile.firstName}" />
-                
+                <p:inputText class="inputText" id="firstName" value="#{profileController.profile.firstName}" >
+                    <f:validateLength minimum="2" maximum="25"/>
+                </p:inputText>
+                <h:message for="firstName" class="warning"/>
+                <!--Last name-->
                 <p:outputLabel class="outputLabel" value="Last Name" />
-                <p:inputText class="inputText"  id="lastName" value="#{profileController.profile.lastName}" />
-
+                <p:inputText class="inputText"  id="lastName" value="#{profileController.profile.lastName}" >
+                    <f:validateLength minimum="2" maximum="25"/>
+                </p:inputText>
+                <h:message for="lastName" class="warning"/>
+                <!--UserID-->
                 <p:outputLabel style="text-align: left" class="outputLabel" value="User ID" />
                 <p:inputText class="inputText"  id="userID" value="#{profileController.profile.userID}" >
                     <f:ajax event="keyup" render="idMessage"/>
                     <f:validator validatorId="userIDValidator"/>
                 </p:inputText>
-                <h:message class="message" id="idMessage" for="userID" style="color: red; font-family: arial"/>
-
+                <h:message class="warning" id="idMessage" for="userID"/>
+                <!--Email-->
                 <p:outputLabel class="outputLabel" value="Email" />
-                <p:inputText class="inputText"  id="email" value="#{profileController.profile.email}" />
-                
+                <p:inputText class="inputText"  id="email" value="#{profileController.profile.email}" >
+                    <f:validator validatorId="emailValidator"/>
+                </p:inputText>
+                <h:outputLabel class="warning"/>
+                <!--Password-->
                 <p:outputLabel class="outputLabel" value="Password" />
-                <p:password class="inputText"  id="password" value="#{profileController.profile.password}" placeholder="At least 6 characters"  feedback="false" inline="true" onblur="checkPassStrength(this.form)">
-                <f:ajax event="keyup" render="passwordMessage"/>
-                <f:validator validatorId="passwordValidator"/>
+                <!--<p:password class="inputText"  id="password" value="#{profileController.profile.password}" placeholder="At least 6 characters"  feedback="false" inline="true" onblur="checkPassStrength(this.form)">-->
+                <p:password class="inputText"  id="password" value="#{profileController.profile.password}" placeholder="At least 6 characters"  feedback="false" inline="true">
+                    <f:validator validatorId="passwordValidator" />
+                    <f:attribute name="passwordConfirmation" value="#{passwordConf}"/>
+                    <!--<f:ajax event="keyup" render="passwordMessage"/>-->
                 </p:password>
-                <h:message class="message" id="passwordMessage" for="password" style="color: red; font-family: arial"/>
-                
+                <h:message class="warning" id="passwordMessage" for="password"/>
+                <!--Confirm Password-->
                 <p:outputLabel class="outputLabel" value="Password again" />
-                <p:password class="inputText"  id="passwordConf" onblur="checkPasswordMatch(this.form)"/>
-                <h:message class="message" id="passConfMessage" for="password passwordConf" style="color: red; font-family: arial"/>
-                
+                <p:password class="inputText"  id="passwordConf" onblur="checkPasswordMatch(this.form)" binding="#{passwordConf}"/>
+                <h:message class="warning" id="passConfMessage" for="password passwordConf"/>
+
                 <p:commandButton class="button" id="submit" value="Sign Up" action="#{profileController.freeSingup()}" />
             </h:panelGrid>
         </h:form>

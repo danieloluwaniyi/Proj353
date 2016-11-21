@@ -29,25 +29,8 @@ import model.Submission;
  */
 public class ProfileDAO {
 
-    //Signup methods
-    
-    public boolean validateNewUser(Profile profile) {
-        boolean retVal = false;
-        
-        retVal = this.CheckUserExists(profile.getUserID());
-        retVal = this.checkEmailExists(profile.getEmail());
-        retVal = this.checkPasswordMatch(profile.getPassword(), profile.getPasswordConf());
-        retVal = this.checkPassword(profile.getPassword());
-        retVal = this.checkEmailValidity(profile.getEmail());
-        System.out.println("Is valid? " + retVal);
-        
-        return retVal;
-    }
-    
-    
-    
     //Checks if the userID & email are already exist.
-    public boolean CheckUserExists(String userID) {
+    public boolean checkUserExists(String userID) {
         boolean retVal = false;
 
         String userIDQuery = "SELECT * FROM project353.users WHERE user_id = ?";
@@ -70,16 +53,16 @@ public class ProfileDAO {
 
         return retVal;
     }
-    
+
     //checks if the email already exists.
     public boolean checkEmailExists(String email) {
         boolean retVal = false;
-        
+
         String emailQuery = "SELECT * FROM project353.users WHERE email = ?";
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
         String myDB = "jdbc:derby://localhost:1527/project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
-        
+
         try {
             PreparedStatement pstmt = DBConn.prepareStatement(emailQuery);
             pstmt.setString(1, email);
@@ -93,6 +76,7 @@ public class ProfileDAO {
         return retVal;
     }
 
+    //returns true if email is good
     public boolean checkEmailValidity(String email) {
         boolean retVal = true;
 
@@ -105,7 +89,7 @@ public class ProfileDAO {
         if (email.indexOf("@") == -1) {
             retVal = false;
         }
-        
+
         //checks if the email contains 2 @s. If so it'll return false
         int counter = 0;
         for (int i = 0; i < email.length() - 1; i++) {
@@ -119,7 +103,8 @@ public class ProfileDAO {
 
         return retVal;
     }
-    
+
+    //returns true if both password and input match.
     public boolean checkPasswordMatch(String password, String passwordConf) {
         if (!password.equals(passwordConf)) {
             return false;
@@ -128,31 +113,40 @@ public class ProfileDAO {
         }
     }
 
-    public boolean checkPassword(String password) {
-        boolean retVal = false;
-
-        String upperCharacters = "ABCDEFGHIJKLMNOPQRSTUWYZ";
-        String lowerCharacters = "abcdefghijklmnopqrstuwyz";
-
-        //Checks the length
-        if (password.length() >= 6) {
-            retVal = true;
-        }
-
-        //Checks if the email contains both upper and lower cases
-        if (password.indexOf(upperCharacters) != -1) {
-            retVal = true;
-        } else if (password.indexOf(lowerCharacters) != -1) {
-            retVal = true;
-        }
-
-        //Checking if the password contains special characters
-        if ((password.indexOf("@") != -1) || (password.indexOf("#") != -1) || (password.indexOf("$") != -1) || (password.indexOf("%") != -1)) {
-            retVal = true;
-        }
-
-        return retVal;
-    }
+//    //returns true if password is good.
+//    public boolean checkPassword(String password) {
+//        boolean retVal = true;
+//
+////        String[] upperCharacters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", PQRSTUWYZ"};
+////        String[] lowerCharacters = "abcdefghijklmnopqrstuwyz";
+//
+//        //Checks the length
+//        if (password.length() < 6) {
+//            retVal = false;
+//        }
+//        
+////        int validate = password.indexOf(upperCharacters);
+//        
+////        for (int i = 0; i < password; i++) {
+////            
+////        }
+//        
+//        
+//
+//        //Checks if the email contains both upper and lower cases
+//        if (password.indexOf(upperCharacters) == -1) {
+//            retVal = false;
+//        } else if (password.indexOf(lowerCharacters) == -1) {
+//            retVal = false;
+//        }
+//
+//        //Checking if the password contains special characters
+//        if ((password.indexOf("@") == -1) || (password.indexOf("#") == -1) || (password.indexOf("$") == -1) || (password.indexOf("%") == -1) || (password.indexOf("-") == -1)) {
+//            retVal = false;
+//        }
+//
+//        return retVal;
+//    }
 
     public int createUser(Profile profile) {
         int retVal = 0;
@@ -222,7 +216,7 @@ public class ProfileDAO {
         return submission;
     }
 
-    public  void insertImage(byte[] file) {
+    public void insertImage(byte[] file) {
         PreparedStatement ps;
 
         try {
@@ -245,9 +239,7 @@ public class ProfileDAO {
 //            byte[] data = Files.readAllBytes(path);
 //            ps.setBytes(3, data);
 //=======
-            
-          
- //           byte[] data = Files.readAllBytes(new File("/Proj353/downloaded_optimus.jpg").toPath());
+            //           byte[] data = Files.readAllBytes(new File("/Proj353/downloaded_optimus.jpg").toPath());
 //            Path path = Paths.get("downloaded_optimus.jpg");
 //            byte[] data = Files.readAllBytes(path);
             ps.setBytes(3, file);
