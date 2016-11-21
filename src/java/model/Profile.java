@@ -7,6 +7,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
+//import java.util.regex.Matcher;
+//import java.util.regex.Pattern;
 
 /**
  *
@@ -19,6 +21,7 @@ public class Profile {
     private String userID;
     private String email;
     private String password;
+    private String passwordConf;
     private boolean paid = false;
     private String nameOnCard;
     private Integer creditCardNum;
@@ -113,6 +116,20 @@ public class Profile {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * @return the passwordConf
+     */
+    public String getPasswordConf() {
+        return passwordConf;
+    }
+
+    /**
+     * @param passwordConf the passwordConf to set
+     */
+    public void setPasswordConf(String passwordConf) {
+        this.passwordConf = passwordConf;
     }
 
     /**
@@ -211,6 +228,33 @@ public class Profile {
      */
     public void setYears(ArrayList<Integer> years) {
         this.years = years;
+    }
+
+    boolean checkPassword(String password) {
+        boolean retVal = false;
+
+//        Pattern checkRegex = Pattern.compile("[A-Za-z0-9_@#$%]{2,}");
+//        Matcher regexMatcher = checkRegex.matcher(password);
+//        
+//        while (regexMatcher.find()) {
+//            if (regexMatcher.group().length() != 0) {
+//                retVal = true;
+//            }
+//        }
+        if (password.length() < 7) {
+            retVal = false;
+        }
+        if (password.indexOf("ABCDEFGHIJKLMNOPQRSTUVWXYZ") != -1) {
+            retVal = false;
+        }
+        if (password.indexOf("@") != -1 || password.indexOf("#") != -1 || password.indexOf("$") != -1 || password.indexOf("%") != -1) {
+            retVal = false;
+        }
+        return retVal;
+    }
+
+    boolean checkPassMatch(String password) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

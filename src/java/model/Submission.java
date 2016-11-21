@@ -12,8 +12,10 @@ import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.*;
 
 
@@ -30,6 +32,8 @@ public class Submission implements Serializable {
     private int submissionId;
     private byte[] content;
     private List<Submission> submissionList;
+    private Integer intRating;
+    private UploadedFile fileUpload;
     /**
      * Creates a new instance of SubmissionBean
      */
@@ -99,9 +103,13 @@ public class Submission implements Serializable {
         this.submissionList = submissionList;
     }
     
-    public void insertImage(){
+    public void insertImage(FileUploadEvent event){
+        this.fileUpload  = event.getFile();
+      
         ProfileDAO dao = new ProfileDAO();
-        dao.insertImage();
+        dao.insertImage(fileUpload.getContents());
+        displayUploadMsg(event);
+  
     }
 
     /**
@@ -116,5 +124,32 @@ public class Submission implements Serializable {
      */
     public void setSubmissionId(int submissionId) {
         this.submissionId = submissionId;
+    }
+
+    /**
+     * @return the intRating
+     */
+    public Integer getIntRating() {
+        return (int)rating;
+    }
+
+    /**
+     * @param intRating the intRating to set
+     */
+    public void setIntRating(Integer intRating) {
+        this.intRating = intRating;
+    }
+
+    public UploadedFile getFileUpload() {
+        return fileUpload;
+    }
+
+    public void setFileUpload(UploadedFile fileUpload) {
+        this.fileUpload = fileUpload;
+    }
+    
+    private void displayUploadMsg(FileUploadEvent event) {
+        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 }

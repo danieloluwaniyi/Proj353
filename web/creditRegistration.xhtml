@@ -41,6 +41,7 @@ and open the template in the editor.
                 text-align: center;
             }
         </style>
+        <h:outputScript library="js" name="proj353.js"/>
     </h:head>
     <body>
         <center>
@@ -52,10 +53,10 @@ and open the template in the editor.
                     <p:outputLabel class="outputLabel" value="Name on card"/>
                     <p:inputText class="inputText" value="#{profileController.profile.nameOnCard}" placeholder="Name">
                         <p:keyFilter regEx="/[A-Z\s]/i"/>
-                        </p:inputText>
+                    </p:inputText>
                     <p:outputLabel class="outputLabel" value="Card number"/>
                     <p:inputText class="inputText" value = "#{profileController.profile.creditCardNum}" maxlength="16" placeholder="Card number">
-                    <p:keyFilter regEx="/[0-9]/i"/>
+                        <p:keyFilter regEx="/[0-9]/i"/>
                     </p:inputText>
                     <h:panelGrid columns="2" cellpadding="10">
                         <p:outputLabel class="outputLabel" value="Expiratio date"/>
@@ -63,11 +64,11 @@ and open the template in the editor.
                         <p:selectOneMenu value="#{profileController.profile.expirationMonth}">
                             <f:selectItems value="#{profileController.profile.months}"/>
                         </p:selectOneMenu>
-                        
+
                         <p:selectOneMenu id="year" value="#{profileController.profile.expirationYear}" style="width:80px">
                             <f:selectItems class="dropdown" value="#{profileController.profile.years}" />                
                         </p:selectOneMenu>
-                        
+
                     </h:panelGrid>
                     <p:commandButton class="button" value="Register your card" action="#{profileController.registerCreditCard()}"/>
                 </h:panelGrid>
