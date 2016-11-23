@@ -27,7 +27,6 @@ public class LoginController {
     @ManagedProperty("#{profileDAO")
     private ProfileDAO profileDAO;
 
-    
     //To see if the user has already logged in
     public void checkIfLoggedIn() {
         if (!loggedIn) {
@@ -37,7 +36,8 @@ public class LoginController {
             nav.performNavigation("login?faces-redirect=true");
         }
     }
-    
+
+    //Login
     public String login() {
         String retVal = null;
 
@@ -53,6 +53,12 @@ public class LoginController {
             nav.performNavigation("login?faces-redirect=true");
         }
         return retVal;
+    }
+
+    //Logout
+    public String logout() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession(); // the above is unnecessary once the session is invalidated
+        return "index.xhtml?faces-redirect=true";
     }
 
     //Getters & setters
