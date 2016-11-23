@@ -23,7 +23,7 @@ and open the template in the editor.
     </h:head>
     <body>
         <h:form>
-        <h:panelGrid class="panelGrid" id="panel" columns="1" cellpadding="10" cellspacing="0">
+        <h:panelGrid class="panelGrid" id="panel" columns="2" cellpadding="10" cellspacing="0">
             <f:facet name="header">
                 <p:outputLabel class="header" value="Thanks for your reistration!" />
             </f:facet>
@@ -39,7 +39,7 @@ and open the template in the editor.
             <p:outputLabel class="outputLabel" value="Email:" />
             <p:outputLabel class="inputText"  id="email" value="#{profileController.profile.email}" />
             
-            <p:commandButton class="button" id="submit" value="Go to Login Page"/>
+            <p:commandButton class="button" id="submit" value="Go to Login Page" action="login.xhtml"/>
         </h:panelGrid>
         </h:form>
     </body>

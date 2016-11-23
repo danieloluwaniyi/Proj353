@@ -9,13 +9,61 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-    <head>
-        <title>TODO supply a title</title>
+    <h:head>
+        <title>Login</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-    
+        <style>
+            .top {
+                font-family: Arial;
+                font-weight: normal;
+                font-size: 150%;
+                display:block;
+                text-align: center;
+            }
+            .outputLabel {
+                font-family: Arial;
+                font-weight: bold;
+                font-size: 80%;
+                text-align: left;
+            }
+            .inputText {
+                height: 20px;
+                width: 200px;
+                font-size: 100%;
+            }
+            .button {
+                height: 40px;
+                width: 210px;
+                font-size: 130%;
+                background-color: #F4A460;
+            }
+            .panelGrid {
+/*                                display:block;
+                                text-align: center;*/
+                margin: 0 auto;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:outputLabel class="top" value="Login"/>
+            <h:panelGrid class="panelGrid" columns="1" >
+                <p:outputLabel class="outputLabel" value="User ID"/>
+                <p:inputText class="inputText" id="userID" value="#{profileController.profile.userID}"/>
+                <!--<p Click <a>here</a> if you forgot your ID.</p>-->
+                <p:outputLabel class="outputLabel" value="Password"/>
+                <p:password class="inputText" id="password" value="#{profileController.profile.password}"/>
+                <!--<p Click <a>here</a> if you forgot your password</p>-->
+
+                <p:commandButton class="button" id="submit" value="Login" action="#{profileController.login()}"/>
+
+            </h:panelGrid>
+        </h:form>
+
+
+
+
+    </h:body>
+
     <!--After login, go to "dashboard" to upload images and etc.-->
 </html>

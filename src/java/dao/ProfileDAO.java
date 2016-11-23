@@ -43,7 +43,10 @@ public class ProfileDAO {
             pstmt.setString(1, userID);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                retVal = true;
+                String userIDFromDB = rs.getString("user_ID");
+                if (userIDFromDB.toLowerCase().equals(userID.toLowerCase())) {
+                    retVal = true;
+                }
             }
             DBConn.close();
             rs.close();
@@ -68,7 +71,10 @@ public class ProfileDAO {
             pstmt.setString(1, email);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                retVal = true;
+                String emailFromDB = rs.getString("email");
+                if (emailFromDB.toLowerCase().equals(email.toLowerCase())) {
+                    retVal = true;
+                }
             }
         } catch (SQLException ex) {
             System.err.println(ex + " was caught.");
@@ -113,41 +119,6 @@ public class ProfileDAO {
         }
     }
 
-//    //returns true if password is good.
-//    public boolean checkPassword(String password) {
-//        boolean retVal = true;
-//
-////        String[] upperCharacters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", PQRSTUWYZ"};
-////        String[] lowerCharacters = "abcdefghijklmnopqrstuwyz";
-//
-//        //Checks the length
-//        if (password.length() < 6) {
-//            retVal = false;
-//        }
-//        
-////        int validate = password.indexOf(upperCharacters);
-//        
-////        for (int i = 0; i < password; i++) {
-////            
-////        }
-//        
-//        
-//
-//        //Checks if the email contains both upper and lower cases
-//        if (password.indexOf(upperCharacters) == -1) {
-//            retVal = false;
-//        } else if (password.indexOf(lowerCharacters) == -1) {
-//            retVal = false;
-//        }
-//
-//        //Checking if the password contains special characters
-//        if ((password.indexOf("@") == -1) || (password.indexOf("#") == -1) || (password.indexOf("$") == -1) || (password.indexOf("%") == -1) || (password.indexOf("-") == -1)) {
-//            retVal = false;
-//        }
-//
-//        return retVal;
-//    }
-
     public int createUser(Profile profile) {
         int retVal = 0;
 
@@ -161,7 +132,7 @@ public class ProfileDAO {
         String myDB = "jdbc:derby://localhost:1527/project353";
         try {
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
-            String insertString = "INSERT INTO User (firstName, lastName, userName, Email, Password, Paid) VALUES (?, ?, ?, ?, ?, ?)";
+            String insertString = "INSERT INTO Project353.Users (firstName, lastName, user_ID, Email, Password, Paid) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = DBConn.prepareStatement(insertString);
             pstmt.setString(1, profile.getFirstName());
             pstmt.setString(2, profile.getLastName());
@@ -170,16 +141,70 @@ public class ProfileDAO {
             pstmt.setString(5, profile.getPassword());
             pstmt.setBoolean(6, profile.getPaid());
 
-            retVal = pstmt.executeUpdate(insertString);
+            pstmt.execute();
+            retVal = 1;
             DBConn.close();
         } catch (SQLException ex) {
-            Logger.getLogger(ProfileDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex + " was caught.");
         }
         return retVal;
     }
 
     public int addCreditCard(Profile profile) {
         int retVal = 0;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(0);
+        }
+
+        String myDB = "jdbc:derby://localhost:1527/project353";
+        try {
+            Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
+            String insertString = "INSERT INTO Project353.Users (nameOnCard, creditCardNum, expirationMonth, expirationYear) VALUES (?, ?, ?, ?) WHERE user_id = ?";
+            PreparedStatement pstmt = DBConn.prepareStatement(insertString);
+            pstmt.setString(1, profile.getNameOnCard());
+            pstmt.setString(2, profile.getCreditCardNum());
+            pstmt.setInt(3, profile.getExpirationMonth());
+            pstmt.setInt(4, profile.getExpirationYear());
+            pstmt.setString(5, profile.getUserID());
+
+            pstmt.execute();
+            retVal = 1;
+            DBConn.close();
+        } catch (SQLException ex) {
+            System.out.println(ex + " was caught.");
+        }
+        return retVal;
+    }
+
+    public int login(Profile profile) {
+        int retVal = 0;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(0);
+        }
+
+        String myDB = "jdbc:derby://localhost:1527/project353";
+        try {
+            Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
+            String query = "SELECT user_ID FROM project353.users WHERE user_ID = ?";
+            PreparedStatement pstmt = DBConn.prepareStatement(query);
+            pstmt.setString(1, profile.getUserID());
+
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                retVal = 1;
+            }
+            DBConn.close();
+        } catch (SQLException ex) {
+            System.out.println(ex + " was caught.");
+        }
 
         return retVal;
     }
@@ -238,8 +263,12 @@ public class ProfileDAO {
 //            Path path = Paths.get("I:\\NetBeansApps\\Proj353\\downloaded_optimus.jpg");
 //            byte[] data = Files.readAllBytes(path);
 //            ps.setBytes(3, data);
+//<<<<<<< HEAD
 //=======
             //           byte[] data = Files.readAllBytes(new File("/Proj353/downloaded_optimus.jpg").toPath());
+//=======
+            //           byte[] data = Files.readAllBytes(new File("/Proj353/downloaded_optimus.jpg").toPath());
+//>>>>>>> origin/master
 //            Path path = Paths.get("downloaded_optimus.jpg");
 //            byte[] data = Files.readAllBytes(path);
             ps.setBytes(3, file);
@@ -332,11 +361,14 @@ public class ProfileDAO {
         return roaltyPaid;
     }
 
+    public boolean addToCartDAO(String userID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
 //<<<<<<< HEAD
 //        } catch (IOException ex) {
 //            System.out.println(ex.getMessage());
 //
-////=======
 //
 //>>>>>>> origin/master

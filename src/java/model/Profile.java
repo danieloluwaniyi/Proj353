@@ -24,7 +24,8 @@ public class Profile {
     private String passwordConf;
     private boolean paid = false;
     private String nameOnCard;
-    private Integer creditCardNum;
+    private String creditCardNum;
+    private String securityCode;
     private int expirationMonth;
     private int expirationYear;
     private TreeMap<String, Integer> months = new TreeMap<>();
@@ -84,7 +85,7 @@ public class Profile {
     }
 
     /**
-     * @param userName the userName to set
+     * @param userID the userName to set
      */
     public void setUserID(String userID) {
         this.userID = userID;
@@ -163,15 +164,50 @@ public class Profile {
     /**
      * @return the creditCardNum
      */
-    public Integer getCreditCardNum() {
+    public String getCreditCardNum() {
+//        String retVal = null;
+//        String num = creditCardNum;
+//        int length = 0;
+//        try {
+//        length = creditCardNum.length();
+//        } catch (NullPointerException ne) {
+//            System.out.println("NullPointerException was caught");
+//        }
+//        try {
+//            if (creditCardNum.length() < 5) {
+//                retVal = this.creditCardNum;
+//            } else if (creditCardNum.length() > 4 && creditCardNum.length() <= 8) {
+//                retVal = creditCardNum.substring(0, 5) + " " + creditCardNum.substring(5);
+//            } else if (creditCardNum.length() > 8 && creditCardNum.length() <= 12) {
+//                retVal = creditCardNum.substring(0, 5) + " " + creditCardNum.substring(5, 9) + " " + creditCardNum.substring(9);
+//            } else if (creditCardNum.length() > 12 && creditCardNum.length() <= 16) {
+//                retVal = creditCardNum.substring(0, 5) + " " + creditCardNum.substring(5, 9) + " " + creditCardNum.substring(9, 13) + " " + creditCardNum.substring(13);
+//            }
+//        } catch (NullPointerException ne) {
+//            return creditCardNum;
+//        }
         return creditCardNum;
     }
 
     /**
      * @param creditCardNum the creditCardNum to set
      */
-    public void setCreditCardNum(Integer creditCardNum) {
+    public void setCreditCardNum(String creditCardNum) {
         this.creditCardNum = creditCardNum;
+    }
+
+    /**
+     * @return the securityCode
+     */
+    public String getSecurityCode() {
+        return securityCode;
+    }
+
+    /**
+     * @param securityCode the securityCode to set
+     */
+    public void setSecurityCode(String securityCode) {
+        this.securityCode = securityCode;
     }
 
     /**
