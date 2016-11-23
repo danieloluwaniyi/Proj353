@@ -244,7 +244,6 @@ public class ProfileDAO {
 //            Path path = Paths.get("I:\\NetBeansApps\\Proj353\\downloaded_optimus.jpg");
 //            byte[] data = Files.readAllBytes(path);
 //            ps.setBytes(3, data);
-//=======
             
           
  //           byte[] data = Files.readAllBytes(new File("/Proj353/downloaded_optimus.jpg").toPath());
@@ -342,11 +341,16 @@ public class ProfileDAO {
         return roaltyPaid;
     }
 
+    public boolean addToCartDAO(String userID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+
 }
 //<<<<<<< HEAD
 //        } catch (IOException ex) {
 //            System.out.println(ex.getMessage());
 //
-////=======
 //
 //>>>>>>> origin/master
