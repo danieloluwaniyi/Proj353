@@ -15,72 +15,75 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        
-        <!--h:form>
-            <h:commandButton id="insert" value ="Insert" action="{submissionController.theModel.insertImage()}"/>
-            <p:outputPanel>
-                <p:dataTable id="sTable" var ="image" value="{submissionController.theModel.submissionList}"
-                             editable="false">
-                    <p:column headerText="Image" style="width:50%">
-                        <p:graphicImage value="{submissionController.theModel.submission}">
-                            <f:param name="sid" value="{image.submissionId}"/>
-                        </p:graphicImage>
 
-                    </p:column>
-                </p:dataTable>
-            </p:outputPanel>
-        </h:form-->
         <h:form id="form">
-            
-            <p:dataGrid var="image" value="#{submissionController.theModel.submissionList}" columns="3"
-                        rows="12" paginator="true" id="image"
-                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                        rowsPerPageTemplate="6,12,16">
+            <p:layout >
+                <p:layoutUnit position = "center">   
 
-                <f:facet name="header">
-                    Submissions
-                </f:facet>
+                    <p:dataGrid var="image" value="#{submissionController.theModel.submissionList}" columns="3"
+                                rows="12" paginator="true" id="image"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                rowsPerPageTemplate="6,12,16">
 
-                <p:panel header="#{image.submissionId}" style="text-align:center">
-                    <h:panelGrid columns="1" style="width:100%">
-                        <p:graphicImage width="375" height="300" value="#{submissionController.theModel.submission}">
-                            <f:param name="sid" value="#{image.submissionId}"/>
-                        </p:graphicImage>
-                        <h:panelGrid columns="2" style="margin: 0 auto">
-                        <h:outputText value="Rating: " />
-                        <p:rating value="#{image.intRating}" stars="5" style="text-align:center"/></h:panelGrid>
-                        <h:panelGrid columns="2" style="margin: 0 auto">
-                        <h:outputText value="Price:" />
-                        <h:outputText value="$#{image.price}" /></h:panelGrid>
-                        <p:commandButton value="Add to Cart" id="ajax" styleClass="ui-priority-primary" />
-                        
-                     
-                        
+                        <f:facet name="header">
+                            Submissions
+                        </f:facet>
 
-                        <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail">
-                            <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
-                            <f:setPropertyActionListener value="#{image}" target="#{submissionController.theModel}" />
-                        </p:commandLink>
-                    </h:panelGrid>
-                </p:panel>
+                        <p:panel header="#{image.submissionId}" style="text-align:center">
+                            <h:panelGrid columns="1" style="width:100%">
+                                <p:graphicImage width="375" height="300" value="#{submissionController.theModel.submission}">
+                                    <f:param name="sid" value="#{image.submissionId}"/>
+                                </p:graphicImage>
+                                <h:panelGrid columns="2" style="margin: 0 auto">
+                                    <h:outputText value="Rating: " />
+                                    <p:rating value="#{image.intRating}" stars="5" style="text-align:center"/></h:panelGrid>
+                                <h:panelGrid columns="2" style="margin: 0 auto">
+                                    <h:outputText value="Price:" />
+                                    <h:outputText value="$#{image.price}" /></h:panelGrid>
+                                <p:commandButton value="Add to Cart" id="ajax" styleClass="ui-priority-primary" />
 
-            </p:dataGrid>
 
-            <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                <p:outputPanel id="carDetail" style="text-align:center;">
-                    <p:panelGrid  columns="2" rendered="#{not empty submissionController.theModel}" columnClasses="label,value">
-                       
 
-                        <h:outputText value="Id:" />
-                        <h:outputText value="#{submissionController.theModel.submissionId}" />
-                        
-                        <h:outputText value="Rating:" />
-                        <h:outputText value="#{submissionController.theModel.rating}" />
 
-                    </p:panelGrid>
-                </p:outputPanel>
-            </p:dialog>
+                                <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail">
+                                    <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
+                                    <f:setPropertyActionListener value="#{image}" target="#{submissionController.theModel}" />
+                                </p:commandLink>
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:dataGrid>
+                </p:layoutUnit>
+
+
+
+                <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <p:outputPanel id="carDetail" style="text-align:center;">
+                        <p:panelGrid  columns="2" rendered="#{not empty submissionController.theModel}" columnClasses="label,value">
+
+
+                            <h:outputText value="Id:" />
+                            <h:outputText value="#{submissionController.theModel.submissionId}" />
+
+                            <h:outputText value="Rating:" />
+                            <h:outputText value="#{submissionController.theModel.rating}" />
+
+                        </p:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>
+                <p:layoutUnit position="west" size="300" resizable="true" closable="true">
+                    <p:outputLabel for="restricted" value="Restricted:" />
+                    <p:calendar id="restricted" mindate="1/1/16" maxdate="11/22/16" /><br/>
+                    
+                    <h:panelGrid columns="1" style="margin: 10 auto">
+                        <br/><h:outputLabel value="Items in Cart: " />
+                                    <h:outputText value="0" /></h:panelGrid>
+                    
+                    <p:commandButton value="View Cart" id="disabled" disabled="true" />
+                </p:layoutUnit>
+            </p:layout>
         </h:form>
-      
+
+
+
     </h:body>
 </html>

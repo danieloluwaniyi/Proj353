@@ -5,7 +5,7 @@
  */
 package model;
 
-import dao.ProfileDAO;
+import dao.SubmissionDAO;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import javax.inject.Named;
@@ -79,7 +79,7 @@ public class Submission implements Serializable {
         }
         else{
             String id = context.getExternalContext().getRequestParameterMap().get("sid");
-            byte[] image = new ProfileDAO().getSubmissionContent(id);
+            byte[] image = new SubmissionDAO().getSubmissionContent(id);
             return new DefaultStreamedContent(new ByteArrayInputStream(image));
         }
     }
@@ -97,7 +97,7 @@ public class Submission implements Serializable {
      */
     public List<Submission> getSubmissionList() {
         if(submissionList==null){
-            ArrayList sub = (new ProfileDAO().findAllSubmissions());
+            ArrayList sub = (new SubmissionDAO().findAllSubmissions());
             this.submissionList = sub;
         }
         return submissionList;
@@ -110,10 +110,12 @@ public class Submission implements Serializable {
         this.submissionList = submissionList;
     }
     
+    
+    //Insert an image into the Submission Database
     public void insertImage(FileUploadEvent event){
         this.fileUpload  = event.getFile();
       
-        ProfileDAO dao = new ProfileDAO();
+        SubmissionDAO dao = new SubmissionDAO();
         try {
             // byte[]array = fileUpload.getContents();
             byte[] array = IOUtils.toByteArray(fileUpload.getInputstream());
