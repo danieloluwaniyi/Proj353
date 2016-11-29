@@ -11,8 +11,8 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
-        <title>Free Member Sing Up</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Update</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <style>
             .top {
                 font-family: Arial;
@@ -52,11 +52,10 @@ and open the template in the editor.
                 color: red;
             }
         </style>
-        <!--<h:outputScript library="js" name="proj353.js"/>-->
     </h:head>
     <h:body>
-        <h:form id="freeSingupForm">
-            <p:outputLabel class="top" value="Free Account Sign Up"/>
+        <h:form id="updateForm">
+            <p:outputLabel class="top" value="Account Update"/>
             <h:panelGrid class="panelGrid" id="panel" columns="1" border="0" cellpadding="2"
                          cellspacing="0">
                 <!--First name-->
@@ -75,11 +74,7 @@ and open the template in the editor.
                 
                 <!--UserID-->
                 <p:outputLabel style="text-align: left" class="outputLabel" value="User ID" />
-                <p:inputText class="inputText"  id="userID" value="#{profileController.profile.userID}" required="true">
-                    <f:ajax event="keyup" render="idMessage"/>
-                    <f:validator validatorId="userIDValidator"/>
-                </p:inputText>
-                <p:message class="warning" id="idMessage" for="userID"/>
+                <p:inputText class="inputText"  id="userID" value="#{profileController.profile.userID}" readonly="true"/>
                 
                 <!--Email-->
                 <p:outputLabel class="outputLabel" value="Email" />
@@ -91,8 +86,9 @@ and open the template in the editor.
                 
                 <!--Password-->
                 <p:outputLabel class="outputLabel" value="Password" />
-                <p:password class="inputText"  id="password" value="#{profileController.profile.password}" placeholder="At least 6 characters"  feedback="false" inline="true" binding="#{password}">
-                    <!--<f:ajax event="keydown" render="passwordMsg"/>--> 
+                <p:password class="inputText"  id="password" value="#{profileController.profile.password}" feedback="false" inline="true" binding="#{password}" required="true">
+                    <!--<f:ajax event="keydown" render="passwordMsg"/>-->
+                           
                     <!--Test-->
                     <f:attribute name="confirmPassword" value="#{confirmPassword}"/>
                     <!--Test-->
@@ -104,13 +100,12 @@ and open the template in the editor.
                 <!--Confirm Password-->
                 <p:outputLabel class="outputLabel" value="Password again" />
                 <p:password class="inputText" id="confirmPassword" onblur="checkPasswordMatch(this.form)" binding="#{confirmPassword}" required="true">
-
-                    <f:validator validatorId="passwordMatchChecker" />
+                <f:validator validatorId="passwordMatchChecker" />
                 <f:attribute name="password" value="#{password}"/>
                 </p:password>
-                <h:message class="warning" id="passConfMessage" for="confirmPassword"/>
+                <p:message class="warning" id="passConfMessage" for="confirmPassword"/>
 
-                <p:commandButton class="button" id="submit" value="Sign Up" action="#{profileController.freeSingup()}" />
+                <p:commandButton class="button" id="submit" value="Update" action="#{profileController.updateUserInfo()}" />
             </h:panelGrid>
         </h:form>
     </h:body>

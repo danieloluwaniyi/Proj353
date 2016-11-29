@@ -39,6 +39,7 @@ public class PasswordMatchChecker implements Validator {
         
         if (!passwordConfirmation.equals(password)) {
             uiInputPassword.setValid(false);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "info", "Password must match confirm password."));
             throw new ValidatorException(new FacesMessage(
             "Password must match confirm password."));
         }        

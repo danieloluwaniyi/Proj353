@@ -40,10 +40,10 @@ public class ProfileDAO {
 
         try {
             PreparedStatement pstmt = DBConn.prepareStatement(userIDQuery);
-            pstmt.setString(1, userID);
+            pstmt.setString(1, userID.toLowerCase());
             ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                String userIDFromDB = rs.getString("user_ID");
+            while (rs.next()) {
+                String userIDFromDB = rs.getString("user_id");
                 if (userIDFromDB.toLowerCase().equals(userID.toLowerCase())) {
                     retVal = true;
                 }
@@ -136,8 +136,8 @@ public class ProfileDAO {
             PreparedStatement pstmt = DBConn.prepareStatement(insertString);
             pstmt.setString(1, profile.getFirstName());
             pstmt.setString(2, profile.getLastName());
-            pstmt.setString(3, profile.getUserID());
-            pstmt.setString(4, profile.getEmail());
+            pstmt.setString(3, profile.getUserID().toLowerCase());
+            pstmt.setString(4, profile.getEmail().toLowerCase());
             pstmt.setString(5, profile.getPassword());
             pstmt.setBoolean(6, profile.getPaid());
 
@@ -209,6 +209,36 @@ public class ProfileDAO {
         return retVal;
     }
 
+    public int update(Profile profile) {
+
+        int retVal = 0;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(0);
+        }
+
+        String myDB = "jdbc:derby://localhost:1527/project353";
+        try {
+            Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
+            String insertString = "UPDATE Project353.Users SET firstName=?, lastName=?, email=?, password=? WHERE user_id = ?";
+            PreparedStatement pstmt = DBConn.prepareStatement(insertString);
+            pstmt.setString(1, profile.getFirstName());
+            pstmt.setString(2, profile.getLastName());
+            pstmt.setString(3, profile.getEmail());
+            pstmt.setString(4, profile.getPassword());
+            pstmt.setString(5, profile.getUserID());
+            pstmt.execute();
+            retVal = 1;
+            DBConn.close();
+        } catch (SQLException ex) {
+            System.out.println(ex + " was caught.");
+        }
+        return retVal;
+    }
+
     public byte[] getSubmissionContent(String subId) {
 
         int submissionId = Integer.parseInt(subId);
@@ -264,9 +294,8 @@ public class ProfileDAO {
 //            byte[] data = Files.readAllBytes(path);
 //            ps.setBytes(3, data);
 //<<<<<<< HEAD
-//=======
-            //           byte[] data = Files.readAllBytes(new File("/Proj353/downloaded_optimus.jpg").toPath());
-//=======
+//
+//
             //           byte[] data = Files.readAllBytes(new File("/Proj353/downloaded_optimus.jpg").toPath());
 //>>>>>>> origin/master
 //            Path path = Paths.get("downloaded_optimus.jpg");
@@ -310,13 +339,15 @@ public class ProfileDAO {
             double rating = 0.0;
             byte[] image = null;
             int id = 0;
+            double price;
             while (rs.next()) {
                 username = rs.getString("user_id");
                 rating = rs.getDouble("rating");
                 id = rs.getInt("submission_id");
+                price = rs.getDouble("price");
                 image = rs.getBytes("submission_content");
 
-                submission = new Submission(rating, image, id);
+                submission = new Submission(rating, image, id, price);
                 submissionCollection.add(submission);
             }
 
@@ -362,6 +393,7 @@ public class ProfileDAO {
     }
 
     public boolean addToCartDAO(String userID) {
+
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

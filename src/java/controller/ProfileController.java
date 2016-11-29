@@ -50,9 +50,9 @@ public class ProfileController {
     }
 
     /**
-     * @return the aProfileDAO
+     * @return the profileDAO
      */
-    public ProfileDAO getaProfileDAO() {
+    public ProfileDAO getProfileDAO() {
         if (profileDAO == null) {
             profileDAO = new ProfileDAO();
         }
@@ -60,16 +60,19 @@ public class ProfileController {
     }
 
     /**
-     * @param aProfileDAO the aProfileDAO to set
+     * @param profileDAO the profileDAO to set
      */
-    public void setaProfileDAO(ProfileDAO aProfileDAO) {
-        this.profileDAO = aProfileDAO;
+    public void setProfileDAO(ProfileDAO profileDAO) {
+        this.profileDAO = profileDAO;
     }
 
     /**
      * @return the email
      */
     public Email getEmail() {
+        if (email == null) {
+            email = new Email();
+        }
         return email;
     }
 
@@ -110,7 +113,7 @@ public class ProfileController {
 
     //Beginning of signup page methods by Suguru
     public void checkUserExistence() {
-        if (getaProfileDAO().checkUserExists(profile.getUserID())) {
+        if (getProfileDAO().checkUserExists(profile.getUserID())) {
             this.setUserExists(true);
         } else {
             this.setUserExists(false);
@@ -122,13 +125,15 @@ public class ProfileController {
         String retVal = null;
         profile.setPaid(false);
 
-        int status = getaProfileDAO().createUser(profile);
+        int status = getProfileDAO().createUser(profile);
 
         if (status == 1) {
-            mailed = email.Email(profile);
+            mailed = this.getEmail().confirmationEmail(profile);
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-            nav.performNavigation("freeRegistrationConfirmation?faces-redirect=true");
+            if (mailed == true) {
+                nav.performNavigation("freeRegistrationConfirmation?faces-redirect=true");
+            }
 //            retVal = "registrationConfirmation.xhtml";
         } else {
             FacesContext fc = FacesContext.getCurrentInstance();
@@ -143,7 +148,7 @@ public class ProfileController {
         String retVal = null;
         profile.setPaid(true);
 
-        int status = getaProfileDAO().createUser(profile);
+        int status = getProfileDAO().createUser(profile);
 
         if (status == 1) {
             FacesContext fc = FacesContext.getCurrentInstance();
@@ -162,9 +167,9 @@ public class ProfileController {
     public String registerCreditCard() {
         String retVal = null;
 
-        int status = profileDAO.addCreditCard(profile);
+        int status = getProfileDAO().addCreditCard(profile);
         if (status == 1) {
-            mailed = email.Email(profile);
+            mailed = email.confirmationEmail(profile);
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
             nav.performNavigation("registrationConfirmation?faces-redirect=true");
@@ -179,5 +184,23 @@ public class ProfileController {
         return retVal;
     }
     //End of singup page methods by Suguru
+
+    //Update
+    public String updateUserInfo() {
+        String retVal = null;
+
+        int status = getProfileDAO().update(profile);
+        if (status == 1) {
+            mailed = email.updateEmail(profile);
+            if (mailed) {
+                FacesContext fc = FacesContext.getCurrentInstance();
+                ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+                nav.performNavigation("registrationConfirmation?faces-redirect=true");
+
+            }
+        }
+
+        return retVal;
+    }
 
 }

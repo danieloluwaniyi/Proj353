@@ -7,16 +7,21 @@ package model;
 
 import dao.ProfileDAO;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import javax.inject.Named;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.*;
+import org.apache.commons.io.IOUtils;
+
 
 
 /**
@@ -34,6 +39,7 @@ public class Submission implements Serializable {
     private List<Submission> submissionList;
     private Integer intRating;
     private UploadedFile fileUpload;
+    private double price;
     /**
      * Creates a new instance of SubmissionBean
      */
@@ -41,10 +47,11 @@ public class Submission implements Serializable {
           
     }
     
-    public Submission(double rating, byte[] content,int submissionId){
+    public Submission(double rating, byte[] content,int submissionId,double price){
         this.submissionId = submissionId;
         this.rating = rating;
         this.content = content;
+        this.price=price;
     }
 
     /**
@@ -107,6 +114,12 @@ public class Submission implements Serializable {
         this.fileUpload  = event.getFile();
       
         ProfileDAO dao = new ProfileDAO();
+        try {
+            // byte[]array = fileUpload.getContents();
+            byte[] array = IOUtils.toByteArray(fileUpload.getInputstream());
+        } catch (IOException ex) {
+            Logger.getLogger(Submission.class.getName()).log(Level.SEVERE, null, ex);
+        }
         dao.insertImage(fileUpload.getContents());
         displayUploadMsg(event);
   
@@ -151,5 +164,13 @@ public class Submission implements Serializable {
     private void displayUploadMsg(FileUploadEvent event) {
         FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
         FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
