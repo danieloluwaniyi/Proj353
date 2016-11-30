@@ -7,6 +7,8 @@ package controller;
 
 import dao.ProfileDAO;
 import java.util.Properties;
+import javax.faces.application.ConfigurableNavigationHandler;
+import javax.faces.context.FacesContext;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -17,7 +19,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import model.Profile;
 import model.Submission;
-
+import model.Admin;
 /**
  *
  * @author vyass
@@ -26,6 +28,8 @@ public class AdminController {
      private Submission submissionModel;
      private Profile profile;
      private ProfileDAO profiledao;
+     private Admin admin;
+
      
      public boolean email(Profile profile) {
         boolean sent = false;
@@ -104,4 +108,36 @@ public class AdminController {
         }
         return roalty;
     }
-}
+    
+    public String loginAdmin(){
+        if(admin.getAdminPass()=="admin"&&admin.getAdminUname()=="admin"){
+            return "login.xhtml";
+        }
+        else{
+          return "login.xhtml";
+        }
+    }
+    
+    
+    
+    public String login() {
+        String retVal = null;
+
+        
+        if (status == 1) {
+            setLoggedIn(true);
+            FacesContext fc = FacesContext.getCurrentInstance();
+            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+            nav.performNavigation("dashboard?faces-redirect=true");
+        } else {
+            FacesContext fc = FacesContext.getCurrentInstance();
+            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+            nav.performNavigation("login?faces-redirect=true");
+        }
+        return retVal;
+    }
+        
+        
+    }
+
+    

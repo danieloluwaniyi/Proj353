@@ -1,54 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
-        <title>Admin Page</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        
+        <title>Home</title>
         <style>
-            .header1 {
+            h1 {
+                color: white;
+                background-color: blue;
+            }
+            body {
+                background-color: dodgerblue;
+                color: white;
+            }
+            .button {
+                background-color: blue;
+                color: white;
+            }
+            .top {
                 font-family: Arial;
                 font-weight: normal;
                 font-size: 150%;
+                display:block;
+                text-align: center;
             }
             .outputLabel {
                 font-family: Arial;
                 font-weight: bold;
-                font-size: 90%;
+                font-size: 80%;
+                text-align: left;
             }
             .inputText {
                 height: 20px;
                 width: 200px;
                 font-size: 100%;
             }
-            .dropdown {
-                height: 20px;
-                width: 200px;
-                font-size: 100%;
-            }
             .button {
-                height: 45px;
-                width: 250px;
+                height: 40px;
+                width: 210px;
                 font-size: 130%;
-                background-color: #F4A460;
-                text-align: center;
+                background-color: transparent;
+            }
+            .panelGrid {
+                /*                display:block;
+                                text-align: center;*/
+                margin: 0 auto;
+            }
+            .message {
+                font-family: arial;
+                color: red;
+            }
+            .warning {
+                font-family: arial;
+                color: red;
+            }
+            .form {
+                position:absolute;
+                left:42%;
+                top:30%;
             }
         </style>
     </h:head>
     <h:body>
         <h:form>
-            
-            <h:commandButton id="email" value ="email" action="#{adminContoller.email()}"/>
-            
+            <p:growl id="messages" showDetail="true" />
+            <p:toolbar style="background-color: transparent; color: white; height: 100; font-size: 32px" >
+                <f:facet name="left">
+                    <p:outputLabel value="Admin Page" />
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton class="button" value="Home" action="index?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
+                </f:facet>
+                <f:facet name="right">
+                </f:facet>
+            </p:toolbar>
         </h:form>
+        <h:form class="form">
+            <p:outputLabel class="top" value="Login"/>
+            <h:panelGrid class="panelGrid" columns="1" >
+                <p:outputLabel class="outputLabel" value="Admin User ID"/>
+                <p:inputText class="inputText" id="userID" value="#{adminController.admin.adminUname}"/>
+                <!--<p Click <a>here</a> if you forgot your ID.</p>-->
+                <p:outputLabel class="outputLabel" value="Admin Password"/>
+                <p:password class="inputText" id="password" value="#{adminController.admin.adminPass}"/>
+                <!--<p Click <a>here</a> if you forgot your password</p>-->
+
+                <p:commandButton class="button" id="submit" value="Login" action="#{adminController.loginAdmin()}"/>
+
+            </h:panelGrid>
+        </h:form>
+
+
+
+
     </h:body>
+
+    <!--After login, go to "dashboard" to upload images and etc.-->
 </html>
