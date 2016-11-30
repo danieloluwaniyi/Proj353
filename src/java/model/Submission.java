@@ -148,7 +148,7 @@ public class Submission implements Serializable {
 
       private void calcRating(double rating){
           numRaters = numRaters+1;
-          double newRating = (this.rating+rating)/numRaters;
+          double newRating = (this.rating+rating)/2;
           this.rating = newRating;
       }
     /**

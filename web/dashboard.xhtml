@@ -34,12 +34,13 @@ and open the template in the editor.
                                 <p:graphicImage width="375" height="300" value="#{submissionController.theModel.submission}">
                                     <f:param name="sid" value="#{image.submissionId}"/>
                                 </p:graphicImage>
+
                                 <h:panelGrid columns="5" style="margin: 0 auto">
                                     <h:outputText value="Rating: " />
                                     <p:rating value="#{image.intRating}" stars="5" style="text-align:center" id="rater">
-                                        <p:ajax event="rate" listener="#{image.updateRating}" update="rater" />
+                                        <p:ajax event="rate" listener="#{image.updateRating}" update="rater numRater" />
                                     </p:rating>
-                                    (<h:outputText value="#{image.numRaters}" />)
+                                    (<h:outputText value="#{image.numRaters}" id="numRater" />)
                                 </h:panelGrid>
                                 
                                 
