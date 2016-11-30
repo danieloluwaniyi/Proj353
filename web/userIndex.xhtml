@@ -60,10 +60,14 @@ and open the template in the editor.
                 font-size: 100%;
             }
             .button {
-                height: 40px;
-                width: 210px;
-                font-size: 130%;
                 background-color: transparent;
+                color: white;
+                font-size: 20px;
+                width: 120px;
+                /*                height: 40px;
+                                width: 210px;
+                                font-size: 130%;
+                                background-color: transparent;*/
             }
             .panelGrid {
                 /*                display:block;
@@ -85,13 +89,26 @@ and open the template in the editor.
                     <p:outputLabel value="Submissions Portal" />
                 </f:facet>
                 <f:facet name="right">
+
+                    <p:commandButton class="button" value="View Winners" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
+                    <p:commandButton class="button" value="Update Profile" action="update?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
+                    <p:commandButton class="button" value="Upload Submission" action="UploadSubmission?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 150px "/>
+                    <p:commandButton class="button" value="View Dashboard" action="dashboard?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
+                    <p:commandButton class="button" value="View Sponsors" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>                    
+
+                    <span class="ui-separator">    
+                        <span class="ui-icon ui-icon-grip-dotted-vertical"/>
+                    </span>
+                </f:facet>
+                
+                <f:facet name="right">
                     <p:commandButton class="button" value="Log out" action="#{loginController.logout()}" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
                 </f:facet>
                 <f:facet name="right">
                 </f:facet>
             </p:toolbar>
         </h:form>
-        <h:form>
+<!--        <h:form>
             <div class="container">
 
                 <div class="fake_img"><p:graphicImage styleClass="centered" alt="image" name="DashImages/ViewWinner.jpg"  /></div>
@@ -100,6 +117,6 @@ and open the template in the editor.
                 <div class="fake_img"><h:commandLink action="dashboard?faces-redirect=true"><p:graphicImage styleClass="centered" alt="image" name="DashImages/viewdash.jpg"  /></h:commandLink></div>
                 <div class="fake_img"><p:graphicImage styleClass="centered" alt="image" name="DashImages/viewsponsr.jpg"  /></div>
             </div>
-        </h:form>
+        </h:form>-->
     </h:body>
 </html>
