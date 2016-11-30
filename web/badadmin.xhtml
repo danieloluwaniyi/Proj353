@@ -79,7 +79,8 @@
             </p:toolbar>
         </h:form>
         <h:form class="form">
-            <p:outputLabel class="top" value="Admin Login"/>
+            <p:outputLabel class="top" value="Try Again"/>
+            
             <h:panelGrid class="panelGrid" columns="1" >
                 <p:outputLabel class="outputLabel" value="Admin User ID"/>
                 <p:inputText class="inputText" id="userID" value="#{adminController.admin.adminUname}"/>
@@ -88,7 +89,7 @@
                 <p:password class="inputText" id="password" value="#{adminController.admin.adminPass}"/>
                 <!--<p Click <a>here</a> if you forgot your password</p>-->
 
-                <p:commandButton class="button" id="submit" value="Login" action="#{adminController.loginAdmin}"/>
+                <p:commandButton class="button" id="submit" value="Login" action="#{adminController.loginAdmin()}"/>
 
             </h:panelGrid>
         </h:form>

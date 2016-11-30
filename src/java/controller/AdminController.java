@@ -38,6 +38,7 @@ public class AdminController {
      @ManagedProperty("#{admin}")
      private Admin admin;
      
+
      public boolean email(Profile profile) {
         boolean sent = false;
         // Recipient's email ID needs to be mentioned.
@@ -129,22 +130,23 @@ public class AdminController {
     
     public String loginAdmin() {
         String retVal = null;
-
+           String adminpass = admin.getAdminPass();
+           String adminuname = admin.getAdminUname();
         
-        FacesContext fc = FacesContext.getCurrentInstance();
+//        FacesContext fc = FacesContext.getCurrentInstance();
+//            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+//            nav.performNavigation("login?faces-redirect=true");
+        
+        if (adminuname.equals("admin")&&  adminpass.equals("admin")) {
+            FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-            nav.performNavigation("login?faces-redirect=true");
-        
-//        if (admin.getAdminPass()=="admin"&&admin.getAdminUname()=="admin") {
-//            
-//            FacesContext fc = FacesContext.getCurrentInstance();
-//            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-//            nav.performNavigation("login?faces-redirect=true");
-//        } else {
-//            FacesContext fc = FacesContext.getCurrentInstance();
-//            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-//            nav.performNavigation("login?faces-redirect=true");
-//        }
+            nav.performNavigation("goodadmin?faces-redirect=true");
+        } 
+        else {
+            FacesContext fc = FacesContext.getCurrentInstance();
+            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+            nav.performNavigation("badadmin?faces-redirect=true");
+        }
         return retVal;
     }
 
@@ -194,10 +196,9 @@ public class AdminController {
      * @return the admin
      */
     public Admin getAdmin() {
-        if (admin == null) {
+        if(admin == null)
             admin = new Admin();
-        }
-        return admin;
+       return admin;
     }
 
     /**
