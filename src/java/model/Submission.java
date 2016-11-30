@@ -21,6 +21,7 @@ import javax.faces.event.PhaseId;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.*;
 import org.apache.commons.io.IOUtils;
+import org.primefaces.event.RateEvent;
 
 
 
@@ -40,18 +41,28 @@ public class Submission implements Serializable {
     private Integer intRating;
     private UploadedFile fileUpload;
     private double price;
+    private int numRaters;
+
+    public int getNumRaters() {
+        return numRaters;
+    }
+
+    public void setNumRaters(int numRaters) {
+        this.numRaters = numRaters;
+    }
     /**
      * Creates a new instance of SubmissionBean
      */
     public Submission() {
-          
+          numRaters = 0;
     }
     
-    public Submission(double rating, byte[] content,int submissionId,double price){
+    public Submission(double rating, byte[] content,int submissionId,double price,int numRaters){
         this.submissionId = submissionId;
         this.rating = rating;
         this.content = content;
         this.price=price;
+        this.numRaters = numRaters;
     }
 
     /**
@@ -126,7 +137,20 @@ public class Submission implements Serializable {
         displayUploadMsg(event);
   
     }
+    
+      public void updateRating(RateEvent rateEvent) {
+        SubmissionDAO sDAO= new SubmissionDAO();
+        calcRating(((Integer)rateEvent.getRating()));
+        int rowCount = sDAO.updateRating(getSubmissionId(),rating,numRaters);
 
+        
+    }
+
+      private void calcRating(double rating){
+          numRaters = numRaters+1;
+          double newRating = (this.rating+rating)/numRaters;
+          this.rating = newRating;
+      }
     /**
      * @return the submissionId
      */

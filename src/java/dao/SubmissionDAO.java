@@ -14,12 +14,15 @@ import java.util.ArrayList;
 import model.Submission;
 
 /**
- * * Reference: http://javaonlineguide.net/2016/01/how-to-display-images-in-datatable-using-pgraphicimage-in-primefaces.html
-               https://www.mkyong.com/hibernate/hibernate-save-image-into-database/
-               http://www.programcreek.com/2009/02/java-convert-image-to-byte-array-convert-byte-array-to-image/
+ * * Reference:
+ * http://javaonlineguide.net/2016/01/how-to-display-images-in-datatable-using-pgraphicimage-in-primefaces.html
+ * https://www.mkyong.com/hibernate/hibernate-save-image-into-database/
+ * http://www.programcreek.com/2009/02/java-convert-image-to-byte-array-convert-byte-array-to-image/
+ *
  * @author Daniel
  */
 public class SubmissionDAO {
+
     public byte[] getSubmissionContent(String subId) {
 
         int submissionId = Integer.parseInt(subId);
@@ -52,7 +55,8 @@ public class SubmissionDAO {
         return submission;
     }
 
-    public  void insertImage(byte[] file) {
+    //Insert an image into the Submission Database
+    public void insertImage(byte[] file) {
         PreparedStatement ps;
 
         try {
@@ -67,16 +71,14 @@ public class SubmissionDAO {
 
             ps = DBConn.prepareStatement("insert into project353.submissions(USER_ID, RATING, SUBMISSION_CONTENT) " + "values(?,?,?)");
             ps.setString(1, "doluwan");
-            ps.setDouble(2, 5.0);
+            ps.setDouble(2, 0.0);
 //<<<<<<< HEAD
 
             // byte[] array = Files.readAllBytes(new File("/path/to/file").toPath());
 //            Path path = Paths.get("I:\\NetBeansApps\\Proj353\\downloaded_optimus.jpg");
 //            byte[] data = Files.readAllBytes(path);
 //            ps.setBytes(3, data);
-            
-          
- //           byte[] data = Files.readAllBytes(new File("/Proj353/downloaded_optimus.jpg").toPath());
+            //           byte[] data = Files.readAllBytes(new File("/Proj353/downloaded_optimus.jpg").toPath());
 //            Path path = Paths.get("downloaded_optimus.jpg");
 //            byte[] data = Files.readAllBytes(path);
             ps.setBytes(3, file);
@@ -98,6 +100,7 @@ public class SubmissionDAO {
 
     }
 
+    //Helper function for findAllSubmissions to get all the current submissions
     private ArrayList getAllSubmissions(String query) {
         ArrayList<Submission> submissionCollection = new ArrayList();
         Submission submission = null;
@@ -118,15 +121,17 @@ public class SubmissionDAO {
             double rating = 0.0;
             byte[] image = null;
             int id = 0;
+            int raters = 0;
             double price;
             while (rs.next()) {
                 username = rs.getString("user_id");
                 rating = rs.getDouble("rating");
                 id = rs.getInt("submission_id");
                 price = rs.getDouble("price");
+                raters = rs.getInt("raters");
                 image = rs.getBytes("submission_content");
 
-                submission = new Submission(rating, image, id, price);
+                submission = new Submission(rating, image, id, price, raters);
                 submissionCollection.add(submission);
             }
 
@@ -139,4 +144,32 @@ public class SubmissionDAO {
         return submissionCollection;
     }
 
+    public int updateRating(int id, double rating,int raters) {
+        PreparedStatement ps;
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(0);
+        }
+        int rowCount = 0;
+        try {
+            String myDB = "jdbc:derby://localhost:1527/project353";
+            Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
+            String query = "update project353.submissions set rating = ?, raters =?";
+            query += "where submission_id = ?";
+            ps = DBConn.prepareStatement(query);
+            ps.setDouble(1, rating);
+            ps.setInt(2, raters);
+            ps.setInt(3, id);
+            rowCount = ps.executeUpdate();
+
+            ps.close();
+            DBConn.close();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        
+        return rowCount;
+    }
 }

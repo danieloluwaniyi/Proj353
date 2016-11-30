@@ -16,8 +16,8 @@ and open the template in the editor.
     </h:head>
     <h:body>
 
-        <h:form id="form">
-            <p:layout >
+        <h:form id="form" >
+            <p:layout style="background-color: lightblue">
                 <p:layoutUnit position = "center">   
 
                     <p:dataGrid var="image" value="#{submissionController.theModel.submissionList}" columns="3"
@@ -29,14 +29,20 @@ and open the template in the editor.
                             Submissions
                         </f:facet>
 
-                        <p:panel header="#{image.submissionId}" style="text-align:center">
+                        <p:panel header="#{image.submissionId}" style="text-align:center; background-color: lightblue">
                             <h:panelGrid columns="1" style="width:100%">
                                 <p:graphicImage width="375" height="300" value="#{submissionController.theModel.submission}">
                                     <f:param name="sid" value="#{image.submissionId}"/>
                                 </p:graphicImage>
-                                <h:panelGrid columns="2" style="margin: 0 auto">
+                                <h:panelGrid columns="5" style="margin: 0 auto">
                                     <h:outputText value="Rating: " />
-                                    <p:rating value="#{image.intRating}" stars="5" style="text-align:center"/></h:panelGrid>
+                                    <p:rating value="#{image.intRating}" stars="5" style="text-align:center" id="rater">
+                                        <p:ajax event="rate" listener="#{image.updateRating}" update="rater" />
+                                    </p:rating>
+                                    (<h:outputText value="#{image.numRaters}" />)
+                                </h:panelGrid>
+                                
+                                
                                 <h:panelGrid columns="2" style="margin: 0 auto">
                                     <h:outputText value="Price:" />
                                     <h:outputText value="$#{image.price}" /></h:panelGrid>
