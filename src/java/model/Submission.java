@@ -56,8 +56,8 @@ public class Submission implements Serializable {
     public Submission() {
         numRaters = 0;
     }
-
-    public Submission(double rating, byte[] content, int submissionId, double price) {
+    
+    public Submission(double rating, byte[] content,int submissionId,double price,int numRaters){
         this.submissionId = submissionId;
         this.rating = rating;
         this.content = content;
@@ -126,13 +126,13 @@ public class Submission implements Serializable {
     public void setSubmissionList(List<Submission> submissionList) {
         this.submissionList = submissionList;
     }
-
+    
+    
     //Insert an image into the Submission Database
-    public void insertImage(FileUploadEvent event) {
-        this.fileUpload = event.getFile();
-
-        ProfileDAO dao = new ProfileDAO();
-        SubmissionDAO subDao = new SubmissionDAO();
+    public void insertImage(FileUploadEvent event){
+        this.fileUpload  = event.getFile();
+      
+        SubmissionDAO dao = new SubmissionDAO();
         try {
             // byte[]array = fileUpload.getContents();
             byte[] array = IOUtils.toByteArray(fileUpload.getInputstream());
@@ -156,7 +156,20 @@ public class Submission implements Serializable {
         double newRating = (this.rating + rating) / numRaters;
         this.rating = newRating;
     }
+    
+      public void updateRating(RateEvent rateEvent) {
+        SubmissionDAO sDAO= new SubmissionDAO();
+        calcRating(((Integer)rateEvent.getRating()));
+        int rowCount = sDAO.updateRating(getSubmissionId(),rating,numRaters);
 
+        
+    }
+
+      private void calcRating(double rating){
+          numRaters = numRaters+1;
+          double newRating = (this.rating+rating)/numRaters;
+          this.rating = newRating;
+      }
     /**
      * @return the submissionId
      */
