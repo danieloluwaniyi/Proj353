@@ -9,16 +9,65 @@
         <title>Home</title>
         <style>
             h1 {
-                color: blue;
+                color: white;
+                background-color: blue;
             }
-            </style>
+            body {
+                background-color: dodgerblue;
+                color: white;
+            }
+            .button {
+                background-color: blue;
+                color: white;
+            }
+                        .top {
+                font-family: Arial;
+                font-weight: normal;
+                font-size: 150%;
+                display:block;
+                text-align: center;
+            }
+            .outputLabel {
+                font-family: Arial;
+                font-weight: bold;
+                font-size: 80%;
+                text-align: left;
+            }
+            .inputText {
+                height: 20px;
+                width: 200px;
+                font-size: 100%;
+            }
+            .button {
+                height: 40px;
+                width: 210px;
+                font-size: 130%;
+                background-color: transparent;
+            }
+            .panelGrid {
+                /*                display:block;
+                                text-align: center;*/
+                margin: 0 auto;
+            }
+        </style>
     </h:head>
     <h:body>
-        <div>
-            <h1>Welcome</h1>
-        </div>
-        
-        
-</h:body>
+        <h:form>
+            <p:growl id="messages" showDetail="true" />
+            <p:toolbar style="background-color: transparent; color: white; height: 100; font-size: 32px" >
+                <f:facet name="left">
+                    <p:outputLabel value="title" />
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton class="button" value="Log in" action="login?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
+                    <span class="ui-separator">
+                        <span class="ui-icon ui-icon-grip-dotted-vertical" style="height: 100"/>
+                    </span>
+                    <p:commandButton class="button" value="Sing up" action="signup?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
+                </f:facet>
+                <f:facet name="right">
+                </f:facet>
+            </p:toolbar>
+        </h:form>
+    </h:body>
 </html>
-
