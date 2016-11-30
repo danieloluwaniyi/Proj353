@@ -169,7 +169,7 @@ public class ProfileController {
 
         int status = getProfileDAO().addCreditCard(profile);
         if (status == 1) {
-            mailed = email.confirmationEmail(profile);
+            mailed = this.getEmail().confirmationEmail(profile);
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
             nav.performNavigation("registrationConfirmation?faces-redirect=true");

@@ -159,13 +159,14 @@ public class ProfileDAO {
         String myDB = "jdbc:derby://localhost:1527/project353";
         try {
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
-            String insertString = "INSERT INTO Project353.Users (nameOnCard, creditCardNum, expirationMonth, expirationYear) VALUES (?, ?, ?, ?) WHERE user_id = ?";
+            String insertString = "UPDATE PROJECT353.USERS SET nameOnCard = ?, creditCardNum = ?, securityCode = ?, expirationMonth = ?, expirationYear = ? WHERE user_id = ?";
             PreparedStatement pstmt = DBConn.prepareStatement(insertString);
-            pstmt.setString(1, profile.getNameOnCard());
+            pstmt.setString(1, profile.getNameOnCard().toUpperCase());
             pstmt.setString(2, profile.getCreditCardNum());
-            pstmt.setInt(3, profile.getExpirationMonth());
-            pstmt.setInt(4, profile.getExpirationYear());
-            pstmt.setString(5, profile.getUserID());
+            pstmt.setString(3, profile.getSecurityCode());
+            pstmt.setInt(4, profile.getExpirationMonth());
+            pstmt.setInt(5, profile.getExpirationYear());
+            pstmt.setString(6, profile.getUserID().toLowerCase());
 
             pstmt.execute();
             retVal = 1;

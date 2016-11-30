@@ -69,7 +69,7 @@
             <p:growl id="messages" showDetail="true" />
             <p:toolbar style="background-color: transparent; color: white; height: 100; font-size: 32px" >
                 <f:facet name="left">
-                    <p:outputLabel value="title" />
+                    <p:outputLabel value="Submissions Portal" />
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton class="button" value="Home" action="index?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
@@ -88,7 +88,7 @@
                 <p:password class="inputText" id="password" value="#{profileController.profile.password}"/>
                 <!--<p Click <a>here</a> if you forgot your password</p>-->
 
-                <p:commandButton class="button" id="submit" value="Login" action="#{profileController.login()}"/>
+                <p:commandButton class="button" id="submit" value="Login" action="#{loginController.login()}"/>
 
             </h:panelGrid>
         </h:form>
