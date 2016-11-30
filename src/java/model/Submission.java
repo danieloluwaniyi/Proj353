@@ -64,15 +64,6 @@ public class Submission implements Serializable {
         this.price = price;
     }
 
-    public Submission(double rating, byte[] content, int submissionId, double price, int numRaters) {
-        this.submissionId = submissionId;
-        this.rating = rating;
-        this.content = content;
-        this.price = price;
-
-        this.numRaters = numRaters;
-    }
-
     /**
      * @return the rating
      */
@@ -143,13 +134,12 @@ public class Submission implements Serializable {
         displayUploadMsg(event);
 
     }
-
-    public void updateRating(RateEvent rateEvent) {
-        SubmissionDAO sDAO = new SubmissionDAO();
-        calcRating(((Integer) rateEvent.getRating()));
-        int rowCount = sDAO.updateRating(getSubmissionId(), rating, numRaters);
-
-    }
+    
+      public void updateRating(RateEvent rateEvent) {
+        SubmissionDAO sDAO= new SubmissionDAO();
+        calcRating(((Integer)rateEvent.getRating()));
+        int rowCount = sDAO.updateRating(getSubmissionId(),rating,numRaters);
+      }
 
     private void calcRating(double rating) {
         numRaters = numRaters + 1;
@@ -157,19 +147,7 @@ public class Submission implements Serializable {
         this.rating = newRating;
     }
     
-      public void updateRating(RateEvent rateEvent) {
-        SubmissionDAO sDAO= new SubmissionDAO();
-        calcRating(((Integer)rateEvent.getRating()));
-        int rowCount = sDAO.updateRating(getSubmissionId(),rating,numRaters);
 
-        
-    }
-
-      private void calcRating(double rating){
-          numRaters = numRaters+1;
-          double newRating = (this.rating+rating)/numRaters;
-          this.rating = newRating;
-      }
     /**
      * @return the submissionId
      */

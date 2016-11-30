@@ -175,7 +175,7 @@ public class ProfileDAO {
         }
         return retVal;
     }
-
+    
     public int login(Profile profile) {
         int retVal = 0;
 
@@ -294,5 +294,4 @@ public class ProfileDAO {
 ////>>>>>>> origin/master
 //
 
-=======
 
