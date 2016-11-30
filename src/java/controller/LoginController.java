@@ -27,9 +27,6 @@ public class LoginController {
     @ManagedProperty("#{profileDAO}")
     private ProfileDAO profileDAO;
 
-//    public LoginController() {
-//        profile = new Profile();
-//    }
 
     //To see if the user has already logged in
     public void checkIfLoggedIn() {
