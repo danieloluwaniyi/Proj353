@@ -13,7 +13,7 @@ and open the template in the editor.
     <h:head>
         <title>Dashboard</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-                <style>
+        <style>
             h1 {
                 color: white;
                 background-color: blue;
@@ -26,7 +26,7 @@ and open the template in the editor.
                 background-color: blue;
                 color: white;
             }
-                        .top {
+            .top {
                 font-family: Arial;
                 font-weight: normal;
                 font-size: 150%;
@@ -84,7 +84,7 @@ and open the template in the editor.
                     <p:dataGrid var="image" value="#{submissionController.theModel.submissionList}" columns="3"
                                 rows="12" paginator="true" id="image"
                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                rowsPerPageTemplate="6,12,16">
+                                rowsPerPageTemplate="6,12,16" layout="grid">
 
                         <f:facet name="header">
                             Submissions
@@ -92,7 +92,7 @@ and open the template in the editor.
 
                         <p:panel header="#{image.submissionId}" style="text-align:center; background-color: lightblue">
                             <h:panelGrid columns="1" style="width:100%">
-                                <p:graphicImage width="375" height="300" value="#{submissionController.theModel.submission}">
+                                <p:graphicImage style="width:100%" value="#{submissionController.theModel.submission}">
                                     <f:param name="sid" value="#{image.submissionId}"/>
                                 </p:graphicImage>
 
@@ -103,17 +103,14 @@ and open the template in the editor.
                                     </p:rating>
                                     (<h:outputText value="#{image.numRaters}" id="numRater" />)
                                 </h:panelGrid>
-                                
-                                
+
+
                                 <h:panelGrid columns="2" style="margin: 0 auto">
                                     <h:outputText value="Price:" />
                                     <h:outputText value="$#{image.price}" /></h:panelGrid>
                                 <p:commandButton value="Add to Cart" id="ajax" styleClass="ui-priority-primary" />
 
-
-
-
-                                <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail">
+                                <p:commandLink update=":form:carDetail" oncomplete="PF('subDialog').show()" title="View Detail">
                                     <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
                                     <f:setPropertyActionListener value="#{image}" target="#{submissionController.theModel}" />
                                 </p:commandLink>
@@ -123,10 +120,15 @@ and open the template in the editor.
                 </p:layoutUnit>
 
 
-
-                <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                    <p:outputPanel id="carDetail" style="text-align:center;">
-                        <p:panelGrid  columns="2" rendered="#{not empty submissionController.theModel}" columnClasses="label,value">
+                <p:dialog position="center" width="500" height="500" header="Submission" widgetVar="subDialog" modal="true" showEffect="fade" hideEffect="fade" draggable="false" resizable="false">
+                    <p:outputPanel id="carDetail" style="text-align:center">
+                        <p:panelGrid columns="1" style="text-align:center;height:400px; width: 400px"  rendered="#{not empty submissionController.theModel}" columnClasses="label,value">
+                            <p:graphicImage style="width:100%" value="#{submissionController.theModel.submission}">
+                            <f:param name="sid" value="#{submissionController.theModel.submissionId}"/>
+                        </p:graphicImage>
+                        </p:panelGrid>
+                        
+                        <p:panelGrid style="text-align:center;height:30px; width: 400px" columns="2" rendered="#{not empty submissionController.theModel}" columnClasses="label,value">
 
 
                             <h:outputText value="Id:" />
@@ -135,23 +137,20 @@ and open the template in the editor.
                             <h:outputText value="Rating:" />
                             <h:outputText value="#{submissionController.theModel.rating}" />
 
-                        </p:panelGrid>
+                       </p:panelGrid>
                     </p:outputPanel>
                 </p:dialog>
                 <p:layoutUnit position="west" size="300" resizable="true" closable="true">
                     <p:outputLabel for="restricted" value="Restricted:" />
                     <p:calendar id="restricted" mindate="1/1/16" maxdate="11/22/16" /><br/>
-                    
+
                     <h:panelGrid columns="1" style="margin: 10 auto">
                         <br/><h:outputLabel value="Items in Cart: " />
-                                    <h:outputText value="0" /></h:panelGrid>
-                    
+                        <h:outputText value="0" /></h:panelGrid>
+
                     <p:commandButton value="View Cart" id="disabled" disabled="true" />
                 </p:layoutUnit>
             </p:layout>
         </h:form>
-
-
-
-    </h:body>
+  </h:body>
 </html>
