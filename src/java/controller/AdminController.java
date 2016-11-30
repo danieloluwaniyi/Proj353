@@ -8,6 +8,9 @@ package controller;
 import dao.ProfileDAO;
 import java.util.Properties;
 import javax.faces.application.ConfigurableNavigationHandler;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -24,12 +27,16 @@ import model.Admin;
  *
  * @author vyass
  */
+@ManagedBean
+@SessionScoped
 public class AdminController {
      private Submission submissionModel;
+     @ManagedProperty("#{profile}")
      private Profile profile;
-     private ProfileDAO profiledao;
+     @ManagedProperty("#{profileDAO}")
+     private ProfileDAO profileDAO;
+     @ManagedProperty("#{admin}")
      private Admin admin;
-
      
      public boolean email(Profile profile) {
         boolean sent = false;
@@ -94,7 +101,7 @@ public class AdminController {
     public boolean pay(Profile profile){
         boolean isUsergetPaid = false;
         String userID = profile.getUserID();
-        if(profiledao.payUser(userID)){
+        if(getProfileDAO().payUser(userID)){
             isUsergetPaid = true;
         }
         return isUsergetPaid;
@@ -103,7 +110,7 @@ public class AdminController {
     public boolean payRoalty(Profile profile){
         boolean roalty = false;
         String userID  = profile.getUserID();
-        if(profiledao.payRoalty(userID)){
+        if(getProfileDAO().payRoalty(userID)){
             roalty = true;
         }
         return roalty;
@@ -139,6 +146,65 @@ public class AdminController {
 //            nav.performNavigation("login?faces-redirect=true");
 //        }
         return retVal;
+    }
+
+    /**
+     * @return the submissionModel
+     */
+    public Submission getSubmissionModel() {
+        return submissionModel;
+    }
+
+    /**
+     * @param submissionModel the submissionModel to set
+     */
+    public void setSubmissionModel(Submission submissionModel) {
+        this.submissionModel = submissionModel;
+    }
+
+    /**
+     * @return the profile
+     */
+    public Profile getProfile() {
+        return profile;
+    }
+
+    /**
+     * @param profile the profile to set
+     */
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
+    /**
+     * @return the profiledao
+     */
+    public ProfileDAO getProfileDAO() {
+        return profileDAO;
+    }
+
+    /**
+     * @param profiledao the profiledao to set
+     */
+    public void setProfileDAO(ProfileDAO profiledao) {
+        this.profileDAO = profiledao;
+    }
+
+    /**
+     * @return the admin
+     */
+    public Admin getAdmin() {
+        if (admin == null) {
+            admin = new Admin();
+        }
+        return admin;
+    }
+
+    /**
+     * @param admin the admin to set
+     */
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
     }
         
         
