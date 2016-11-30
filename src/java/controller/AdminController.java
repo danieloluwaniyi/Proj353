@@ -120,7 +120,7 @@ public class AdminController {
     
     
     
-    public String Adminlogin() {
+    public String loginAdmin() {
         String retVal = null;
 
         
