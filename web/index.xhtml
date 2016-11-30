@@ -49,6 +49,11 @@
                                 text-align: center;*/
                 margin: 0 auto;
             }
+            .admin {
+                position:absolute;
+                left:92%;
+                top:97%;
+            }
         </style>
     </h:head>
     <h:body>
@@ -68,6 +73,11 @@
                 <f:facet name="right">
                 </f:facet>
             </p:toolbar>
+        </h:form>
+        <h:form>
+        <h:commandLink class="admin" id="link" action="admin?faces-redirect=true">
+            <h:outputText value="Admin page"/>
+        </h:commandLink>
         </h:form>
     </h:body>
 </html>
