@@ -8,12 +8,15 @@
     </h:head>
     <h:body>
         <h:form id="form" enctype="multipart/form-data">
-            
+            <!--
+            User Name:&emsp;&emsp;&emsp;<h:outputText id="userID" value="">
+                 </h:outputText><br/><br/>
+            -->
                 <p:fileUpload fileUploadListener="#{submissionController.theModel.insertImage}" mode="advanced" dragDropSupport="false"
            update="messages" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
    
             <p:growl id="messages" showDetail="true" />
-
+            <p:commandButton value="View Current Submissions" action="dashboard.xhtml?faces-redirect=true"></p:commandButton>
         </h:form>
     </h:body>
 </html>

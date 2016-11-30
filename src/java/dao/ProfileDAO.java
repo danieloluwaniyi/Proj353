@@ -1,17 +1,14 @@
 package dao;
 
-import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Profile;
-import java.nio.file.Files;
-import java.util.ArrayList;
 import model.Submission;
 
 /*
@@ -391,16 +388,24 @@ public class ProfileDAO {
 
         return roaltyPaid;
     }
-
-    public boolean addToCartDAO(String userID) {
-
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }
-//<<<<<<< HEAD
-//        } catch (IOException ex) {
-//            System.out.println(ex.getMessage());
+//    public boolean addToCartDAO(String userID) {
 //
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+//    
+//    
+//
+//}
+//<<<<<<< HEAD
+////<<<<<<< HEAD
+////        } catch (IOException ex) {
+////            System.out.println(ex.getMessage());
+////
+////
+////>>>>>>> origin/master
+//=======
 //
 //>>>>>>> origin/master
