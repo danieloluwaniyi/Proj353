@@ -109,31 +109,35 @@ public class AdminController {
         return roalty;
     }
     
-    public String loginAdmin(){
-        if(admin.getAdminPass()=="admin"&&admin.getAdminUname()=="admin"){
-            return "login.xhtml";
-        }
-        else{
-          return "login.xhtml";
-        }
-    }
+//    public String loginAdmin(){
+//        if(admin.getAdminPass()=="admin"&&admin.getAdminUname()=="admin"){
+//            return "login.xhtml";
+//        }
+//        else{
+//          return "login.xhtml";
+//        }
+//    }
     
     
     
-    public String login() {
+    public String Adminlogin() {
         String retVal = null;
 
         
-        if (status == 1) {
-            setLoggedIn(true);
-            FacesContext fc = FacesContext.getCurrentInstance();
-            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-            nav.performNavigation("dashboard?faces-redirect=true");
-        } else {
-            FacesContext fc = FacesContext.getCurrentInstance();
+        FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
             nav.performNavigation("login?faces-redirect=true");
-        }
+        
+//        if (admin.getAdminPass()=="admin"&&admin.getAdminUname()=="admin") {
+//            
+//            FacesContext fc = FacesContext.getCurrentInstance();
+//            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+//            nav.performNavigation("login?faces-redirect=true");
+//        } else {
+//            FacesContext fc = FacesContext.getCurrentInstance();
+//            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+//            nav.performNavigation("login?faces-redirect=true");
+//        }
         return retVal;
     }
         
