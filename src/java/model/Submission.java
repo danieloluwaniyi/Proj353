@@ -139,14 +139,26 @@ public class Submission implements Serializable {
         SubmissionDAO sDAO= new SubmissionDAO();
         calcRating(((Integer)rateEvent.getRating()));
         int rowCount = sDAO.updateRating(getSubmissionId(),rating,numRaters);
+
+        
+    }
+
+      private void calcRating(double rating){
+          double newRating;
+          if(numRaters==0){
+              newRating = rating;
+          }
+          
+          else{
+              newRating = (this.rating+rating)/2;
+          }
+          numRaters = numRaters+1;
+          
+          
+          this.rating = newRating;
       }
 
-    private void calcRating(double rating) {
-        numRaters = numRaters + 1;
-        double newRating = (this.rating + rating) / numRaters;
-        this.rating = newRating;
-    }
-    
+
 
     /**
      * @return the submissionId
