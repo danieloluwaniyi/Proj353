@@ -82,13 +82,13 @@
             <p:outputLabel class="top" value="Login"/>
             <h:panelGrid class="panelGrid" columns="1" >
                 <p:outputLabel class="outputLabel" value="User ID"/>
-                <p:inputText class="inputText" id="userID" value="#{profileController.profile.userID}"/>
+                <p:inputText class="inputText" id="userID" value="#{loginController.profile.userID}"/>
                 <!--<p Click <a>here</a> if you forgot your ID.</p>-->
                 <p:outputLabel class="outputLabel" value="Password"/>
-                <p:password class="inputText" id="password" value="#{profileController.profile.password}"/>
+                <p:password class="inputText" id="password" value="#{loginController.profile.password}"/>
                 <!--<p Click <a>here</a> if you forgot your password</p>-->
 
-                <p:commandButton class="button" id="submit" value="Login" action="#{loginController.login()}"/>
+                <p:commandButton class="button" id="submit" value="Login" action="#{loginController.login}"/>
 
             </h:panelGrid>
         </h:form>

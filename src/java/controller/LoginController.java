@@ -24,12 +24,16 @@ public class LoginController {
     private boolean loggedIn = false;
     @ManagedProperty("#{profile}")
     private Profile profile;
-    @ManagedProperty("#{profileDAO")
+    @ManagedProperty("#{profileDAO}")
     private ProfileDAO profileDAO;
+
+//    public LoginController() {
+//        profile = new Profile();
+//    }
 
     //To see if the user has already logged in
     public void checkIfLoggedIn() {
-        if (!loggedIn) {
+        if (!isLoggedIn()) {
             // Can't just return "login" as it not an "action" event (// Ref: http://stackoverflow.com/questions/16106418/how-to-perform-navigation-in-prerenderview-listener-method)
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
@@ -41,7 +45,7 @@ public class LoginController {
     public String login() {
         String retVal = null;
 
-        int status = getProfileDAO().login(getProfile());
+        int status = getProfileDAO().login(profile);
         if (status == 1) {
             setLoggedIn(true);
             FacesContext fc = FacesContext.getCurrentInstance();

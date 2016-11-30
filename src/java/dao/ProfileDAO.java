@@ -179,7 +179,7 @@ public class ProfileDAO {
     
     public int login(Profile profile) {
         int retVal = 0;
-
+        boolean logInGood = false;
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
         } catch (ClassNotFoundException e) {
@@ -190,14 +190,33 @@ public class ProfileDAO {
         String myDB = "jdbc:derby://localhost:1527/project353";
         try {
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
-            String query = "SELECT user_ID FROM project353.users WHERE user_ID = ?";
-            PreparedStatement pstmt = DBConn.prepareStatement(query);
-            pstmt.setString(1, profile.getUserID());
-
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                retVal = 1;
+            String idQuery = "SELECT user_ID FROM project353.users WHERE user_ID = ?";
+            PreparedStatement pstmtForID = DBConn.prepareStatement(idQuery);
+            pstmtForID.setString(1, profile.getUserID().toLowerCase());
+            
+            ResultSet rs = pstmtForID.executeQuery();
+            while (rs.next()) {
+                String id = rs.getString("user_ID");
+                if (id.toLowerCase().equals(profile.getUserID().toLowerCase())) {
+                    logInGood = true;
+                }
             }
+            
+            String passQuery = "SELECT password FROM project353.users WHERE password = ?";
+            PreparedStatement pstmtForPass = DBConn.prepareStatement(passQuery);
+            pstmtForPass.setString(1, profile.getPassword());
+            rs = pstmtForPass.executeQuery();
+            while(rs.next()) {
+                String pass = rs.getString("password");
+                if (pass.equals(profile.getPassword())) {
+                    logInGood = true;
+                } else {
+                    logInGood = false;
+                }
+            }
+            if (logInGood) {
+                retVal = 1;
+            }        
             DBConn.close();
         } catch (SQLException ex) {
             System.out.println(ex + " was caught.");
