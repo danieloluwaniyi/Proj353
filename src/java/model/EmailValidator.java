@@ -17,20 +17,23 @@ import javax.faces.validator.ValidatorException;
  *
  * @author Suguru
  */
-
-@FacesValidator("userIDValidator")
-public class UserIDValidator implements Validator {
+@FacesValidator("emailValidator")
+public class EmailValidator implements Validator {
     
     @Override
-    public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+        public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         
-        String user = value.toString();
+        String email = value.toString();
         
         ProfileDAO aProfileDAO = new ProfileDAO();
-        boolean val = aProfileDAO.checkUserExists(user);
-        if (aProfileDAO.checkUserExists(user)) {
+        boolean val = aProfileDAO.checkEmailValidity(email);
+        boolean val2 = aProfileDAO.checkEmailExists(email);
+        if (!aProfileDAO.checkEmailValidity(email)) {
             throw new ValidatorException (new FacesMessage (
-            "User ID is taken."));
+            "Invalid email. Check the input again."));
+        } else if (aProfileDAO.checkEmailExists(email)) {
+            throw new ValidatorException (new FacesMessage (
+            "This email is taken. Use another one."));
         }
     }
 }

@@ -9,15 +9,11 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
-        <title>Premiere Members Sign Up</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Update</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <style>
-            body {
-                background-color: dodgerblue;
-                color: white;
-            }
             .top {
                 font-family: Arial;
                 font-weight: normal;
@@ -40,10 +36,11 @@ and open the template in the editor.
                 height: 40px;
                 width: 210px;
                 font-size: 130%;
-                background-color: transparent;
-                color: white;
+                background-color: #F4A460;
             }
             .panelGrid {
+                /*                display:block;
+                                text-align: center;*/
                 margin: 0 auto;
             }
             .message {
@@ -55,81 +52,61 @@ and open the template in the editor.
                 color: red;
             }
         </style>
-        <!--<h:outputScript library="js" name="proj353.js"/>-->
     </h:head>
-    <body>
-        <h:form>
-            <p:growl id="messages" showDetail="true" />
-            <p:toolbar style="background-color: dodgerblue; color: white; height: 100; font-size: 32px" >
-                <f:facet name="left">
-                    <p:outputLabel value="Submissions Portal" />
-                </f:facet>
-                <f:facet name="right">
-                    <p:commandButton class="button" value="Log in" action="login?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
-                    <p:commandButton class="button" value="Home" action="index?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 100px"/>
-                </f:facet>
-                <f:facet name="right">
-                </f:facet>
-            </p:toolbar>
-        </h:form>
-        <h:form id="paidSingupForm" class="form">
-            <p:outputLabel class="top" value="Premium Account Sign Up"/>
+    <h:body>
+        <h:form id="updateForm">
+            <p:outputLabel class="top" value="Account Update"/>
             <h:panelGrid class="panelGrid" id="panel" columns="1" border="0" cellpadding="2"
                          cellspacing="0">
                 <!--First name-->
                 <p:outputLabel class="outputLabel" value="First Name"/>
-                <p:inputText class="inputText" id="firstName" value="#{profileController.profile.firstName}" >
+                <p:inputText class="inputText" id="firstName" value="#{profileController.profile.firstName}" required="true">
                     <f:validateLength minimum="2" maximum="25"/>
                 </p:inputText>
                 <p:message for="firstName" class="warning"/>
-
+                
                 <!--Last name-->
                 <p:outputLabel class="outputLabel" value="Last Name" />
-                <p:inputText class="inputText"  id="lastName" value="#{profileController.profile.lastName}" >
+                <p:inputText class="inputText"  id="lastName" value="#{profileController.profile.lastName}" required="true">
                     <f:validateLength minimum="2" maximum="25"/>
                 </p:inputText>
                 <p:message for="lastName" class="warning"/>
-
+                
                 <!--UserID-->
                 <p:outputLabel style="text-align: left" class="outputLabel" value="User ID" />
-                <p:inputText class="inputText"  id="userID" value="#{profileController.profile.userID}" >
-                    <f:ajax event="keyup" render="idMessage"/>
-                    <f:validator validatorId="userIDValidator"/>
-                </p:inputText>
-                <p:message class="warning" id="idMessage" for="userID"/>
-
+                <p:inputText class="inputText"  id="userID" value="#{profileController.profile.userID}" readonly="true"/>
+                
                 <!--Email-->
                 <p:outputLabel class="outputLabel" value="Email" />
-                <p:inputText class="inputText"  id="email" value="#{profileController.profile.email}" >
+                <p:inputText class="inputText"  id="email" value="#{profileController.profile.email}" required="true">
                     <f:ajax event="keydown" render="emailMessage"/>
                     <f:validator validatorId="emailValidator"/>
                 </p:inputText>
                 <p:message class="warning" id="emailMessage" for="email"/>
-
+                
                 <!--Password-->
                 <p:outputLabel class="outputLabel" value="Password" />
-                <p:password class="inputText"  id="password" value="#{profileController.profile.password}" placeholder="At least 6 characters"  feedback="false" inline="true" binding="#{password}">
+                <p:password class="inputText"  id="password" value="#{profileController.profile.password}" feedback="false" inline="true" binding="#{password}" required="true">
                     <!--<f:ajax event="keydown" render="passwordMsg"/>-->
-
-
+                           
                     <!--Test-->
                     <f:attribute name="confirmPassword" value="#{confirmPassword}"/>
                     <!--Test-->
-
+                    
                     <f:validator validatorId="passwordValidator" />
                 </p:password>
                 <p:messages class="warning" id="passwordMsg" for="password" escape="false"/>
-
+                
                 <!--Confirm Password-->
                 <p:outputLabel class="outputLabel" value="Password again" />
-                <p:password class="inputText" id="confirmPassword" onblur="checkPasswordMatch(this.form)" binding="#{confirmPassword}">
-                    <f:validator validatorId="passwordMatchChecker" />
-                    <f:attribute name="password" value="#{password}"/>
+                <p:password class="inputText" id="confirmPassword" onblur="checkPasswordMatch(this.form)" binding="#{confirmPassword}" required="true">
+                <f:validator validatorId="passwordMatchChecker" />
+                <f:attribute name="password" value="#{password}"/>
                 </p:password>
                 <p:message class="warning" id="passConfMessage" for="confirmPassword"/>
 
-                <p:commandButton class="button" id="submit" value="Sign Up" action="#{profileController.paidSingup()}" />
+                <p:commandButton class="button" id="submit" value="Update" action="#{profileController.updateUserInfo()}" />
             </h:panelGrid>
         </h:form>
-    </body>
+    </h:body>
 </html>

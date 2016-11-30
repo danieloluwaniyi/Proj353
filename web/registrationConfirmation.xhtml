@@ -13,34 +13,86 @@ and open the template in the editor.
         <title>Registration Confirmation</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <style>
-            outputLabel {
-                font-family: arial;
+            body {
+                background-color: dodgerblue;   
+                color: white;
+            }
+            .header1 {
+                font-family: Arial;
+                font-weight: normal;
+                font-size: 150%;
+            }
+            .outputLabel {
+                font-family: Arial;
+                font-weight: bold;
+                font-size: 90%;
+            }
+            .expiration {
+                font-family: Arial;
+                font-weight: bold;
+                font-size: 70%;
+            }
+            .inputText {
+                height: 20px;
+                width: 200px;
+                font-size: 100%;
+            }
+            .dropdown {
+                height: 20px;
+                width: 200px;
+                font-size: 100%;
+            }
+            .button {
+                height: 45px;
+                width: 200px;
+                font-size: 100%;
+                background-color: transparent;
+                text-align: center;
+                color: white
             }
             .panelGrid {
                 margin: 0 auto;
+            }
+            .form {
+                position:absolute;
+                left:42%;
+                top:25%;
             }
         </style>
     </h:head>
     <body>
         <h:form>
-        <h:panelGrid class="panelGrid" id="panel" columns="1" cellpadding="10" cellspacing="0">
-            <f:facet name="header">
-                <p:outputLabel class="header" value="Thanks for your reistration!" />
-            </f:facet>
-            <p:outputLabel class="outputLabel" value="First Name:"/>
-            <p:outputLabel class="inputText" id="firstName" value="#{profileController.profile.firstName}" />
+            <p:growl id="messages" showDetail="true" />
+            <p:toolbar style="background-color: dodgerblue; color: white; height: 100; font-size: 32px" >
+                <f:facet name="left">
+                    <p:outputLabel value="Submissions Portal" />
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton class="button" value="Home" action="index?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 100px"/>
+                </f:facet>
+                <f:facet name="right">
+                </f:facet>
+            </p:toolbar>
+        </h:form>
+        <h:form class="form">
+            <h:panelGrid class="panelGrid" id="panel" columns="2" cellpadding="10" cellspacing="0">
+                <f:facet name="header">
+                    <p:outputLabel class="header" value="Thanks for your reistration!" />
+                </f:facet>
+                <p:outputLabel class="outputLabel" value="First Name:"/>
+                <p:outputLabel class="inputText" id="firstName" value="#{profileController.profile.firstName}" />
 
-            <p:outputLabel class="outputLabel" value="Last Name:" />
-            <p:outputLabel class="inputText"  id="lastName" value="#{profileController.profile.lastName}" />
+                <p:outputLabel class="outputLabel" value="Last Name:" />
+                <p:outputLabel class="inputText"  id="lastName" value="#{profileController.profile.lastName}" />
 
-            <p:outputLabel class="outputLabel" value="User Name:" />
-            <p:outputLabel class="inputText"  id="userName" value="#{profileController.profile.userID}" />
+                <p:outputLabel class="outputLabel" value="User Name:" />
+                <p:outputLabel class="inputText"  id="userName" value="#{profileController.profile.userID}" />
 
-            <p:outputLabel class="outputLabel" value="Email:" />
-            <p:outputLabel class="inputText"  id="email" value="#{profileController.profile.email}" />
-            
-            <p:commandButton class="button" id="submit" value="Go to Login Page"/>
-        </h:panelGrid>
+                <p:outputLabel class="outputLabel" value="Email:" />
+                <p:outputLabel class="inputText"  id="email" value="#{profileController.profile.email}" />
+
+                <p:commandButton class="button" id="submit" value="Go to Login Page" action="login?faces-redirect=true"/>
+            </h:panelGrid>
         </h:form>
     </body>
 </html>

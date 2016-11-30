@@ -6,11 +6,14 @@
 package controller;
 
 import dao.ProfileDAO;
+import static java.lang.Boolean.FALSE;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import model.Order;
 import model.Profile;
 import model.Submission;
+import dao.CartDAO;
+import static java.lang.Boolean.TRUE;
 
 /**
  *
@@ -24,6 +27,19 @@ public class CartController {
     private ProfileDAO profiledao;
     private Order order;
     private Submission sub;
+    private CartDAO cartDAO;
+
+    
+    
+    public boolean itemsCount(){
+        
+        boolean retVal= FALSE;
+        
+        if(cartDAO.cartLength()>0)
+            retVal= TRUE;
+            
+        return retVal;
+    }
 
     public boolean addToCart()throws Exception  {
         boolean retVal = false;

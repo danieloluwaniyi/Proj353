@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
@@ -57,10 +57,10 @@
                 font-family: arial;
                 color: red;
             }
-            .form {
+            .panel {
                 position:absolute;
-                left:42%;
-                top:30%;
+                left:33%;
+                top:40%;
             }
         </style>
     </h:head>
@@ -69,34 +69,24 @@
             <p:growl id="messages" showDetail="true" />
             <p:toolbar style="background-color: transparent; color: white; height: 100; font-size: 32px" >
                 <f:facet name="left">
-                    <p:outputLabel value="Admin Page" />
+                    <p:outputLabel value="Submissions Portal" />
                 </f:facet>
                 <f:facet name="right">
+                    <p:commandButton class="button" value="Log in" action="login?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
+                    <span class="ui-separator">
+                        <span class="ui-icon ui-icon-grip-dotted-vertical" style="height: 100"/>
+                    </span>
                     <p:commandButton class="button" value="Home" action="index?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
                 </f:facet>
                 <f:facet name="right">
                 </f:facet>
             </p:toolbar>
         </h:form>
-        <h:form class="form">
-            <p:outputLabel class="top" value="Admin Login"/>
-            <h:panelGrid class="panelGrid" columns="1" >
-                <p:outputLabel class="outputLabel" value="Admin User ID"/>
-                <p:inputText class="inputText" id="userID" value="#{adminController.admin.adminUname}"/>
-                <!--<p Click <a>here</a> if you forgot your ID.</p>-->
-                <p:outputLabel class="outputLabel" value="Admin Password"/>
-                <p:password class="inputText" id="password" value="#{adminController.admin.adminPass}"/>
-                <!--<p Click <a>here</a> if you forgot your password</p>-->
-
-                <p:commandButton class="button" id="submit" value="Login" action="#{adminController.loginAdmin()}"/>
-
+        <h:form style="margin: 0">
+            <h:panelGrid class="panel" columns="2" style="margin: 0">
+                <p:commandButton value="Free Sign up" action="freeSignup?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 220px "/>
+                <p:commandButton value="Premium Sign up" action="paidSignup?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 220px "/>
             </h:panelGrid>
         </h:form>
-
-
-
-
     </h:body>
-
-    <!--After login, go to "dashboard" to upload images and etc.-->
 </html>

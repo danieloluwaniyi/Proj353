@@ -5,6 +5,7 @@
  */
 package model;
 
+import dao.ProfileDAO;
 import dao.SubmissionDAO;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -22,8 +23,6 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.*;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.RateEvent;
-
-
 
 /**
  *
@@ -50,19 +49,19 @@ public class Submission implements Serializable {
     public void setNumRaters(int numRaters) {
         this.numRaters = numRaters;
     }
+
     /**
      * Creates a new instance of SubmissionBean
      */
     public Submission() {
-          numRaters = 0;
+        numRaters = 0;
     }
     
     public Submission(double rating, byte[] content,int submissionId,double price,int numRaters){
         this.submissionId = submissionId;
         this.rating = rating;
         this.content = content;
-        this.price=price;
-        this.numRaters = numRaters;
+        this.price = price;
     }
 
     /**
@@ -83,12 +82,11 @@ public class Submission implements Serializable {
      * @return the submission
      */
     public StreamedContent getSubmission() {
-        
-        FacesContext context  =  FacesContext.getCurrentInstance();
-        if(context.getCurrentPhaseId()==PhaseId.RENDER_RESPONSE){
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
             return new DefaultStreamedContent();
-        }
-        else{
+        } else {
             String id = context.getExternalContext().getRequestParameterMap().get("sid");
             byte[] image = new SubmissionDAO().getSubmissionContent(id);
             return new DefaultStreamedContent(new ByteArrayInputStream(image));
@@ -102,12 +100,11 @@ public class Submission implements Serializable {
         this.submission = submission;
     }
 
-
     /**
      * @return the submissionList
      */
     public List<Submission> getSubmissionList() {
-        if(submissionList==null){
+        if (submissionList == null) {
             ArrayList sub = (new SubmissionDAO().findAllSubmissions());
             this.submissionList = sub;
         }
@@ -135,7 +132,7 @@ public class Submission implements Serializable {
         }
         dao.insertImage(fileUpload.getContents());
         displayUploadMsg(event);
-  
+
     }
     
       public void updateRating(RateEvent rateEvent) {
@@ -160,6 +157,14 @@ public class Submission implements Serializable {
           
           this.rating = newRating;
       }
+
+    private void calcRating(double rating) {
+        numRaters = numRaters + 1;
+        double newRating = (this.rating + rating) / numRaters;
+        this.rating = newRating;
+    }
+    
+
     /**
      * @return the submissionId
      */
@@ -178,7 +183,7 @@ public class Submission implements Serializable {
      * @return the intRating
      */
     public Integer getIntRating() {
-        return (int)rating;
+        return (int) rating;
     }
 
     /**
@@ -195,7 +200,7 @@ public class Submission implements Serializable {
     public void setFileUpload(UploadedFile fileUpload) {
         this.fileUpload = fileUpload;
     }
-    
+
     private void displayUploadMsg(FileUploadEvent event) {
         FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
         FacesContext.getCurrentInstance().addMessage(null, message);

@@ -11,24 +11,38 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
  * @author Suguru
  */
-
 @FacesValidator("passwordValidator")
 public class PasswordValidator implements Validator {
-    
+
+    private Pattern pattern;
+    private Matcher matcher;
+    private static final String PASS_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%-]).{6,20})";
+
+    public PasswordValidator() {
+        pattern = Pattern.compile(PASS_PATTERN);
+    }
+
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-        
+
         String password = value.toString();
-        
-        Profile aProfile = new Profile();
-        if (aProfile.checkPassword(password)) {
-            throw new ValidatorException (new FacesMessage (
-            "Weak password"));
+
+        if (password == null || password.isEmpty()) {
+            return;
         }
+
+        matcher = pattern.matcher(password);
+        if (!matcher.matches()) {
+            throw new ValidatorException(new FacesMessage(
+                    "The password does not match the requirements:<br />- 6 to 20 characters<br />- Has at least one digit, one uppler case letter, lower case letter<br />- One special special symbol (\"@#$%-\")"));
+        }
+
     }
 }
