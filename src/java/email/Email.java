@@ -132,9 +132,9 @@ public class Email {
                     new InternetAddress(to));
 
             // Set Subject: header field
-            message.setSubject("Your Account has been created");
+            message.setSubject("ccount Created");
             // Send the actual HTML message, as big as you like
-            message.setContent("Hi " + profile.getFirstName() + "," + "<br/>" + "You have been Succesfully SignedUp." + "<br/>"
+            message.setContent("Hi " + profile.getFirstName() + "," + "<br/>" + "You have been Succesfully signed up with Submissions Portal!" + "<br/><br/>"
                     + "Your UserID :" + profile.getUserID() + "<br/>"
                     + "<br/>" + "Please keep in touch." + "<br/>" + "Regards," + "<br/>" + "Team Project353"
                     + "<br/>" + "<img src=\"http://content.sportslogos.net/logos/32/707/thumbs/wgpjcd57fikjji1qy97f2gsqk.gif\">",
