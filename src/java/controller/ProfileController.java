@@ -132,7 +132,7 @@ public class ProfileController {
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
             if (mailed == true) {
-                nav.performNavigation("freeRegistrationConfirmation?faces-redirect=true");
+                nav.performNavigation("registrationConfirmation?faces-redirect=true");
             }
 //            retVal = "registrationConfirmation.xhtml";
         } else {
