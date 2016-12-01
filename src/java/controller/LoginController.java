@@ -20,17 +20,15 @@ import model.Profile;
 @ManagedBean
 @SessionScoped
 public class LoginController {
-
-    private boolean loggedIn = false;
+    
     @ManagedProperty("#{profile}")
-    private Profile profile;
+    static private Profile profile;
     @ManagedProperty("#{profileDAO}")
     private ProfileDAO profileDAO;
 
-
     //To see if the user has already logged in
-    public void checkIfLoggedIn() {
-        if (!isLoggedIn()) {
+    static public void checkIfLoggedIn() {
+        if (!profile.isLoggedIn()) {
             // Can't just return "login" as it not an "action" event (// Ref: http://stackoverflow.com/questions/16106418/how-to-perform-navigation-in-prerenderview-listener-method)
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
@@ -41,10 +39,10 @@ public class LoginController {
     //Login
     public String login() {
         String retVal = null;
-
+        
         int status = getProfileDAO().login(profile);
         if (status == 1) {
-            setLoggedIn(true);
+            profile.setLoggedIn(true);
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
             nav.performNavigation("userIndex?faces-redirect=true");
@@ -60,21 +58,6 @@ public class LoginController {
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession(); // the above is unnecessary once the session is invalidated
         return "index.xhtml?faces-redirect=true";
-    }
-
-    //Getters & setters
-    /**
-     * @return the loggedIn
-     */
-    public boolean isLoggedIn() {
-        return loggedIn;
-    }
-
-    /**
-     * @param loggedIn the loggedIn to set
-     */
-    public void setLoggedIn(boolean loggedIn) {
-        this.loggedIn = loggedIn;
     }
 
     /**
