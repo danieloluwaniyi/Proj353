@@ -6,6 +6,7 @@
 package controller;
 
 import dao.ProfileDAO;
+import email.Email;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -20,14 +21,18 @@ import model.Profile;
 @ManagedBean
 @SessionScoped
 public class LoginController {
-    
+
     @ManagedProperty("#{profile}")
-    static private Profile profile;
+    private Profile profile;
     @ManagedProperty("#{profileDAO}")
     private ProfileDAO profileDAO;
-
+    @ManagedProperty("#{email}")
+    private Email email;
+    private boolean mailed;
+    private String errorMsg;
+    
     //To see if the user has already logged in
-    static public void checkIfLoggedIn() {
+    public void checkIfLoggedIn() {
         if (!profile.isLoggedIn()) {
             // Can't just return "login" as it not an "action" event (// Ref: http://stackoverflow.com/questions/16106418/how-to-perform-navigation-in-prerenderview-listener-method)
             FacesContext fc = FacesContext.getCurrentInstance();
@@ -39,7 +44,7 @@ public class LoginController {
     //Login
     public String login() {
         String retVal = null;
-        
+
         int status = getProfileDAO().login(profile);
         if (status == 1) {
             profile.setLoggedIn(true);
@@ -60,13 +65,73 @@ public class LoginController {
         return "index.xhtml?faces-redirect=true";
     }
 
+//Updates
+    public String updateName() {
+        String retVal = null;
+        int status = 0;
+        if (profileDAO.checkPassMatch(profile)) {
+            status = getProfileDAO().updateName(profile);
+        } else {
+            this.errorMsg = "Password doesn't match to the user ID. Enter again";
+            return retVal;
+        }
+        if (status == 1) {
+            setMailed(getEmail().updateEmail(profile, "name"));
+            if (isMailed()) {
+                FacesContext fc = FacesContext.getCurrentInstance();
+                ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+                nav.performNavigation("updateConfirmation?faces-redirect=true");
+            }
+        }
+        return retVal;
+    }
+
+    public String updateEmail() {
+        String retVal = null;
+        int status = 0;
+        if (profileDAO.checkPassMatch(profile)) {
+            status = getProfileDAO().updateEmail(profile);
+        } else {
+            this.errorMsg = "Password doesn't match to the user ID. Enter again";
+            return retVal;
+        }
+        if (status == 1) {
+            setMailed(getEmail().updateEmail(profile, "email"));
+            if (isMailed()) {
+                FacesContext fc = FacesContext.getCurrentInstance();
+                ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+                nav.performNavigation("updateConfirmation?faces-redirect=true");
+            }
+        }
+
+        return retVal;
+    }
+
+    public String updatePassword() {
+        String retVal = null;
+        int status = 0;
+        if (profileDAO.checkPassMatch(profile)) {
+            status = getProfileDAO().updatePassword(profile);
+        } else {
+            this.errorMsg = "Password doesn't match to the user ID. Enter again";
+            return retVal;
+        }
+        if (status == 1) {
+            setMailed(getEmail().updateEmail(profile, "password"));
+            if (isMailed()) {
+                FacesContext fc = FacesContext.getCurrentInstance();
+                ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+                nav.performNavigation("updateConfirmation?faces-redirect=true");
+            }
+        }
+
+        return retVal;
+    }
+
     /**
      * @return the profile
      */
     public Profile getProfile() {
-        if (profile == null) {
-            profile = new Profile();
-        }
         return profile;
     }
 
@@ -81,9 +146,9 @@ public class LoginController {
      * @return the profileDAO
      */
     public ProfileDAO getProfileDAO() {
-        if (profileDAO == null) {
-            profileDAO = new ProfileDAO();
-        }
+//        if (profileDAO == null) {
+//            profileDAO = new ProfileDAO();
+//        }
         return profileDAO;
     }
 
@@ -93,6 +158,50 @@ public class LoginController {
     public void setProfileDAO(ProfileDAO profileDAO) {
         this.profileDAO = profileDAO;
     }
+    
+        /**
+     * @return the errorMsg
+     */
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    /**
+     * @param errorMsg the errorMsg to set
+     */
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
+    
+        /**
+     * @return the mailed
+     */
+    public boolean isMailed() {
+        return mailed;
+    }
+
+    /**
+     * @param mailed the mailed to set
+     */
+    public void setMailed(boolean mailed) {
+        this.mailed = mailed;
+    }
     //Getters & setters
+
+    /**
+     * @return the email
+     */
+    public Email getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(Email email) {
+        this.email = email;
+    }
+    
+    
 
 }

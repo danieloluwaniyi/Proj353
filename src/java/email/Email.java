@@ -144,7 +144,7 @@ public class Email {
         return sent;
     }
 
-    public boolean updateEmail(Profile profile) {
+    public boolean updateEmail(Profile profile, String type) {
         boolean sent = false;
         // Recipient's email ID needs to be mentioned.
         String to = profile.getEmail();
@@ -186,14 +186,35 @@ public class Email {
             message.setRecipient(Message.RecipientType.TO,
                     new InternetAddress(to));
 
-            // Set Subject: header field
-            message.setSubject("ccount Created");
-            // Send the actual HTML message, as big as you like
-            message.setContent("Hi " + profile.getFirstName() + "," + "<br/>" + "You have been Succesfully signed up with Submissions Portal!" + "<br/><br/>"
-                    + "Your UserID :" + profile.getUserID() + "<br/>"
-                    + "<br/>" + "Please keep in touch." + "<br/>" + "Regards," + "<br/>" + "Team Project353"
-                    + "<br/>" + "<img src=\"http://content.sportslogos.net/logos/32/707/thumbs/wgpjcd57fikjji1qy97f2gsqk.gif\">",
-                    "text/html");
+            if (type.equals("name")) {
+                // Set Subject: header field
+                message.setSubject("Name updated");
+                // Send the actual HTML message, as big as you like
+                message.setContent("Your name has been updated!" + "<br/><br/>"
+                        + "First name: " + profile.getFirstName() + "<br/>"
+                        + "Last name: " + profile.getLastName() + "<br/>"
+                        + "<br/>" + "Please keep in touch." + "<br/>" + "Regards," + "<br/>" + "Team Project353"
+                        + "<br/>" + "<img src=\"http://content.sportslogos.net/logos/32/707/thumbs/wgpjcd57fikjji1qy97f2gsqk.gif\">",
+                        "text/html");
+            } else if (type.equals("email")) {
+                // Set Subject: header field
+                message.setSubject("Email updated");
+                // Send the actual HTML message, as big as you like
+                message.setContent("Your name has been updated!" + "<br/><br/>"
+                        + "New email: " + profile.getEmail() + "<br/>"
+                        + "<br/>" + "Please keep in touch." + "<br/>" + "Regards," + "<br/>" + "Team Project353"
+                        + "<br/>" + "<img src=\"http://content.sportslogos.net/logos/32/707/thumbs/wgpjcd57fikjji1qy97f2gsqk.gif\">",
+                        "text/html");
+            } else if (type.equals("password")) {
+                // Set Subject: header field
+                message.setSubject("Password updated");
+                // Send the actual HTML message, as big as you like
+                message.setContent("Your password has been updated!" + "<br/><br/>"
+                        + "New email: " + profile.getPassword() + "<br/>"
+                        + "<br/>" + "Please keep in touch." + "<br/>" + "Regards," + "<br/>" + "Team Project353"
+                        + "<br/>" + "<img src=\"http://content.sportslogos.net/logos/32/707/thumbs/wgpjcd57fikjji1qy97f2gsqk.gif\">",
+                        "text/html");
+            }
 
             // Send message
             Transport.send(message);

@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import model.Profile;
 
 /*
@@ -23,6 +25,8 @@ import model.Profile;
  *
  * @author Suguru, Daniel, Sneh
  */
+@ManagedBean
+@SessionScoped
 public class ProfileDAO {
 
     //Checks if the userID & email are already exist.

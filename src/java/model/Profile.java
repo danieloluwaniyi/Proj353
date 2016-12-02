@@ -7,6 +7,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 //import java.util.regex.Matcher;
 //import java.util.regex.Pattern;
 
@@ -14,6 +16,8 @@ import java.util.TreeMap;
  *
  * @author Daniel, Suguru, Sneh
  */
+@ManagedBean
+@SessionScoped
 public class Profile {
 
     private String firstName;
