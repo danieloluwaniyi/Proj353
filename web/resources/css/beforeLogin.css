@@ -2,6 +2,11 @@ body {
     background-color: dodgerblue;
     color: white;
 }
+.header1 {
+    font-family: Arial;
+    font-weight: normal;
+    font-size: 150%;
+}
 .top {
     font-family: Arial;
     font-weight: normal;

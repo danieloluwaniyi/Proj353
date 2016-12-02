@@ -10,7 +10,7 @@ and open the template in the editor.
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Name Update</title>
+        <title>Email Update</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
 
@@ -28,13 +28,11 @@ and open the template in the editor.
                     <p:commandButton class="button" value="Update Profile" action="update?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
                     <p:commandButton class="button" value="Upload Submission" action="UploadSubmission?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 150px "/>
                     <p:commandButton class="button" value="View Dashboard" action="dashboard?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 140px "/>
-                    <p:commandButton class="button" value="View Sponsors" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>                    
-
+                    <p:commandButton class="button" value="View Sponsors" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
                     <span class="ui-separator">    
                         <span class="ui-icon ui-icon-grip-dotted-vertical"/>
                     </span>
                 </f:facet>
-
                 <f:facet name="right">
                     <p:commandButton class="button" value="Log out" action="#{loginController.logout()}" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
                 </f:facet>
@@ -43,36 +41,33 @@ and open the template in the editor.
             </p:toolbar>
         </h:form>
         <h:form id="updateForm">
-            <p:outputLabel class="top" value="Name Update"/>
+            <p:outputLabel class="top" value="Email Update"/>
             <h:panelGrid class="panelGrid" id="panel" columns="1" border="0" cellpadding="2"
                          cellspacing="0">
-                <!--First name-->
-                <p:outputLabel class="outputLabel" value="First Name"/>
-                <p:inputText class="inputText" id="firstName" value="#{profileController.profile.firstName}" required="true">
-                    <f:validateLength minimum="2" maximum="25"/>
+                <!--Current Email-->
+                <p:outputLabel class="outputLabel" value ="Current Email"/>
+                <p:outputLabel class="" value="#{loginController.profile.email}"/>
+                
+                <!--Email-->
+                <p:outputLabel class="outputLabel" value="New Email" />
+                <p:inputText class="inputText"  id="email" value="#{profileController.profile.email}" required="true" >
+                    <f:ajax event="keydown" render="emailMessage"/>
+                    <f:validator validatorId="emailValidator"/>
                 </p:inputText>
-                <p:message for="firstName" class="warning"/>
+                <p:message class="warning" id="emailMessage" for="email"/>
 
-                <!--Last name-->
-                <p:outputLabel class="outputLabel" value="Last Name" />
-                <p:inputText class="inputText"  id="lastName" value="#{profileController.profile.lastName}" required="true">
-                    <f:validateLength minimum="2" maximum="25"/>
+                <!--Email Confirmation-->
+                <p:outputLabel class="outputLabel" value="New Email Confirmation" />
+                <p:inputText class="inputText"  id="emailConfirmation" value="#{profileController.profile.confirmationEmail}" required="true">
+                    <f:ajax event="keyup" execute="emailConfirmation" render="emailConfMessage"/>
+                    <!--<f:attribute name="email" value="#{email}"/>-->
+                    <f:validator validatorId="emailMatchChecker"/>
                 </p:inputText>
-                <p:message for="lastName" class="warning"/>
-
-                <!--UserID-->
-                <p:outputLabel style="text-align: left" class="outputLabel" value="User ID" />
-                <p:inputText class="inputText"  id="userID" value="#{profileController.profile.userID}" readonly="true"/>
+                <p:message class="warning" id="emailConfMessage" for="emailConfirmation"/>
 
                 <!--Password-->
                 <p:outputLabel class="outputLabel" value="Password" />
                 <p:password class="inputText"  id="password" value="#{profileController.profile.password}" feedback="false" inline="true" binding="#{password}" required="true">
-                    <!--<f:ajax event="keydown" render="passwordMsg"/>-->
-
-                    <!--Test-->
-                    <f:attribute name="confirmPassword" value="#{confirmPassword}"/>
-                    <!--Test-->
-
                     <f:validator validatorId="passwordValidator" />
                 </p:password>
                 <p:messages class="warning" id="passwordMsg" for="password" escape="false"/>
@@ -85,7 +80,7 @@ and open the template in the editor.
                 </p:password>
                 <p:message class="warning" id="passConfMessage" for="confirmPassword"/>
 
-                <p:commandButton class="button" id="submit" value="Update" action="#{profileController.updateUserInfo()}" />
+                <p:commandButton class="button" id="submit" value="Update" action="#{profileController.updateEmail()}" />
             </h:panelGrid>
         </h:form>
     </h:body>

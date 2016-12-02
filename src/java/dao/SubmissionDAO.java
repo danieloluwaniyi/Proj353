@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import model.Submission;
 
 /**
@@ -21,6 +23,8 @@ import model.Submission;
  *
  * @author Daniel
  */
+@ManagedBean
+@SessionScoped
 public class SubmissionDAO {
 
     public byte[] getSubmissionContent(String subId) {

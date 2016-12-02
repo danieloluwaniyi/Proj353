@@ -6,6 +6,7 @@
 package controller;
 
 import dao.ProfileDAO;
+import email.Email;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -20,14 +21,19 @@ import model.Profile;
 @ManagedBean
 @SessionScoped
 public class LoginController {
-    
+
     @ManagedProperty("#{profile}")
-    static private Profile profile;
+    private Profile profile;
     @ManagedProperty("#{profileDAO}")
     private ProfileDAO profileDAO;
-
+    @ManagedProperty("#{email}")
+    private Email email;
+    private boolean mailed;
+    private String errorMsg;
+    private String updateMsg;
+    
     //To see if the user has already logged in
-    static public void checkIfLoggedIn() {
+    public void checkIfLoggedIn() {
         if (!profile.isLoggedIn()) {
             // Can't just return "login" as it not an "action" event (// Ref: http://stackoverflow.com/questions/16106418/how-to-perform-navigation-in-prerenderview-listener-method)
             FacesContext fc = FacesContext.getCurrentInstance();
@@ -39,7 +45,7 @@ public class LoginController {
     //Login
     public String login() {
         String retVal = null;
-        
+
         int status = getProfileDAO().login(profile);
         if (status == 1) {
             profile.setLoggedIn(true);
@@ -57,16 +63,13 @@ public class LoginController {
     //Logout
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession(); // the above is unnecessary once the session is invalidated
-        return "index.xhtml?faces-redirect=true";
+        return "home.xhtml?faces-redirect=true";
     }
 
     /**
      * @return the profile
      */
     public Profile getProfile() {
-        if (profile == null) {
-            profile = new Profile();
-        }
         return profile;
     }
 
@@ -81,9 +84,6 @@ public class LoginController {
      * @return the profileDAO
      */
     public ProfileDAO getProfileDAO() {
-        if (profileDAO == null) {
-            profileDAO = new ProfileDAO();
-        }
         return profileDAO;
     }
 
@@ -93,6 +93,48 @@ public class LoginController {
     public void setProfileDAO(ProfileDAO profileDAO) {
         this.profileDAO = profileDAO;
     }
+    
+        /**
+     * @return the errorMsg
+     */
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    /**
+     * @param errorMsg the errorMsg to set
+     */
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
+    
+        /**
+     * @return the mailed
+     */
+    public boolean isMailed() {
+        return mailed;
+    }
+
+    /**
+     * @param mailed the mailed to set
+     */
+    public void setMailed(boolean mailed) {
+        this.mailed = mailed;
+    }
     //Getters & setters
+
+    /**
+     * @return the email
+     */
+    public Email getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(Email email) {
+        this.email = email;
+    }
 
 }

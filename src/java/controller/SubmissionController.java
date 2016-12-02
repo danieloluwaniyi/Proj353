@@ -19,7 +19,6 @@ public class SubmissionController {
     
     private Submission theModel;
     
-
     /**
      * Creates a new instance of SubmissionController
      */

@@ -55,7 +55,7 @@ and open the template in the editor.
                 <!--UserID-->
                 <p:outputLabel style="text-align: left" class="outputLabel" value="User ID" />
                 <p:inputText class="inputText"  id="userID" value="#{profileController.profile.userID}" required="true">
-                    <f:ajax event="keyup" render="idMessage"/>
+                    <f:ajax event="blur" render="idMessage"/>
                     <f:validator validatorId="userIDValidator"/>
                 </p:inputText>
                 <p:message class="warning" id="idMessage" for="userID"/>
@@ -63,7 +63,7 @@ and open the template in the editor.
                 <!--Email-->
                 <p:outputLabel class="outputLabel" value="Email" />
                 <p:inputText class="inputText"  id="email" value="#{profileController.profile.email}" required="true">
-                    <f:ajax event="keydown" render="emailMessage"/>
+                    <f:ajax event="blur" render="emailMessage"/>
                     <f:validator validatorId="emailValidator"/>
                 </p:inputText>
                 <p:message class="warning" id="emailMessage" for="email"/>
@@ -71,11 +71,7 @@ and open the template in the editor.
                 <!--Password-->
                 <p:outputLabel class="outputLabel" value="Password" />
                 <p:password class="inputText"  id="password" value="#{profileController.profile.password}" placeholder="At least 6 characters"  feedback="false" inline="true" binding="#{password}">
-                    <!--<f:ajax event="keydown" render="passwordMsg"/>--> 
-                    <!--Test-->
-                    <f:attribute name="confirmPassword" value="#{confirmPassword}"/>
-                    <!--Test-->
-
+                    <f:ajax event="blur" render="passwordMsg"/> 
                     <f:validator validatorId="passwordValidator" />
                 </p:password>
                 <p:messages class="warning" id="passwordMsg" for="password" escape="false"/>
@@ -83,7 +79,6 @@ and open the template in the editor.
                 <!--Confirm Password-->
                 <p:outputLabel class="outputLabel" value="Password again" />
                 <p:password class="inputText" id="confirmPassword" onblur="checkPasswordMatch(this.form)" binding="#{confirmPassword}" required="true">
-
                     <f:validator validatorId="passwordMatchChecker" />
                     <f:attribute name="password" value="#{password}"/>
                 </p:password>

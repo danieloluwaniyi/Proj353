@@ -7,6 +7,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 //import java.util.regex.Matcher;
 //import java.util.regex.Pattern;
 
@@ -14,12 +16,15 @@ import java.util.TreeMap;
  *
  * @author Daniel, Suguru, Sneh
  */
+@ManagedBean
+@SessionScoped
 public class Profile {
 
     private String firstName;
     private String lastName;
     private String userID;
     private String email;
+    private String confirmationEmail;
     private String password;
     private String passwordConf;
     private boolean paid = false;
@@ -104,6 +109,20 @@ public class Profile {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * @return the confirmationEmail
+     */
+    public String getConfirmationEmail() {
+        return confirmationEmail;
+    }
+
+    /**
+     * @param confirmationEmail the confirmationEmail to set
+     */
+    public void setConfirmationEmail(String confirmationEmail) {
+        this.confirmationEmail = confirmationEmail;
     }
 
     /**
