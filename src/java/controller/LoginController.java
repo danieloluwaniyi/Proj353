@@ -30,6 +30,7 @@ public class LoginController {
     private Email email;
     private boolean mailed;
     private String errorMsg;
+    private String updateMsg;
     
     //To see if the user has already logged in
     public void checkIfLoggedIn() {
@@ -62,70 +63,7 @@ public class LoginController {
     //Logout
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession(); // the above is unnecessary once the session is invalidated
-        return "index.xhtml?faces-redirect=true";
-    }
-
-//Updates
-    public String updateName() {
-        String retVal = null;
-        int status = 0;
-        if (profileDAO.checkPassMatch(profile)) {
-            status = getProfileDAO().updateName(profile);
-        } else {
-            this.errorMsg = "Password doesn't match to the user ID. Enter again";
-            return retVal;
-        }
-        if (status == 1) {
-            setMailed(getEmail().updateEmail(profile, "name"));
-            if (isMailed()) {
-                FacesContext fc = FacesContext.getCurrentInstance();
-                ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-                nav.performNavigation("updateConfirmation?faces-redirect=true");
-            }
-        }
-        return retVal;
-    }
-
-    public String updateEmail() {
-        String retVal = null;
-        int status = 0;
-        if (profileDAO.checkPassMatch(profile)) {
-            status = getProfileDAO().updateEmail(profile);
-        } else {
-            this.errorMsg = "Password doesn't match to the user ID. Enter again";
-            return retVal;
-        }
-        if (status == 1) {
-            setMailed(getEmail().updateEmail(profile, "email"));
-            if (isMailed()) {
-                FacesContext fc = FacesContext.getCurrentInstance();
-                ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-                nav.performNavigation("updateConfirmation?faces-redirect=true");
-            }
-        }
-
-        return retVal;
-    }
-
-    public String updatePassword() {
-        String retVal = null;
-        int status = 0;
-        if (profileDAO.checkPassMatch(profile)) {
-            status = getProfileDAO().updatePassword(profile);
-        } else {
-            this.errorMsg = "Password doesn't match to the user ID. Enter again";
-            return retVal;
-        }
-        if (status == 1) {
-            setMailed(getEmail().updateEmail(profile, "password"));
-            if (isMailed()) {
-                FacesContext fc = FacesContext.getCurrentInstance();
-                ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-                nav.performNavigation("updateConfirmation?faces-redirect=true");
-            }
-        }
-
-        return retVal;
+        return "home.xhtml?faces-redirect=true";
     }
 
     /**
@@ -146,9 +84,6 @@ public class LoginController {
      * @return the profileDAO
      */
     public ProfileDAO getProfileDAO() {
-//        if (profileDAO == null) {
-//            profileDAO = new ProfileDAO();
-//        }
         return profileDAO;
     }
 
@@ -201,7 +136,5 @@ public class LoginController {
     public void setEmail(Email email) {
         this.email = email;
     }
-    
-    
 
 }

@@ -35,6 +35,14 @@ body {
     text-align: center;
     color: white
 }
+.login {
+  height: 45px;
+  width: 250px;
+  font-size: 100%;
+  background-color: transparent;
+  text-align: center;
+  color: white
+}
 .panelGrid {
     margin: 0 auto;
 }

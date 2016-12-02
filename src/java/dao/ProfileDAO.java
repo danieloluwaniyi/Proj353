@@ -220,7 +220,23 @@ public class ProfileDAO {
             }
             if (logInGood) {
                 retVal = 1;
+                //Fetching data from data base and set to the profile model
+                String userInfoQuery = "SELECT * FROM project353.users WHERE user_id=?";
+                PreparedStatement pstmtForUserInfo = DBConn.prepareStatement(userInfoQuery);
+                pstmtForUserInfo.setString(1, profile.getUserID());
+                rs = pstmtForUserInfo.executeQuery();
+                while (rs.next()) {
+                    profile.setFirstName(rs.getString("firstName"));
+                    profile.setLastName(rs.getString("lastName"));
+                    profile.setEmail(rs.getString("email"));
+                    profile.setPaid(rs.getBoolean("paid"));
+                    profile.setNameOnCard(rs.getString("nameOnCard"));
+                    profile.setExpirationMonth(rs.getInt("expirationMonth"));
+                    profile.setExpirationYear(rs.getInt("expirationYear"));
+                    profile.setLoggedIn(true);
+                }
             }
+
             DBConn.close();
         } catch (SQLException ex) {
             System.out.println(ex + " was caught.");

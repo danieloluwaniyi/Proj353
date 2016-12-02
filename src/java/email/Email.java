@@ -6,6 +6,8 @@
 package email;
 
 import java.util.Properties;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.mail.Authenticator;
@@ -18,6 +20,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import model.Profile;
 
+@ManagedBean
+@SessionScoped
 public class Email {
 
     public boolean Email(Profile SignUpetails) {

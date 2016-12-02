@@ -30,7 +30,8 @@ public class ProfileController {
     @ManagedProperty("#{email}")
     private Email email;
     private boolean mailed;
-
+    private String errorMsg;
+    private String updateMsg;
 
     /**
      * @return the profile
@@ -172,7 +173,71 @@ public class ProfileController {
     }
     //End of singup page methods by Suguru
 
-    
+  //Updates
+    public String updateName() {
+        String retVal = null;
+        int status = 0;
+        if (profileDAO.checkPassMatch(profile)) {
+            status = getProfileDAO().updateName(profile);
+            this.setUpdateMsg("Name");
+        } else {
+            this.setErrorMsg("Password doesn't match to the user ID. Enter again");
+            return retVal;
+        }
+        if (status == 1) {
+            setMailed(getEmail().updateEmail(profile, "name"));
+            if (isMailed()) {
+                FacesContext fc = FacesContext.getCurrentInstance();
+                ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+                nav.performNavigation("updateConfirmation?faces-redirect=true");
+            }
+        }
+        return retVal;
+    }
+
+    public String updateEmail() {
+        String retVal = null;
+        int status = 0;
+        if (profileDAO.checkPassMatch(profile)) {
+            status = getProfileDAO().updateEmail(profile);
+            this.setUpdateMsg("Email");
+        } else {
+            this.setErrorMsg("Password doesn't match to the user ID. Enter again");
+            return retVal;
+        }
+        if (status == 1) {
+            setMailed(getEmail().updateEmail(profile, "email"));
+            if (isMailed()) {
+                FacesContext fc = FacesContext.getCurrentInstance();
+                ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+                nav.performNavigation("updateConfirmation?faces-redirect=true");
+            }
+        }
+
+        return retVal;
+    }
+
+    public String updatePassword() {
+        String retVal = null;
+        int status = 0;
+        if (profileDAO.checkPassMatch(profile)) {
+            status = getProfileDAO().updatePassword(profile);
+            this.setUpdateMsg("Password");
+        } else {
+            this.setErrorMsg("Password doesn't match to the user ID. Enter again");
+            return retVal;
+        }
+        if (status == 1) {
+            setMailed(getEmail().updateEmail(profile, "password"));
+            if (isMailed()) {
+                FacesContext fc = FacesContext.getCurrentInstance();
+                ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+                nav.performNavigation("updateConfirmation?faces-redirect=true");
+            }
+        }
+
+        return retVal;
+    }  
 
     /**
      * @return the mailed
@@ -186,6 +251,34 @@ public class ProfileController {
      */
     public void setMailed(boolean mailed) {
         this.mailed = mailed;
+    }
+
+    /**
+     * @return the errorMsg
+     */
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    /**
+     * @param errorMsg the errorMsg to set
+     */
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
+
+    /**
+     * @return the updateMsg
+     */
+    public String getUpdateMsg() {
+        return updateMsg;
+    }
+
+    /**
+     * @param updateMsg the updateMsg to set
+     */
+    public void setUpdateMsg(String updateMsg) {
+        this.updateMsg = updateMsg;
     }
 
 }

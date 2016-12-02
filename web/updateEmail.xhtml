@@ -46,12 +46,14 @@ and open the template in the editor.
             <p:outputLabel class="top" value="Email Update"/>
             <h:panelGrid class="panelGrid" id="panel" columns="1" border="0" cellpadding="2"
                          cellspacing="0">
-                <!--UserID-->
-                <p:outputLabel style="text-align: left" class="outputLabel" value="User ID" />
-                <p:inputText class="inputText"  id="userID" value="#{profileController.profile.userID}" readonly="true"/>
-
+                <!--Current Email-->
+<!--                <p:outputLabel style="text-align: left" class="outputLabel" value="User ID" />
+                <p:inputText class="inputText"  id="userID" value="#{profileController.profile.userID}" readonly="true"/>-->
+                <p:outputLabel class="outputLabel" value ="Current Email"/>
+                <p:outputLabel class="" value="#{loginController.profile.email}"/>
+                
                 <!--Email-->
-                <p:outputLabel class="outputLabel" value="Email" />
+                <p:outputLabel class="outputLabel" value="New Email" />
                 <p:inputText class="inputText"  id="email" value="#{profileController.profile.email}" required="true">
                     <f:ajax event="keydown" render="emailMessage"/>
                     <f:validator validatorId="emailValidator"/>
@@ -59,7 +61,7 @@ and open the template in the editor.
                 <p:message class="warning" id="emailMessage" for="email"/>
 
                 <!--Email Confirmation-->
-                <p:outputLabel class="outputLabel" value="Email Confirmation" />
+                <p:outputLabel class="outputLabel" value="New Email Confirmation" />
                 <p:inputText class="inputText"  id="emailConfirmation" value="#{profileController.profile.email}" required="true">
                     <f:ajax event="keydown" render="emailMessage"/>
                     <f:validator validatorId="emailValidator"/>
@@ -87,7 +89,7 @@ and open the template in the editor.
                 </p:password>
                 <p:message class="warning" id="passConfMessage" for="confirmPassword"/>
 
-                <p:commandButton class="button" id="submit" value="Update" action="#{profileController.updateUserInfo()}" />
+                <p:commandButton class="button" id="submit" value="Update" action="#{profileController.updateEmail()}" />
             </h:panelGrid>
         </h:form>
     </h:body>
