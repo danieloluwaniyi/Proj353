@@ -13,52 +13,12 @@ and open the template in the editor.
     <h:head>
         <title>Premiere Members Sign Up</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <style>
-            body {
-                background-color: dodgerblue;
-                color: white;
-            }
-            .top {
-                font-family: Arial;
-                font-weight: normal;
-                font-size: 150%;
-                display:block;
-                text-align: center;
-            }
-            .outputLabel {
-                font-family: Arial;
-                font-weight: bold;
-                font-size: 80%;
-                text-align: left;
-            }
-            .inputText {
-                height: 20px;
-                width: 200px;
-                font-size: 100%;
-            }
-            .button {
-                height: 40px;
-                width: 210px;
-                font-size: 130%;
-                background-color: transparent;
-                color: white;
-            }
-            .panelGrid {
-                margin: 0 auto;
-            }
-            .message {
-                font-family: arial;
-                color: red;
-            }
-            .warning {
-                font-family: arial;
-                color: red;
-            }
-        </style>
+
         <!--<h:outputScript library="js" name="proj353.js"/>-->
     </h:head>
     <body>
         <h:form>
+            <h:outputStylesheet library="css" name="beforeLogin.css"/>
             <p:growl id="messages" showDetail="true" />
             <p:toolbar style="background-color: dodgerblue; color: white; height: 100; font-size: 32px" >
                 <f:facet name="left">

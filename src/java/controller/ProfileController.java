@@ -28,8 +28,8 @@ public class ProfileController {
     private ProfileDAO profileDAO;
     private boolean userExists;
     private String errorMsg;
-    @ManagedProperty("#{email}")
-    private Email email;
+//    @ManagedProperty("#{email}")
+    private Email email = new Email();
     private boolean mailed;
 
     /**
@@ -70,9 +70,9 @@ public class ProfileController {
      * @return the email
      */
     public Email getEmail() {
-        if (email == null) {
-            email = new Email();
-        }
+//        if (email == null) {
+//            email = new Email();
+//        }
         return email;
     }
 
@@ -128,11 +128,11 @@ public class ProfileController {
         int status = getProfileDAO().createUser(profile);
 
         if (status == 1) {
-            mailed = this.getEmail().confirmationEmail(profile);
+            mailed = email.confirmationEmail(profile);
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
             if (mailed == true) {
-                nav.performNavigation("freeRegistrationConfirmation?faces-redirect=true");
+                nav.performNavigation("registrationConfirmation?faces-redirect=true");
             }
 //            retVal = "registrationConfirmation.xhtml";
         } else {
