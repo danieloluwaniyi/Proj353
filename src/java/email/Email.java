@@ -204,7 +204,7 @@ public class Email {
                 // Set Subject: header field
                 message.setSubject("Email updated");
                 // Send the actual HTML message, as big as you like
-                message.setContent("Your name has been updated!" + "<br/><br/>"
+                message.setContent("Your email has been updated!" + "<br/><br/>"
                         + "New email: " + profile.getEmail() + "<br/>"
                         + "<br/>" + "Please keep in touch." + "<br/>" + "Regards," + "<br/>" + "Team Project353"
                         + "<br/>" + "<img src=\"http://content.sportslogos.net/logos/32/707/thumbs/wgpjcd57fikjji1qy97f2gsqk.gif\">",

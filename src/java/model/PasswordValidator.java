@@ -23,7 +23,7 @@ public class PasswordValidator implements Validator {
 
     private Pattern pattern;
     private Matcher matcher;
-    private static final String PASS_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%-]).{6,20})";
+    private static final String PASS_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[--@#$%]).{6,20})";
 
     public PasswordValidator() {
         pattern = Pattern.compile(PASS_PATTERN);

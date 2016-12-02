@@ -24,6 +24,7 @@ public class Profile {
     private String lastName;
     private String userID;
     private String email;
+    private String confirmationEmail;
     private String password;
     private String passwordConf;
     private boolean paid = false;
@@ -108,6 +109,20 @@ public class Profile {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * @return the confirmationEmail
+     */
+    public String getConfirmationEmail() {
+        return confirmationEmail;
+    }
+
+    /**
+     * @param confirmationEmail the confirmationEmail to set
+     */
+    public void setConfirmationEmail(String confirmationEmail) {
+        this.confirmationEmail = confirmationEmail;
     }
 
     /**
