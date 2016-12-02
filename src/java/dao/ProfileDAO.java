@@ -270,6 +270,7 @@ public class ProfileDAO {
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             String query = "Update project353.submissions set paid =" + true + " where USER_ID=" + userID + ";";
             PreparedStatement stmt = DBConn.prepareStatement(query);
+            stmt.execute();
             userPaid = true;
             DBConn.close();
         } catch (SQLException e) {

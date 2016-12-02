@@ -20,7 +20,7 @@ import model.Profile;
 
 public class Email {
 
-    public boolean Email(Profile SignUpetails) {
+        public boolean Email(Profile SignUpetails) {
         boolean sent = false;
         // Recipient's email ID needs to be mentioned.
         String to = SignUpetails.getEmail();
@@ -80,6 +80,13 @@ public class Email {
 
     }
     
+    public void adminLoginEmail(){
+        String to = "stokuda@ilstu.edu";
+        
+    
+    }    
+        
+        
     public boolean confirmationEmail(Profile profile) {
         boolean sent = false;
         // Recipient's email ID needs to be mentioned.
