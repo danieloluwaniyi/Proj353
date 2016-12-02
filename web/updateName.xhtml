@@ -60,32 +60,26 @@ and open the template in the editor.
                 </p:inputText>
                 <p:message for="lastName" class="warning"/>
 
-                <!--UserID-->
+<!--                UserID
                 <p:outputLabel style="text-align: left" class="outputLabel" value="User ID" />
-                <p:inputText class="inputText"  id="userID" value="#{profileController.profile.userID}" readonly="true"/>
+                <p:inputText class="inputText"  id="userID" value="#{profileController.profile.userID}" readonly="true"/>-->
 
                 <!--Password-->
                 <p:outputLabel class="outputLabel" value="Password" />
                 <p:password class="inputText"  id="password" value="#{profileController.profile.password}" feedback="false" inline="true" binding="#{password}" required="true">
-                    <!--<f:ajax event="keydown" render="passwordMsg"/>-->
-
-                    <!--Test-->
-                    <f:attribute name="confirmPassword" value="#{confirmPassword}"/>
-                    <!--Test-->
-
-                    <f:validator validatorId="passwordValidator" />
+                    <f:validator validatorId="passwordChecker"/>
                 </p:password>
                 <p:messages class="warning" id="passwordMsg" for="password" escape="false"/>
 
                 <!--Confirm Password-->
                 <p:outputLabel class="outputLabel" value="Password again" />
-                <p:password class="inputText" id="confirmPassword" onblur="checkPasswordMatch(this.form)" binding="#{confirmPassword}" required="true">
+                <p:password class="inputText" id="confirmPassword" onblur="checkPasswordMatch(this.form)" required="true">
                     <f:validator validatorId="passwordMatchChecker" />
                     <f:attribute name="password" value="#{password}"/>
                 </p:password>
                 <p:message class="warning" id="passConfMessage" for="confirmPassword"/>
 
-                <p:commandButton class="button" id="submit" value="Update" action="#{profileController.updateUserInfo()}" />
+                <p:commandButton class="button" id="submit" value="Update" action="#{profileController.updateName()}" />
             </h:panelGrid>
         </h:form>
     </h:body>

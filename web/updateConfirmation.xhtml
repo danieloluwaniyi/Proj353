@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <title>Update Confirmation</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <h:outputStylesheet library="css" name="confirmation.css"/>
+<h:form>
+            <p:growl id="messages" showDetail="true" />
+            <p:toolbar style="background-color: transparent; color: white; height: 100; font-size: 32px" >
+                <f:facet name="left">
+                    <p:outputLabel value="Submissions Portal" />
+                </f:facet>
+                <f:facet name="right">
+
+                    <p:commandButton class="button" value="View Winners" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
+                    <p:commandButton class="button" value="Update Profile" action="update?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
+                    <p:commandButton class="button" value="Upload Submission" action="UploadSubmission?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 150px "/>
+                    <p:commandButton class="button" value="View Dashboard" action="dashboard?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 140px "/>
+                    <p:commandButton class="button" value="View Sponsors" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>                    
+
+                    <span class="ui-separator">    
+                        <span class="ui-icon ui-icon-grip-dotted-vertical"/>
+                    </span>
+                </f:facet>
+
+                <f:facet name="right">
+                    <p:commandButton class="button" value="Log out" action="somewhere?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
+                </f:facet>
+                <f:facet name="right">
+                </f:facet>
+            </p:toolbar>
+        </h:form>
+        
+        
+    </body>
+</html>

@@ -185,17 +185,60 @@ public class ProfileController {
     }
     //End of singup page methods by Suguru
 
-    //Update
-    public String updateUserInfo() {
+    //Updates
+    public String updateName() {
         String retVal = null;
+        int status = 0;
+        if (profileDAO.checkPassMatch(profile)) {
+        status = getProfileDAO().updateName(profile);
+           
+        }
+         if (status == 1) {
+            mailed = email.updateEmail(profile);
+            if (mailed) {
+                FacesContext fc = FacesContext.getCurrentInstance();
+                ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+                nav.performNavigation("updateConfirmation?faces-redirect=true");
 
-        int status = getProfileDAO().update(profile);
+            }
+        }
+
+        return retVal;
+    }
+
+    public String updateEmail() {
+        String retVal = null;
+        int status = 0;
+                if (profileDAO.checkPassMatch(profile)) {
+        status = getProfileDAO().updateEmail(profile);
+           
+        }
         if (status == 1) {
             mailed = email.updateEmail(profile);
             if (mailed) {
                 FacesContext fc = FacesContext.getCurrentInstance();
                 ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-                nav.performNavigation("registrationConfirmation?faces-redirect=true");
+                nav.performNavigation("updateConfirmation?faces-redirect=true");
+
+            }
+        }
+
+        return retVal;
+    }
+
+    public String updatePassword() {
+        String retVal = null;
+        int status = 0;
+                if (profileDAO.checkPassMatch(profile)) {
+        status = getProfileDAO().updatePassword(profile);
+           
+        }
+        if (status == 1) {
+            mailed = email.updateEmail(profile);
+            if (mailed) {
+                FacesContext fc = FacesContext.getCurrentInstance();
+                ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+                nav.performNavigation("updateConfirmation?faces-redirect=true");
 
             }
         }

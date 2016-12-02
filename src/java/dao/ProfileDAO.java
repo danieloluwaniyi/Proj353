@@ -176,7 +176,7 @@ public class ProfileDAO {
         }
         return retVal;
     }
-    
+
     public int login(Profile profile) {
         int retVal = 0;
         boolean logInGood = false;
@@ -193,7 +193,7 @@ public class ProfileDAO {
             String idQuery = "SELECT user_ID FROM project353.users WHERE user_ID = ?";
             PreparedStatement pstmtForID = DBConn.prepareStatement(idQuery);
             pstmtForID.setString(1, profile.getUserID().toLowerCase());
-            
+
             ResultSet rs = pstmtForID.executeQuery();
             while (rs.next()) {
                 String id = rs.getString("user_ID");
@@ -201,12 +201,12 @@ public class ProfileDAO {
                     logInGood = true;
                 }
             }
-            
+
             String passQuery = "SELECT password FROM project353.users WHERE password = ?";
             PreparedStatement pstmtForPass = DBConn.prepareStatement(passQuery);
             pstmtForPass.setString(1, profile.getPassword());
             rs = pstmtForPass.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 String pass = rs.getString("password");
                 if (pass.equals(profile.getPassword())) {
                     logInGood = true;
@@ -216,7 +216,7 @@ public class ProfileDAO {
             }
             if (logInGood) {
                 retVal = 1;
-            }        
+            }
             DBConn.close();
         } catch (SQLException ex) {
             System.out.println(ex + " was caught.");
@@ -225,7 +225,40 @@ public class ProfileDAO {
         return retVal;
     }
 
-    public int update(Profile profile) {
+    //Update methods
+    public boolean checkPassMatch(Profile profile) {
+        boolean retVal = false;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(0);
+        }
+
+        String myDB = "jdbc:derby://localhost:1527/project353";
+        try {
+            Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
+            String query = "SELECT password FROM Project353.Users WHERE user_ID=?";
+            PreparedStatement pstmt = DBConn.prepareStatement(query);
+            pstmt.setString(1, profile.getUserID());
+            ResultSet rs = pstmt.executeQuery();
+            String retPass = null;
+            while (rs.next()) {
+                retPass = rs.getString("password");
+            }
+            if (retPass.equals(profile.getPassword())) {
+                retVal = true;
+            }
+            DBConn.close();
+        } catch (SQLException ex) {
+            System.out.println(ex + " was caught.");
+        }
+
+        return retVal;
+    }
+
+    public int updateName(Profile profile) {
 
         int retVal = 0;
 
@@ -255,7 +288,61 @@ public class ProfileDAO {
         return retVal;
     }
 
-    
+    public int updateEmail(Profile profile) {
+        int retVal = 0;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(0);
+        }
+
+        String myDB = "jdbc:derby://localhost:1527/project353";
+        try {
+            Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
+            String insertString = "UPDATE Project353.Users SET email=? WHERE user_id = ?";
+            PreparedStatement pstmt = DBConn.prepareStatement(insertString);
+            pstmt.setString(1, profile.getEmail());
+            pstmt.setString(2, profile.getUserID());
+            pstmt.execute();
+            retVal = 1;
+            DBConn.close();
+        } catch (SQLException ex) {
+            System.out.println(ex + " was caught.");
+        }
+
+        return retVal;
+    }
+
+    public int updatePassword(Profile profile) {
+        int retVal = 0;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(0);
+        }
+
+        String myDB = "jdbc:derby://localhost:1527/project353";
+        try {
+            Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
+            String insertString = "UPDATE Project353.Users SET password=? WHERE user_id = ?";
+            PreparedStatement pstmt = DBConn.prepareStatement(insertString);
+            pstmt.setString(1, profile.getPassword());
+            pstmt.setString(2, profile.getUserID());
+            pstmt.execute();
+            retVal = 1;
+            DBConn.close();
+        } catch (SQLException ex) {
+            System.out.println(ex + " was caught.");
+        }
+
+        return retVal;
+    }
+
+    //Update methods
     public boolean payUser(String userID) {
         boolean userPaid = false;
 
@@ -291,8 +378,6 @@ public class ProfileDAO {
     public boolean addToCartDAO(String userID) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
 
 }
 //    public boolean addToCartDAO(String userID) {
@@ -313,5 +398,3 @@ public class ProfileDAO {
 ////
 ////>>>>>>> origin/master
 //
-
-

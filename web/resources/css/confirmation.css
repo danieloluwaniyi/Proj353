@@ -1,0 +1,45 @@
+body {
+    background-color: dodgerblue;
+    color: white;
+}
+.header1 {
+    font-family: Arial;
+    font-weight: normal;
+    font-size: 150%;
+}
+.outputLabel {
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 90%;
+}
+.expiration {
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 70%;
+}
+.inputText {
+    height: 20px;
+    width: 200px;
+    font-size: 100%;
+}
+.dropdown {
+    height: 20px;
+    width: 200px;
+    font-size: 100%;
+}
+.button {
+    height: 45px;
+    width: 200px;
+    font-size: 100%;
+    background-color: transparent;
+    text-align: center;
+    color: white
+}
+.panelGrid {
+    margin: 0 auto;
+}
+.form {
+    position:absolute;
+    left:42%;
+    top:25%;
+}
