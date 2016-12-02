@@ -66,17 +66,17 @@ and open the template in the editor.
         <h:outputStylesheet library="css" name="afterLogin.css"/>
         <h:form>
             <p:growl id="messages" showDetail="true" />
-            <p:toolbar style="background-color: transparent; color: white; height: 100; font-size: 32px" >
+            <p:toolbar style="background-color: transparent; color: white; height: 100; font-size: 30px" >
                 <f:facet name="left">
                     <p:outputLabel value="Submissions Portal" />
                 </f:facet>
                 <f:facet name="right">
 
-                    <p:commandButton class="button" value="View Winners" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
-                    <p:commandButton class="button" value="Update Profile" action="update?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
+                    <p:commandButton class="button" value="View Winners" style="background-color: transparent; color: white; font-size: 20px; width: 120px" />
+                    <p:commandButton class="button" value="Update Profile" action="update?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 120px" />
                     <p:commandButton class="button" value="Upload Submission" action="UploadSubmission?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 150px "/>
                     <p:commandButton class="button" value="View Dashboard" action="dashboard?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 140px "/>
-                    <p:commandButton class="button" value="View Sponsors" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>                    
+                    <p:commandButton class="button" value="View Sponsors" style="background-color: transparent; color: white; font-size: 20px; width: 120px" />                    
 
                     <span class="ui-separator">    
                         <span class="ui-icon ui-icon-grip-dotted-vertical"/>
@@ -103,9 +103,9 @@ and open the template in the editor.
                             Submissions
                         </f:facet>
 
-                        <p:panel header="#{image.submissionId}" style="text-align:center; background-color: lightblue">
+                        <p:panel header="#{image.submissionId}" style="text-align:center; background-color: lightblue;" id="panelID">
                             <h:panelGrid columns="1" style="width:100%">
-                                <p:graphicImage style="width:100%" value="#{submissionController.theModel.submission}">
+                                <p:graphicImage style="width:400px;height:300px;" value="#{submissionController.theModel.submission}">
                                     <f:param name="sid" value="#{image.submissionId}"/>
                                 </p:graphicImage>
 
@@ -153,7 +153,7 @@ and open the template in the editor.
                        </p:panelGrid>
                     </p:outputPanel>
                 </p:dialog>
-                <p:layoutUnit position="west" size="300" resizable="true" closable="true">
+                <p:layoutUnit position="west" header="Filters" resizable="true" closable="true" collapsible="true">
                     <p:outputLabel for="restricted" value="Restricted:" />
                     <p:calendar id="restricted" mindate="1/1/16" maxdate="11/22/16" /><br/>
 
