@@ -8,25 +8,24 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Premiere Members Sign Up</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
         <!--<h:outputScript library="js" name="proj353.js"/>-->
     </h:head>
     <body>
+        <h:outputStylesheet library="css" name="beforeLogin.css"/>
         <h:form>
-            <h:outputStylesheet library="css" name="beforeLogin.css"/>
+
             <p:growl id="messages" showDetail="true" />
             <p:toolbar style="background-color: dodgerblue; color: white; height: 100; font-size: 32px" >
                 <f:facet name="left">
                     <p:outputLabel value="Submissions Portal" />
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton class="button" value="Log in" action="login?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
-                    <p:commandButton class="button" value="Home" action="index?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 100px"/>
+                    <p:commandButton class="button" value="Log in" action="home?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
+                    <!--<p:commandButton class="button" value="Home" action="index?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 100px"/>-->
                 </f:facet>
                 <f:facet name="right">
                 </f:facet>

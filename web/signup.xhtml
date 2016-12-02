@@ -8,55 +8,6 @@
     <h:head>
         <title>Home</title>
         <style>
-            h1 {
-                color: white;
-                background-color: blue;
-            }
-            body {
-                background-color: dodgerblue;
-                color: white;
-            }
-            .button {
-                background-color: blue;
-                color: white;
-            }
-            .top {
-                font-family: Arial;
-                font-weight: normal;
-                font-size: 150%;
-                display:block;
-                text-align: center;
-            }
-            .outputLabel {
-                font-family: Arial;
-                font-weight: bold;
-                font-size: 80%;
-                text-align: left;
-            }
-            .inputText {
-                height: 20px;
-                width: 200px;
-                font-size: 100%;
-            }
-            .button {
-                height: 40px;
-                width: 210px;
-                font-size: 130%;
-                background-color: transparent;
-            }
-            .panelGrid {
-                /*                display:block;
-                                text-align: center;*/
-                margin: 0 auto;
-            }
-            .message {
-                font-family: arial;
-                color: red;
-            }
-            .warning {
-                font-family: arial;
-                color: red;
-            }
             .panel {
                 position:absolute;
                 left:33%;
@@ -65,6 +16,7 @@
         </style>
     </h:head>
     <h:body>
+        <h:outputStylesheet library="css" name="beforeLogin.css"/>
         <h:form>
             <p:growl id="messages" showDetail="true" />
             <p:toolbar style="background-color: transparent; color: white; height: 100; font-size: 32px" >
@@ -72,7 +24,7 @@
                     <p:outputLabel value="Submissions Portal" />
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton class="button" value="Log in" action="login?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
+                    <p:commandButton class="button" value="Log in" action="home?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
 <!--                    <span class="ui-separator">
                         <span class="ui-icon ui-icon-grip-dotted-vertical"/>
                     </span>

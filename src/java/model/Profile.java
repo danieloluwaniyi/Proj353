@@ -30,6 +30,7 @@ public class Profile {
     private int expirationYear;
     private TreeMap<String, Integer> months = new TreeMap<>();
     private ArrayList<Integer> years = new ArrayList<>();
+    private boolean loggedIn;
 
     {
         for (int i = 1; i <= 12; i++) {
@@ -291,6 +292,20 @@ public class Profile {
 
     boolean checkPassMatch(String password) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * @return the loggedIn
+     */
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    /**
+     * @param loggedIn the loggedIn to set
+     */
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
     }
 
 }

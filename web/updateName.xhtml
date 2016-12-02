@@ -8,34 +8,42 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Free Member Sing Up</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!--<h:outputScript library="js" name="proj353.js"/>-->
+        <title>Name Update</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
+
     <h:body>
-        <h:outputStylesheet library="css" name="beforeLogin.css"/>
+        <h:outputStylesheet library="css" name="update.css"/>
         <h:form>
             <p:growl id="messages" showDetail="true" />
-            <p:toolbar style="background-color: dodgerblue; color: white; height: 100; font-size: 32px" >
+            <p:toolbar style="background-color: transparent; color: white; height: 100; font-size: 32px" >
                 <f:facet name="left">
                     <p:outputLabel value="Submissions Portal" />
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton class="button" value="Log in" action="home?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
-                    <!--                    <span class="ui-separator">
-                                            <span class="ui-icon ui-icon-grip-dotted-vertical" style="height: 100"/>
-                                        </span>-->
-                    <p:commandButton class="button" value="Premium Sign up" action="paidSignup?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 220px"/>
+
+                    <p:commandButton class="button" value="View Winners" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
+                    <p:commandButton class="button" value="Update Profile" action="update?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
+                    <p:commandButton class="button" value="Upload Submission" action="UploadSubmission?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 150px "/>
+                    <p:commandButton class="button" value="View Dashboard" action="dashboard?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 140px "/>
+                    <p:commandButton class="button" value="View Sponsors" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>                    
+
+                    <span class="ui-separator">    
+                        <span class="ui-icon ui-icon-grip-dotted-vertical"/>
+                    </span>
+                </f:facet>
+
+                <f:facet name="right">
+                    <p:commandButton class="button" value="Log out" action="#{loginController.logout()}" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
                 </f:facet>
                 <f:facet name="right">
                 </f:facet>
             </p:toolbar>
         </h:form>
-        <h:form id="freeSingupForm">
-            <p:outputLabel class="top" value="Free Account Sign Up"/>
+        <h:form id="updateForm">
+            <p:outputLabel class="top" value="Name Update"/>
             <h:panelGrid class="panelGrid" id="panel" columns="1" border="0" cellpadding="2"
                          cellspacing="0">
                 <!--First name-->
@@ -54,24 +62,13 @@ and open the template in the editor.
 
                 <!--UserID-->
                 <p:outputLabel style="text-align: left" class="outputLabel" value="User ID" />
-                <p:inputText class="inputText"  id="userID" value="#{profileController.profile.userID}" required="true">
-                    <f:ajax event="keyup" render="idMessage"/>
-                    <f:validator validatorId="userIDValidator"/>
-                </p:inputText>
-                <p:message class="warning" id="idMessage" for="userID"/>
-
-                <!--Email-->
-                <p:outputLabel class="outputLabel" value="Email" />
-                <p:inputText class="inputText"  id="email" value="#{profileController.profile.email}" required="true">
-                    <f:ajax event="keydown" render="emailMessage"/>
-                    <f:validator validatorId="emailValidator"/>
-                </p:inputText>
-                <p:message class="warning" id="emailMessage" for="email"/>
+                <p:inputText class="inputText"  id="userID" value="#{profileController.profile.userID}" readonly="true"/>
 
                 <!--Password-->
                 <p:outputLabel class="outputLabel" value="Password" />
-                <p:password class="inputText"  id="password" value="#{profileController.profile.password}" placeholder="At least 6 characters"  feedback="false" inline="true" binding="#{password}">
-                    <!--<f:ajax event="keydown" render="passwordMsg"/>--> 
+                <p:password class="inputText"  id="password" value="#{profileController.profile.password}" feedback="false" inline="true" binding="#{password}" required="true">
+                    <!--<f:ajax event="keydown" render="passwordMsg"/>-->
+
                     <!--Test-->
                     <f:attribute name="confirmPassword" value="#{confirmPassword}"/>
                     <!--Test-->
@@ -83,13 +80,12 @@ and open the template in the editor.
                 <!--Confirm Password-->
                 <p:outputLabel class="outputLabel" value="Password again" />
                 <p:password class="inputText" id="confirmPassword" onblur="checkPasswordMatch(this.form)" binding="#{confirmPassword}" required="true">
-
                     <f:validator validatorId="passwordMatchChecker" />
                     <f:attribute name="password" value="#{password}"/>
                 </p:password>
-                <h:message class="warning" id="passConfMessage" for="confirmPassword"/>
+                <p:message class="warning" id="passConfMessage" for="confirmPassword"/>
 
-                <p:commandButton class="button" id="submit" value="Sign Up" action="#{profileController.freeSingup()}" />
+                <p:commandButton class="button" id="submit" value="Update" action="#{profileController.updateUserInfo()}" />
             </h:panelGrid>
         </h:form>
     </h:body>
