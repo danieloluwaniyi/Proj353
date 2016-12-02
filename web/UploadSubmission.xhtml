@@ -41,8 +41,13 @@
             User Name:&emsp;&emsp;&emsp;<h:outputText id="userID" value="">
                  </h:outputText><br/><br/>
             -->
-            <p:fileUpload fileUploadListener="#{submissionController.theModel.insertImage}" mode="advanced" dragDropSupport="false"
-                          update="messages" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" style="background-color: transparent; color: white;"/>
+            Testing:<p:inputText id="param" value="#{loginController.profile.userID}"></p:inputText><br/>
+            Enter Tags here:<p:inputText value="#{submissionController.theModel.tags}"/><br/>
+            <p:fileUpload  fileUploadListener="#{submissionController.theModel.insertImage}" mode="advanced" dragDropSupport="false"
+                           update="messages" fileLimit="3" process="param" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" style="background-color: transparent; color: white;">
+                <f:param name ="userId" value="#{loginController.profile.userID}"/>
+            </p:fileUpload>
+
             <p:growl id="messages" showDetail="true" />
             <p:commandButton value="View Current Submissions" action="dashboard.xhtml?faces-redirect=true" style="background-color: transparent; color: white;"/>
         </h:form>

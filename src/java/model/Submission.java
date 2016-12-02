@@ -14,6 +14,7 @@ import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
@@ -29,7 +30,7 @@ import org.primefaces.event.RateEvent;
  * @author Daniel
  */
 @Named(value = "submissionBean")
-@SessionScoped
+
 public class Submission implements Serializable {
 
     private double rating;
@@ -41,6 +42,8 @@ public class Submission implements Serializable {
     private UploadedFile fileUpload;
     private double price;
     private int numRaters;
+    private String tags;
+    private int searchParam;//1->all, 2->tags, 3->tbd
 
     public int getNumRaters() {
         return numRaters;
@@ -55,13 +58,15 @@ public class Submission implements Serializable {
      */
     public Submission() {
         numRaters = 0;
+        searchParam = 1;
     }
-    
-    public Submission(double rating, byte[] content,int submissionId,double price,int numRaters){
+
+    public Submission(double rating, byte[] content, int submissionId, double price, int numRaters,String tags) {
         this.submissionId = submissionId;
         this.rating = rating;
         this.content = content;
         this.price = price;
+        this.tags = tags;
     }
 
     /**
@@ -105,10 +110,17 @@ public class Submission implements Serializable {
      */
     public List<Submission> getSubmissionList() {
         if (submissionList == null) {
-            ArrayList sub = (new SubmissionDAO().findAllSubmissions());
+            ArrayList sub = (new SubmissionDAO().findAllSubmissions(searchParam,tags));
             this.submissionList = sub;
         }
         return submissionList;
+    }
+    
+    public void filteredList(){
+        this.searchParam = 2;
+        ArrayList sub = (new SubmissionDAO().findAllSubmissions(searchParam,tags));
+        this.submissionList = sub;
+       // return sub;
     }
 
     /**
@@ -117,12 +129,11 @@ public class Submission implements Serializable {
     public void setSubmissionList(List<Submission> submissionList) {
         this.submissionList = submissionList;
     }
-    
-    
+
     //Insert an image into the Submission Database
-    public void insertImage(FileUploadEvent event){
-        this.fileUpload  = event.getFile();
-      
+    public void insertImage(FileUploadEvent event) {
+        this.fileUpload = event.getFile();
+
         SubmissionDAO dao = new SubmissionDAO();
         try {
             // byte[]array = fileUpload.getContents();
@@ -130,35 +141,34 @@ public class Submission implements Serializable {
         } catch (IOException ex) {
             Logger.getLogger(Submission.class.getName()).log(Level.SEVERE, null, ex);
         }
-        dao.insertImage(fileUpload.getContents());
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String, String> params
+                = fc.getExternalContext().getRequestParameterMap();
+        String user = params.get("form:param");
+        this.tags=params.get("form:j_idt19");
+        dao.insertImage(fileUpload.getContents(), user, this.tags);
         displayUploadMsg(event);
 
     }
-    
-      public void updateRating(RateEvent rateEvent) {
-        SubmissionDAO sDAO= new SubmissionDAO();
-        calcRating(((Integer)rateEvent.getRating()));
-        int rowCount = sDAO.updateRating(getSubmissionId(),rating,numRaters);
 
-        
+    public void updateRating(RateEvent rateEvent) {
+        SubmissionDAO sDAO = new SubmissionDAO();
+        calcRating(((Integer) rateEvent.getRating()));
+        int rowCount = sDAO.updateRating(getSubmissionId(), rating, numRaters);
+
     }
 
-      private void calcRating(double rating){
-          double newRating;
-          if(numRaters==0){
-              newRating = rating;
-          }
-          
-          else{
-              newRating = (this.rating+rating)/2;
-          }
-          numRaters = numRaters+1;
-          
-          
-          this.rating = newRating;
-      }
+    private void calcRating(double rating) {
+        double newRating;
+        if (numRaters == 0) {
+            newRating = rating;
+        } else {
+            newRating = (this.rating + rating) / 2;
+        }
+        numRaters = numRaters + 1;
 
-
+        this.rating = newRating;
+    }
 
     /**
      * @return the submissionId
@@ -208,4 +218,13 @@ public class Submission implements Serializable {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
 }

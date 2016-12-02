@@ -105,7 +105,7 @@ and open the template in the editor.
 
                         <p:panel header="#{image.submissionId}" style="text-align:center; background-color: lightblue;" id="panelID">
                             <h:panelGrid columns="1" style="width:100%">
-                                <p:graphicImage style="width:400px;height:300px;" value="#{submissionController.theModel.submission}">
+                                <p:graphicImage style="width:100%" value="#{submissionController.theModel.submission}">
                                     <f:param name="sid" value="#{image.submissionId}"/>
                                 </p:graphicImage>
 
@@ -137,25 +137,28 @@ and open the template in the editor.
                     <p:outputPanel id="carDetail" style="text-align:center">
                         <p:panelGrid columns="1" style="text-align:center;height:400px; width: 400px"  rendered="#{not empty submissionController.theModel}" columnClasses="label,value">
                             <p:graphicImage style="width:100%" value="#{submissionController.theModel.submission}">
-                            <f:param name="sid" value="#{submissionController.theModel.submissionId}"/>
-                        </p:graphicImage>
+                                <f:param name="sid" value="#{submissionController.theModel.submissionId}"/>
+                            </p:graphicImage>
                         </p:panelGrid>
-                        
+
                         <p:panelGrid style="text-align:center;height:30px; width: 400px" columns="2" rendered="#{not empty submissionController.theModel}" columnClasses="label,value">
 
 
                             <h:outputText value="Id:" />
                             <h:outputText value="#{submissionController.theModel.submissionId}" />
 
-                            <h:outputText value="Rating:" />
-                            <h:outputText value="#{submissionController.theModel.rating}" />
+                            <h:outputText value="Rating:"/>
+                            <h:outputText value="#{submissionController.theModel.rating}"/>
 
-                       </p:panelGrid>
+                        </p:panelGrid>
                     </p:outputPanel>
                 </p:dialog>
                 <p:layoutUnit position="west" header="Filters" resizable="true" closable="true" collapsible="true">
-                    <p:outputLabel for="restricted" value="Restricted:" />
-                    <p:calendar id="restricted" mindate="1/1/16" maxdate="11/22/16" /><br/>
+                    <p:panelGrid style="margin: 0 auto; text-align: center">
+                        <p:outputLabel for="searchTagId" value="Picture Tag:" /><br/>
+                        <p:inputText value="#{submissionController.theModel.tags}"/><br/>
+                        <p:commandButton style="margin: 0 auto" actionListener="#{submissionController.theModel.filteredList}" update="image" id="searchTagId" value="Search" styleClass="ui-priority-primary"/>
+                    </p:panelGrid>
 
                     <h:panelGrid columns="1" style="margin: 10 auto">
                         <br/><h:outputLabel value="Items in Cart: " />
@@ -165,5 +168,5 @@ and open the template in the editor.
                 </p:layoutUnit>
             </p:layout>
         </h:form>
-  </h:body>
+    </h:body>
 </html>
