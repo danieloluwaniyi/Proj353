@@ -341,7 +341,7 @@ public class ProfileDAO implements Serializable {
         return retVal;
     }
     
-    public boolean checkPasswordExists(String password) {
+    public boolean checkPasswordExists(String userID, String password) {
         boolean retVal = false;
         
         try {
@@ -356,11 +356,13 @@ public class ProfileDAO implements Serializable {
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             String query = "SELECT * FROM Project353.Users WHERE user_id = ?";
             PreparedStatement pstmt = DBConn.prepareStatement(query);
-            pstmt.setString(1, getProfile().getUserID());
+            pstmt.setString(1, userID);
             ResultSet rs = pstmt.executeQuery();
             String oldPass = null;
-            while(rs.next()) {
+            if(rs.next()) {
                 oldPass = rs.getString("password");
+            } else {
+                retVal = false;
             }
             if (oldPass.equals(password)) {
                 retVal = true;
@@ -368,6 +370,10 @@ public class ProfileDAO implements Serializable {
             DBConn.close();
         } catch (SQLException ex) {
             System.out.println(ex + " was caught.");
+            retVal = false;
+        } catch (NullPointerException ne) {
+            System.out.println("Null was caught");
+            retVal = false;
         }
         return retVal;
     }

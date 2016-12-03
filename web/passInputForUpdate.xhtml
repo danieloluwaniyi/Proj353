@@ -23,7 +23,7 @@
             </p:toolbar>
         </h:form>
         <h:form class="form">
-            <p:outputLabel class="top" value="Login"/>
+            <p:outputLabel class="top" value="Account Verification"/>
             <h:panelGrid class="panelGrid" columns="1" >
                 <p:outputLabel class="outputLabel" value="User ID"/>
                 <p:inputText class="inputText" id="userID" value="#{loginController.profile.userID}" binding="#{userID}"/>
@@ -35,7 +35,7 @@
                 </p:password>
                 <p:message id="passMsg" for="password"/>
                 <!--<p Click <a>here</a> if you forgot your password</p>-->
-                <p:commandButton class="button" id="submit" value="Login" action="#{loginController.login()}"/>
+                <p:commandButton class="button" id="submit" value="Login" action="#{profileController.freeSingup()}" update="passMsg"/>
             </h:panelGrid>
         </h:form>
     </h:body>

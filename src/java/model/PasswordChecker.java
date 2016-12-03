@@ -12,41 +12,57 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIInput;
 
 /**
  *
  * @author Suguru
  */
+@ManagedBean
+@SessionScoped
 @FacesValidator("passwordChecker")
 public class PasswordChecker implements Validator {
 
     @ManagedProperty("#{profileDAO}")
-    ProfileDAO profileDAO;
-//    private Pattern pattern;
-//    private Matcher matcher;
-//    private static final String PASS_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%-]).{6,20})";
-//
-//    public PasswordChecker() {
-//        pattern = Pattern.compile(PASS_PATTERN);
-//    }
-
+    private ProfileDAO profileDAO;
+    
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 
         String password = value.toString();
+        UIInput uiUserID = (UIInput) component.getAttributes().get("userID");
+        
+        String userID = null;
+        try {
+            uiUserID.getSubmittedValue().toString();
+        } catch (NullPointerException ne) {
+            throw new ValidatorException(new FacesMessage("Null was caught"));
+        }
 
         if (password == null || password.isEmpty()) {
-            return;
-        }        
+            throw new ValidatorException(new FacesMessage("It's null"));
+        }
+        
+        if (!profileDAO.checkPasswordExists(userID, password)) {
+            throw new ValidatorException(new FacesMessage("User ID and Password doeesn't match or the ID doesn't exist."));
+        }
+        
+    }
 
-//        matcher = pattern.matcher(password);
-//        if (!matcher.matches()) {
-//            throw new ValidatorException(new FacesMessage(
-//                    "The password does not match the requirements:<br />- 6 to 20 characters<br />- Has at least one digit, one uppler case letter, lower case letter<br />- One special special symbol (\"@#$%-\")"));
-//        }
+    /**
+     * @return the profileDAO
+     */
+    public ProfileDAO getProfileDAO() {
+        return profileDAO;
+    }
 
+    /**
+     * @param profileDAO the profileDAO to set
+     */
+    public void setProfileDAO(ProfileDAO profileDAO) {
+        this.profileDAO = profileDAO;
     }
 }

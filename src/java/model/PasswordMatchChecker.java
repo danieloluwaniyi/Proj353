@@ -30,7 +30,8 @@ public class PasswordMatchChecker implements Validator {
         String password = null;
         
         try {
-        password = uiInputPassword.getSubmittedValue().toString();
+        password = uiInputPassword.getValue().toString(); 
+//        password = uiInputPassword.getSubmittedValue().toString();
         } catch (NullPointerException ne) {                
             System.out.println("NullPointerException was caught");
             uiInputPassword.setValid(false);
