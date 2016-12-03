@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import model.Profile;
 
@@ -27,7 +29,11 @@ import model.Profile;
  */
 @ManagedBean
 @SessionScoped
-public class ProfileDAO {
+public class ProfileDAO implements Serializable {
+    
+    // Returns null....
+    @ManagedProperty("#{profile}")
+    private Profile profile;
 
     //Checks if the userID & email are already exist.
     public boolean checkUserExists(String userID) {
@@ -334,6 +340,37 @@ public class ProfileDAO {
 
         return retVal;
     }
+    
+    public boolean checkPasswordExists(String password) {
+        boolean retVal = false;
+        
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(0);
+        }
+
+        String myDB = "jdbc:derby://localhost:1527/project353";
+        try {
+            Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
+            String query = "SELECT * FROM Project353.Users WHERE user_id = ?";
+            PreparedStatement pstmt = DBConn.prepareStatement(query);
+            pstmt.setString(1, getProfile().getUserID());
+            ResultSet rs = pstmt.executeQuery();
+            String oldPass = null;
+            while(rs.next()) {
+                oldPass = rs.getString("password");
+            }
+            if (oldPass.equals(password)) {
+                retVal = true;
+            }
+            DBConn.close();
+        } catch (SQLException ex) {
+            System.out.println(ex + " was caught.");
+        }
+        return retVal;
+    }
 
     public int updatePassword(Profile profile) {
         int retVal = 0;
@@ -397,6 +434,20 @@ public class ProfileDAO {
 
     public boolean addToCartDAO(String userID) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * @return the profile
+     */
+    public Profile getProfile() {
+        return profile;
+    }
+
+    /**
+     * @param profile the profile to set
+     */
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 
 }

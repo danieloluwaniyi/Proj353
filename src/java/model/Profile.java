@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.TreeMap;
 import javax.faces.bean.ManagedBean;
@@ -18,7 +19,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class Profile {
+public class Profile implements Serializable {
 
     private String firstName;
     private String lastName;

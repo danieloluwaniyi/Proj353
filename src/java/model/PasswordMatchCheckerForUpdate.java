@@ -17,40 +17,31 @@ import javax.faces.validator.ValidatorException;
  *
  * @author Suguru
  */
-@FacesValidator("passwordMatchChecker")
-public class PasswordMatchChecker implements Validator {
+@FacesValidator("passwordMatchCheckerForUpdate")
+public class PasswordMatchCheckerForUpdate implements Validator {
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 
-        String password = value.toString();
+        String confirmPassword = value.toString();
                 
-        UIInput uiInputConfirmPassword = (UIInput) component.getAttributes().get("confirmPassword");
         UIInput uiInputPassword = (UIInput) component.getAttributes().get("password");
-        String comfirmPassword = null;
-        String inputPass = null;
-        try {
-	comfirmPassword = uiInputConfirmPassword.getSubmittedValue().toString();
-        } catch (NullPointerException ne) {                
-            System.out.println("NullPointerException was caught");
-            uiInputPassword.setValid(false);
-        }
+        String password = null;
         
         try {
-        inputPass = uiInputPassword.getSubmittedValue().toString();
+        password = uiInputPassword.getSubmittedValue().toString();
         } catch (NullPointerException ne) {                
             System.out.println("NullPointerException was caught");
             uiInputPassword.setValid(false);
         }
         
         
-        if (password != null) {
-            if (comfirmPassword == null || comfirmPassword.isEmpty() || password == null || password.isEmpty()) {
+            if (confirmPassword == null || confirmPassword.isEmpty() || confirmPassword == null || confirmPassword.isEmpty()) {
             return;
         }
-        }
+
         
-        if (!password.equals(comfirmPassword)) {
+        if (!confirmPassword.equals(password)) {
             uiInputPassword.setValid(false);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "info", "Password must match confirm password."));
             throw new ValidatorException(new FacesMessage(

@@ -88,8 +88,7 @@
                 <p:outputLabel class="outputLabel" value="Password"/>
                 <p:password class="inputText" id="password" value="#{loginController.profile.password}"/>
                 <!--<p Click <a>here</a> if you forgot your password</p>-->
-                <p:commandButton class="button" id="submit" value="Login" action="#{loginController.login()}"/>
-
+                <p:commandButton class="button" id="submit" value="Login" action="#{profileController.freeSingup()}"/>
             </h:panelGrid>
         </h:form>
     </h:body>

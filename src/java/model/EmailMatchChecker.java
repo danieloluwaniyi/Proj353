@@ -22,12 +22,7 @@ public class EmailMatchChecker implements Validator {
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-System.out.println("===========");
-System.out.println("===========");
-System.out.println("===========");
-System.out.println("===========");
-System.out.println("===========");
-
+        
         String email = value.toString();
         UIInput uiInputEmail = (UIInput) component.getAttributes().get("email");
         String confEmail = null;

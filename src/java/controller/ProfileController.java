@@ -13,6 +13,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import email.Email;
+import java.io.Serializable;
 
 /**
  *
@@ -20,7 +21,7 @@ import email.Email;
  */
 @ManagedBean
 @SessionScoped
-public class ProfileController {
+public class ProfileController implements Serializable {
 
     @ManagedProperty("#{profile}")
     private Profile profile;
@@ -54,9 +55,6 @@ public class ProfileController {
      * @return the profileDAO
      */
     public ProfileDAO getProfileDAO() {
-        if (profileDAO == null) {
-            profileDAO = new ProfileDAO();
-        }
         return profileDAO;
     }
 

@@ -63,7 +63,7 @@ public class LoginController {
     //Logout
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession(); // the above is unnecessary once the session is invalidated
-        return "home.xhtml?faces-redirect=true";
+        return "home?faces-redirect=true";
     }
 
     /**

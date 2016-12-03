@@ -8,12 +8,10 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Free Member Sing Up</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!--<h:outputScript library="js" name="proj353.js"/>-->
     </h:head>
     <h:body>
         <h:outputStylesheet library="css" name="beforeLogin.css"/>
@@ -43,14 +41,14 @@ and open the template in the editor.
                 <p:inputText class="inputText" id="firstName" value="#{profileController.profile.firstName}" required="true">
                     <f:validateLength minimum="2" maximum="25"/>
                 </p:inputText>
-                <p:message for="firstName" class="warning"/>
+                <p:message id="firstNameMsg" for="firstName" class="warning"/>
 
                 <!--Last name-->
                 <p:outputLabel class="outputLabel" value="Last Name" />
                 <p:inputText class="inputText"  id="lastName" value="#{profileController.profile.lastName}" required="true">
                     <f:validateLength minimum="2" maximum="25"/>
                 </p:inputText>
-                <p:message for="lastName" class="warning"/>
+                <p:message id="lastNameMsg" for="lastName" class="warning"/>
 
                 <!--UserID-->
                 <p:outputLabel style="text-align: left" class="outputLabel" value="User ID" />
@@ -71,20 +69,26 @@ and open the template in the editor.
                 <!--Password-->
                 <p:outputLabel class="outputLabel" value="Password" />
                 <p:password class="inputText"  id="password" value="#{profileController.profile.password}" placeholder="At least 6 characters"  feedback="false" inline="true" binding="#{password}">
-                    <f:ajax event="blur" render="passwordMsg"/> 
                     <f:validator validatorId="passwordValidator" />
+<!--                    <f:validator validatorId="passwordMatchChecker"/>-->
+                    <f:attribute name="confirmPassword" value="#{confirmPassword}"/>
                 </p:password>
                 <p:messages class="warning" id="passwordMsg" for="password" escape="false"/>
 
+<!--                Confirm Password
+                <p:outputLabel class="outputLabel" value="Password again" />
+                <p:password class="inputText" id="confirmPassword" onblur="checkPasswordMatch(this.form)" binding="#{confirmPassword}" required="true"/>
+                <p:message class="warning" id="passConfMessage" for="confirmPassword"/>-->
                 <!--Confirm Password-->
                 <p:outputLabel class="outputLabel" value="Password again" />
-                <p:password class="inputText" id="confirmPassword" onblur="checkPasswordMatch(this.form)" binding="#{confirmPassword}" required="true">
-                    <f:validator validatorId="passwordMatchChecker" />
+                <p:password class="inputText" id="confirmPassword" required="true" binding="#{confirmPassword}">
+                    <f:validator validatorId="passwordMatchCheckerForUpdate"/>
                     <f:attribute name="password" value="#{password}"/>
                 </p:password>
-                <h:message class="warning" id="passConfMessage" for="confirmPassword"/>
+                <p:message class="warning" id="passConfMsg" for="confirmPassword" escape="false"/>                
 
-                <p:commandButton class="button" id="submit" value="Sign Up" action="#{profileController.freeSingup()}" />
+
+                <p:commandButton class="button" id="submit" value="Sign Up" action="#{profileController.freeSingup()}" update="firstNameMsg lastNameMsg idMessage emailMessage passwordMsg passConfMsg" />
             </h:panelGrid>
         </h:form>
     </h:body>

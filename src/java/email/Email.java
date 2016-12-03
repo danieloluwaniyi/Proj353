@@ -5,6 +5,7 @@
  */
 package email;
 
+import java.io.Serializable;
 import java.util.Properties;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -22,7 +23,7 @@ import model.Profile;
 
 @ManagedBean
 @SessionScoped
-public class Email {
+public class Email implements Serializable {
 
     public boolean Email(Profile SignUpetails) {
         boolean sent = false;
