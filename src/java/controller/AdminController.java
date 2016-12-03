@@ -6,6 +6,7 @@
 package controller;
 
 import dao.ProfileDAO;
+import email.Email;
 import java.util.Properties;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.bean.ManagedBean;
@@ -37,6 +38,9 @@ public class AdminController {
      private ProfileDAO profileDAO;
      @ManagedProperty("#{admin}")
      private Admin admin;
+     private Email emailToSent;
+     private String userIDToPay;
+     
      
 
      public boolean email(Profile profile) {
@@ -109,34 +113,19 @@ public class AdminController {
     } 
     
     public boolean payRoalty(Profile profile){
-        boolean roalty = false;
-        String userID  = profile.getUserID();
-        if(getProfileDAO().payRoalty(userID)){
-            roalty = true;
-        }
-        return roalty;
+        boolean retVal = false;
+        
+        
+        
+        return retVal;
     }
-    
-//    public String loginAdmin(){
-//        if(admin.getAdminPass()=="admin"&&admin.getAdminUname()=="admin"){
-//            return "login.xhtml";
-//        }
-//        else{
-//          return "login.xhtml";
-//        }
-//    }
-    
-    
-    
+
     public String loginAdmin() {
         String retVal = null;
            String adminpass = admin.getAdminPass();
            String adminuname = admin.getAdminUname();
         
-//        FacesContext fc = FacesContext.getCurrentInstance();
-//            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-//            nav.performNavigation("login?faces-redirect=true");
-        
+
         if (adminuname.equals("admin")&&  adminpass.equals("admin")) {
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
@@ -150,65 +139,64 @@ public class AdminController {
         return retVal;
     }
 
-    /**
-     * @return the submissionModel
-     */
+
     public Submission getSubmissionModel() {
         return submissionModel;
     }
 
-    /**
-     * @param submissionModel the submissionModel to set
-     */
     public void setSubmissionModel(Submission submissionModel) {
         this.submissionModel = submissionModel;
     }
 
-    /**
-     * @return the profile
-     */
     public Profile getProfile() {
         return profile;
     }
 
-    /**
-     * @param profile the profile to set
-     */
     public void setProfile(Profile profile) {
         this.profile = profile;
     }
 
-    /**
-     * @return the profiledao
-     */
     public ProfileDAO getProfileDAO() {
         return profileDAO;
     }
 
-    /**
-     * @param profiledao the profiledao to set
-     */
+
     public void setProfileDAO(ProfileDAO profiledao) {
         this.profileDAO = profiledao;
     }
 
-    /**
-     * @return the admin
-     */
+
     public Admin getAdmin() {
         if(admin == null)
             admin = new Admin();
        return admin;
     }
 
-    /**
-     * @param admin the admin to set
-     */
     public void setAdmin(Admin admin) {
         this.admin = admin;
     }
-        
-        
+
+    public String getUserIDToPay() {
+        return userIDToPay;
     }
+
+    public void setUserIDToPay(String userIDToPay) {
+        this.userIDToPay = userIDToPay;
+    }
+
+    /**
+     * @return the emailToSent
+     */
+    public Email getEmailToSent() {
+        return emailToSent;
+    }
+
+    /**
+     * @param emailToSent the emailToSent to set
+     */
+    public void setEmailToSent(Email emailToSent) {
+        this.emailToSent = emailToSent;
+    }
+}
 
     
