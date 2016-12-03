@@ -82,7 +82,7 @@ and open the template in the editor.
                 <!--Confirm Password-->
                 <p:outputLabel class="outputLabel" value="Password again" />
                 <p:password class="inputText" id="confirmPassword" required="true" binding="#{confirmPassword}">
-                    <f:validator validatorId="passwordMatchCheckerForUpdate"/>
+                    <f:validator validatorId="passwordMatchChecker"/>
                     <f:attribute name="password" value="#{password}"/>
                 </p:password>
                 <p:message class="warning" id="passConfMsg" for="confirmPassword" escape="false"/>                
