@@ -26,6 +26,7 @@ public class PasswordMatchChecker implements Validator {
         String confirmPassword = value.toString();
                 
         UIInput uiInputPassword = (UIInput) component.getAttributes().get("password");
+//        UIInput uiInputPassword = (UIInput) component.getAttributes().get("confirmPassword");
         String password = null;
         
         try {
@@ -36,8 +37,11 @@ public class PasswordMatchChecker implements Validator {
         }
         
         
-            if (confirmPassword == null || confirmPassword.isEmpty() || confirmPassword == null || confirmPassword.isEmpty()) {
-            return;
+            if (confirmPassword == null || confirmPassword.isEmpty() || password == null || password.isEmpty()) {
+                uiInputPassword.setValid(false);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "info", "Password must match confirm password."));
+            throw new ValidatorException(new FacesMessage(
+            "Something is null."));
         }
 
         

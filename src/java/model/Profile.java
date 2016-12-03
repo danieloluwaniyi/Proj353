@@ -25,6 +25,7 @@ public class Profile implements Serializable {
     private String lastName;
     private String userID;
     private String email;
+    private String newEmail;
     private String confirmationEmail;
     private String password;
     private String passwordConf;
@@ -326,6 +327,20 @@ public class Profile implements Serializable {
      */
     public void setLoggedIn(boolean loggedIn) {
         this.loggedIn = loggedIn;
+    }
+
+    /**
+     * @return the newEmail
+     */
+    public String getNewEmail() {
+        return newEmail;
+    }
+
+    /**
+     * @param newEmail the newEmail to set
+     */
+    public void setNewEmail(String newEmail) {
+        this.newEmail = newEmail;
     }
 
 }

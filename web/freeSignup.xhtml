@@ -70,15 +70,11 @@ and open the template in the editor.
                 <p:outputLabel class="outputLabel" value="Password" />
                 <p:password class="inputText"  id="password" value="#{profileController.profile.password}" placeholder="At least 6 characters"  feedback="false" inline="true" binding="#{password}">
                     <f:validator validatorId="passwordValidator" />
-<!--                    <f:validator validatorId="passwordMatchChecker"/>-->
+                    <!--<f:validator validatorId="passwordMatchChecker"/>-->
                     <f:attribute name="confirmPassword" value="#{confirmPassword}"/>
                 </p:password>
                 <p:messages class="warning" id="passwordMsg" for="password" escape="false"/>
 
-<!--                Confirm Password
-                <p:outputLabel class="outputLabel" value="Password again" />
-                <p:password class="inputText" id="confirmPassword" onblur="checkPasswordMatch(this.form)" binding="#{confirmPassword}" required="true"/>
-                <p:message class="warning" id="passConfMessage" for="confirmPassword"/>-->
                 <!--Confirm Password-->
                 <p:outputLabel class="outputLabel" value="Password again" />
                 <p:password class="inputText" id="confirmPassword" required="true" binding="#{confirmPassword}">

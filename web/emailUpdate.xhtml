@@ -46,40 +46,38 @@ and open the template in the editor.
                          cellspacing="0">
                 <!--Current Email-->
                 <p:outputLabel class="outputLabel" value ="Current Email" />
-                <p:outputLabel class="" value="#{loginController.profile.email}" />
-                
-                <!--Email-->
-                <p:outputLabel class="outputLabel" value="New Email" />
-                <p:inputText class="inputText"  id="email" value="#{profileController.profile.email}" required="true" >
-                    <f:ajax event="keydown" render="emailMessage"/>
-                    <f:validator validatorId="emailValidator"/>
-                </p:inputText>
-                <p:message class="warning" id="emailMessage" for="email"/>
+                <p:outputLabel class="" value="#{profileController.profile.email}" />
 
-                <!--Email Confirmation-->
-                <p:outputLabel class="outputLabel" value="New Email Confirmation" />
-                <p:inputText class="inputText"  id="emailConfirmation" value="#{profileController.profile.confirmationEmail}" required="true">
-<!--                    <f:ajax event="blur" execute="emailConfirmation" render="emailConfMessage"/>
-                    <f:attribute name="email" value="#{profileController.profile.email}"/>
-                    <f:validator validatorId="emailMatchChecker"/>-->
+                <!--New Email-->
+                <p:outputLabel class="outputLabel" value="Email"/>
+                <p:inputText id="email" value="#{profileController.profile.email}" >
+                    <f:validator validatorId="emailMatchChecker"/>
+                    <f:attribute name="emailConfirmation" value="#{emailConfirmation}"/>
                 </p:inputText>
-                <p:message class="warning" id="emailConfMessage" for="emailConfirmation"/>
+
+                <!--Confirmation Email-->
+                <p:outputLabel class="outputLabel" value="Email again"/>
+                <p:inputText id="emailConfirmation" value="#{profileController.profile.confirmationEmail}" binding="#{emailConfirmation}">
+                </p:inputText>
+                <p:message id="passMatchMsg" for="email"/>
 
                 <!--Password-->
                 <p:outputLabel class="outputLabel" value="Password" />
-                <p:password class="inputText"  id="password" value="#{profileController.profile.password}" feedback="false" inline="true" binding="#{password}" required="true">
-                    <!--<f:validator validatorId="passwordValidator" />-->
+                <p:password class="inputText"  id="password" value="#{profileController.profile.password}" feedback="false" inline="true" binding="#{password}">
+                    <f:validator validatorId="passwordMatchChecker"/>
+                    <f:attribute name="password" value="#{confirmPassword}"/>
                 </p:password>
                 <p:messages class="warning" id="passwordMsg" for="password" escape="false"/>
 
                 <!--Confirm Password-->
                 <p:outputLabel class="outputLabel" value="Password again" />
-                <p:password class="inputText" id="confirmPassword" onblur="checkPasswordMatch(this.form)" binding="#{confirmPassword}" required="true">
-                    <f:validator validatorId="passwordMatchChecker" />
+                <p:password class="inputText" id="confirmPassword" required="true" binding="#{confirmPassword}">
+                    <f:validator validatorId="passwordMatchChecker"/>
+                    <f:attribute name="password" value="#{password}"/>
                 </p:password>
-                <p:message class="warning" id="passConfMessage" for="confirmPassword"/>
+                <p:message class="warning" id="passConfMsg" for="confirmPassword" escape="false"/>
 
-                <p:commandButton class="button" id="submit" value="Update" action="#{profileController.updateEmail()}" />
+                <p:commandButton class="button" id="submit" value="Update" action="#{profileController.updateEmail()}" update="passMatchMsg passConfMsg" />
             </h:panelGrid>
         </h:form>
     </h:body>
