@@ -66,10 +66,42 @@ public class CartDAO {
         double total =0;
         String subid="";
         int[] subs = order.getCart();
+        double price =0;
+        String user_id="";
+        
+        for(int i=0;i<subs.length;i++){
+            String selectString = "select USER_ID from Project353.Users u join PROJECT353.SUBMISSIONS s using(USER_ID) where SUBMISSION_ID = ?";
+            PreparedStatement pstmt = DBConn.prepareStatement(selectString);
+            pstmt.setInt(1, subs[i]);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+               user_id = rs.getString("user_ID");
+            }
+            String selectString2 = "select price from PROJECT353.SUBMISSIONS where SUBMISSION_ID = ?";
+            PreparedStatement pstmt1 = DBConn.prepareStatement(selectString2);
+            pstmt.setInt(1, subs[i]);
+            ResultSet rs1 = pstmt1.executeQuery();
+            while (rs1.next()) {
+                price = rs1.getInt("PRICE");
+            }
+            double royalty = price *0.20;
+            
+            String insertString = "insert into royalty (USER_ID,SUBMISSION_ID,ROYALTY_AMOUNT) VALUES (?,?,?)";
+            PreparedStatement pstmt2 = DBConn.prepareStatement(insertString);
+            pstmt2.setString(1, user_id);
+            pstmt2.setInt(2,subs[i]);
+            pstmt2.setDouble(3, price);
+            pstmt2.execute();
+        }
+        
+        
+        
         
         for(int i =0; i < subs.length;i++){
             subid = subs[i]+";";
         }
+        
+        
         
        
         for (int i =0; i<subs.length;i++){
@@ -83,6 +115,7 @@ public class CartDAO {
             pstmt.setString(1, profile.getUserID());
             pstmt.setString(2, subid);
             pstmt.setDouble(3, total);
+            pstmt.execute();
         return retVal;
     }
 }
