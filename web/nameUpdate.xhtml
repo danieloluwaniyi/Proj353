@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Name Update</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+
+    <h:body>
+        <h:outputStylesheet library="css" name="update.css"/>
+        <h:form>
+            <p:growl id="messages" showDetail="true" />
+            <p:toolbar style="background-color: transparent; color: white; height: 100px; font-size: 32px" >
+                <f:facet name="left">
+                    <p:outputLabel value="Submissions Portal" />
+                </f:facet>
+                <f:facet name="right">
+
+                    <p:commandButton class="button" value="View Winners" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
+                    <p:commandButton class="button" value="Update Profile" action="update?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
+                    <p:commandButton class="button" value="Upload Submission" action="UploadSubmission?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 150px "/>
+                    <p:commandButton class="button" value="View Dashboard" action="dashboard?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 140px "/>
+                    <p:commandButton class="button" value="View Sponsors" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>                    
+
+                    <span class="ui-separator">    
+                        <span class="ui-icon ui-icon-grip-dotted-vertical"/>
+                    </span>
+                </f:facet>
+
+                <f:facet name="right">
+                    <p:commandButton class="button" value="Log out" action="#{loginController.logout()}" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
+                </f:facet>
+                <f:facet name="right">
+                </f:facet>
+            </p:toolbar>
+        </h:form>
+        <h:form id="updateForm">
+            <p:outputLabel class="top" value="Name Update"/>
+            <h:panelGrid class="panelGrid" id="panel" columns="1" border="0" cellpadding="2"
+                         cellspacing="0">
+                <!--Current name-->
+                <p:outputLabel class="outputLabel" value="Current Name"/>
+                <p:outputLabel class="" value="#{loginController.profile.firstName} #{profileController.profile.lastName}" escape="false"/>
+                <!--First name-->
+                <p:outputLabel class="outputLabel" value="New First Name"/>
+                <p:inputText class="inputText" id="firstName" value="#{profileController.profile.firstName}" required="true">
+                    <f:validateLength minimum="2" maximum="25"/>
+                </p:inputText>
+                <p:message for="firstName" class="warning"/>
+
+                <!--Last name-->
+                <p:outputLabel class="outputLabel" value="New Last Name" />
+                <p:inputText class="inputText"  id="lastName" value="#{profileController.profile.lastName}" required="true">
+                    <f:validateLength minimum="2" maximum="25"/>
+                </p:inputText>
+                <p:message for="lastName" class="warning"/>
+
+<!--                UserID
+                <p:outputLabel style="text-align: left" class="outputLabel" value="User ID" />
+                <p:inputText class="inputText"  id="userID" value="#{profileController.profile.userID}" readonly="true"/>-->
+
+                <!--Password-->
+                <p:outputLabel class="outputLabel" value="Password" />
+                <p:password class="inputText"  id="password" value="#{profileController.profile.password}" feedback="false" inline="true" binding="#{password}" required="true">
+                    <f:validator validatorId="passwordChecker"/>
+                </p:password>
+                <p:messages class="warning" id="passwordMsg" for="password" escape="false"/>
+
+                <!--Confirm Password-->
+                <p:outputLabel class="outputLabel" value="Password again" />
+                <p:password class="inputText" id="confirmPassword" onblur="checkPasswordMatch(this.form)" required="true">
+                    <f:validator validatorId="passwordMatchChecker" />
+                    <f:attribute name="password" value="#{password}"/>
+                </p:password>
+                <p:message class="warning" id="passConfMessage" for="confirmPassword"/>
+
+                <p:commandButton class="button" id="submit" value="Update" action="#{profileController.updateName()}" />
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>

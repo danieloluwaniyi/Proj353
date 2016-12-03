@@ -13,6 +13,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import email.Email;
+import java.io.Serializable;
 
 /**
  *
@@ -20,17 +21,18 @@ import email.Email;
  */
 @ManagedBean
 @SessionScoped
-public class ProfileController {
+public class ProfileController implements Serializable {
 
     @ManagedProperty("#{profile}")
     private Profile profile;
     @ManagedProperty("#{profileDAO}")
     private ProfileDAO profileDAO;
     private boolean userExists;
-    private String errorMsg;
     @ManagedProperty("#{email}")
     private Email email;
     private boolean mailed;
+    private String errorMsg;
+    private String updateMsg;
 
     /**
      * @return the profile
@@ -53,9 +55,6 @@ public class ProfileController {
      * @return the profileDAO
      */
     public ProfileDAO getProfileDAO() {
-        if (profileDAO == null) {
-            profileDAO = new ProfileDAO();
-        }
         return profileDAO;
     }
 
@@ -70,9 +69,9 @@ public class ProfileController {
      * @return the email
      */
     public Email getEmail() {
-        if (email == null) {
-            email = new Email();
-        }
+//        if (email == null) {
+//            email = new Email();
+//        }
         return email;
     }
 
@@ -97,19 +96,7 @@ public class ProfileController {
         this.userExists = userExists;
     }
 
-    /**
-     * @return the errorMsg
-     */
-    public String getErrorMsg() {
-        return errorMsg;
-    }
 
-    /**
-     * @param errorMsg the errorMsg to set
-     */
-    public void setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
-    }
 
     //Beginning of signup page methods by Suguru
     public void checkUserExistence() {
@@ -117,7 +104,6 @@ public class ProfileController {
             this.setUserExists(true);
         } else {
             this.setUserExists(false);
-            this.setErrorMsg("This user name is already taken. Please select a new one.");
         }
     }
 
@@ -128,11 +114,11 @@ public class ProfileController {
         int status = getProfileDAO().createUser(profile);
 
         if (status == 1) {
-            mailed = this.getEmail().confirmationEmail(profile);
+            setMailed(email.confirmationEmail(profile));
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-            if (mailed == true) {
-                nav.performNavigation("freeRegistrationConfirmation?faces-redirect=true");
+            if (isMailed() == true) {
+                nav.performNavigation("registrationConfirmation?faces-redirect=true");
             }
 //            retVal = "registrationConfirmation.xhtml";
         } else {
@@ -169,7 +155,7 @@ public class ProfileController {
 
         int status = getProfileDAO().addCreditCard(profile);
         if (status == 1) {
-            mailed = this.getEmail().confirmationEmail(profile);
+            setMailed(this.getEmail().confirmationEmail(profile));
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
             nav.performNavigation("registrationConfirmation?faces-redirect=true");
@@ -185,22 +171,112 @@ public class ProfileController {
     }
     //End of singup page methods by Suguru
 
-    //Update
-    public String updateUserInfo() {
+  //Updates
+    public String updateName() {
         String retVal = null;
-
-        int status = getProfileDAO().update(profile);
+        int status = 0;
+        if (profileDAO.checkPassMatch(profile)) {
+            status = getProfileDAO().updateName(profile);
+            this.setUpdateMsg("Name");
+        } else {
+            this.setErrorMsg("Password doesn't match to the user ID. Enter again");
+            return retVal;
+        }
         if (status == 1) {
-            mailed = email.updateEmail(profile);
-            if (mailed) {
+            setMailed(getEmail().updateEmail(profile, "name"));
+            if (isMailed()) {
                 FacesContext fc = FacesContext.getCurrentInstance();
                 ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-                nav.performNavigation("registrationConfirmation?faces-redirect=true");
+                nav.performNavigation("updateConfirmation?faces-redirect=true");
+            }
+        }
+        return retVal;
+    }
 
+    public String updateEmail() {
+        String retVal = null;
+        int status = 0;
+        if (profileDAO.checkPassMatch(profile)) {
+            status = getProfileDAO().updateEmail(profile);
+            this.setUpdateMsg("Email");
+        } else {
+            this.setErrorMsg("Password doesn't match to the user ID. Enter again");
+            return retVal;
+        }
+        if (status == 1) {
+            setMailed(getEmail().updateEmail(profile, "email"));
+            if (isMailed()) {
+                FacesContext fc = FacesContext.getCurrentInstance();
+                ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+                nav.performNavigation("updateConfirmation?faces-redirect=true");
             }
         }
 
         return retVal;
+    }
+
+    public String updatePassword() {
+        String retVal = null;
+        int status = 0;
+        if (profileDAO.checkPassMatch(profile)) {
+            status = getProfileDAO().updatePassword(profile);
+            this.setUpdateMsg("Password");
+        } else {
+            this.setErrorMsg("Password doesn't match to the user ID. Enter again");
+            return retVal;
+        }
+        if (status == 1) {
+            setMailed(getEmail().updateEmail(profile, "password"));
+            if (isMailed()) {
+                FacesContext fc = FacesContext.getCurrentInstance();
+                ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+                nav.performNavigation("updateConfirmation?faces-redirect=true");
+            }
+        }
+
+        return retVal;
+    }  
+
+    /**
+     * @return the mailed
+     */
+    public boolean isMailed() {
+        return mailed;
+    }
+
+    /**
+     * @param mailed the mailed to set
+     */
+    public void setMailed(boolean mailed) {
+        this.mailed = mailed;
+    }
+
+    /**
+     * @return the errorMsg
+     */
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    /**
+     * @param errorMsg the errorMsg to set
+     */
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
+
+    /**
+     * @return the updateMsg
+     */
+    public String getUpdateMsg() {
+        return updateMsg;
+    }
+
+    /**
+     * @param updateMsg the updateMsg to set
+     */
+    public void setUpdateMsg(String updateMsg) {
+        this.updateMsg = updateMsg;
     }
 
 }

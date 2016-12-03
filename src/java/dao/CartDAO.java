@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
 import model.Order;
 import model.Submission;
 import model.Profile;
@@ -18,6 +20,8 @@ import model.Profile;
  *
  * @author vyass
  */
+@ManagedBean
+@ApplicationScoped
 public class CartDAO {
     
     private Profile profile;

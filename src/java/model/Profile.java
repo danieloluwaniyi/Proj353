@@ -5,8 +5,11 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.TreeMap;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 //import java.util.regex.Matcher;
 //import java.util.regex.Pattern;
 
@@ -14,12 +17,15 @@ import java.util.TreeMap;
  *
  * @author Daniel, Suguru, Sneh
  */
-public class Profile {
+@ManagedBean
+@SessionScoped
+public class Profile implements Serializable {
 
     private String firstName;
     private String lastName;
     private String userID;
     private String email;
+    private String confirmationEmail;
     private String password;
     private String passwordConf;
     private boolean paid = false;
@@ -30,6 +36,7 @@ public class Profile {
     private int expirationYear;
     private TreeMap<String, Integer> months = new TreeMap<>();
     private ArrayList<Integer> years = new ArrayList<>();
+    private boolean loggedIn;
 
     {
         for (int i = 1; i <= 12; i++) {
@@ -103,6 +110,20 @@ public class Profile {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * @return the confirmationEmail
+     */
+    public String getConfirmationEmail() {
+        return confirmationEmail;
+    }
+
+    /**
+     * @param confirmationEmail the confirmationEmail to set
+     */
+    public void setConfirmationEmail(String confirmationEmail) {
+        this.confirmationEmail = confirmationEmail;
     }
 
     /**
@@ -291,6 +312,20 @@ public class Profile {
 
     boolean checkPassMatch(String password) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * @return the loggedIn
+     */
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    /**
+     * @param loggedIn the loggedIn to set
+     */
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
     }
 
 }
