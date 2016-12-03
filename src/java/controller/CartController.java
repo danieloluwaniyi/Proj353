@@ -14,12 +14,16 @@ import model.Profile;
 import model.Submission;
 import dao.CartDAO;
 import static java.lang.Boolean.TRUE;
+import java.util.ArrayList;
+import java.util.List;
+import model.OrderItems;
+
 
 /**
  *
  * @author vyass
  */
-@ManagedBean
+@ManagedBean(name="sp")
 @SessionScoped
 public class CartController {
 
@@ -28,6 +32,44 @@ public class CartController {
     private Order order;
     private Submission sub;
     private CartDAO cartDAO;
+    private List <OrderItems>cart = new ArrayList<>();
+    private double total;
+    
+    public String addtoCart(Submission s)
+    {
+        //Increment duplicate product
+        for(OrderItems item:cart){
+            if(item.getItem().getSubmissionId()== s.getSubmissionId()){
+                item.setQuantity(item.getQuantity()+1);
+                return "cart.xhtml";
+            }
+        }
+        
+        //Create new cart item
+        OrderItems i = new OrderItems();
+        i.setQuantity(1);
+        i.setItem(s);
+        cart.add(i);
+        return "cart.xhtml";
+        
+    }
+    
+    public List getCart() {
+        return cart;
+    }
+
+    public void setCart(List cart) {
+        this.cart = cart;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+    
 
     
     

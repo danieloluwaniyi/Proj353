@@ -120,7 +120,7 @@ and open the template in the editor.
                                 <h:panelGrid columns="2" style="margin: 0 auto">
                                     <h:outputText value="Price:" />
                                     <h:outputText value="$#{image.price}" /></h:panelGrid>
-                                <p:commandButton value="Add to Cart" id="ajax" styleClass="ui-priority-primary" />
+                                    <p:commandButton value="Add to Cart" action="#{sp.addtoCart(image)}" id="ajax" styleClass="ui-priority-primary" />
 
                                 <p:commandLink update=":form:carDetail" oncomplete="PF('subDialog').show()" title="View Detail">
                                     <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
@@ -163,7 +163,7 @@ and open the template in the editor.
                         <br/><h:outputLabel value="Items in Cart: " />
                         <h:outputText value="0" /></h:panelGrid>
 
-                    <p:commandButton value="View Cart" id="disabled" disabled="true" />
+                    <p:commandButton value="View Cart" id="disabled" action="cart?faces-redirect=true" />
                 </p:layoutUnit>
             </p:layout>
         </h:form>

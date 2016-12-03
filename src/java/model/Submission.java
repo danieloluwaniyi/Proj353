@@ -90,12 +90,15 @@ public class Submission implements Serializable {
 
         FacesContext context = FacesContext.getCurrentInstance();
         if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
-            return new DefaultStreamedContent();
+            submission= new DefaultStreamedContent();
         } else {
             String id = context.getExternalContext().getRequestParameterMap().get("sid");
             byte[] image = new SubmissionDAO().getSubmissionContent(id);
-            return new DefaultStreamedContent(new ByteArrayInputStream(image));
+            submission = new DefaultStreamedContent(new ByteArrayInputStream(image));
+            
+                    
         }
+        return submission;
     }
 
     /**
@@ -188,7 +191,8 @@ public class Submission implements Serializable {
      * @return the intRating
      */
     public Integer getIntRating() {
-        return (int) rating;
+        intRating = (int) rating;
+        return intRating;
     }
 
     /**
