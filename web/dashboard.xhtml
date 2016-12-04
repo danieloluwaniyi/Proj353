@@ -9,7 +9,8 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Dashboard</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -74,7 +75,7 @@ and open the template in the editor.
                                 <h:panelGrid columns="2" style="margin: 0 auto">
                                     <h:outputText value="Price:" />
                                     <h:outputText value="$#{image.price}" /></h:panelGrid>
-                                    <p:commandButton value="Add to Cart" action="#{sp.addtoCart(image)}" id="ajax" styleClass="ui-priority-primary" />
+                                <p:commandButton value="Add to Cart" action="#{sp.addtoCart(image)}" id="ajax" styleClass="ui-priority-primary" />
 
                                 <p:commandLink update=":form:carDetail" oncomplete="PF('subDialog').show()" title="View Detail">
                                     <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
@@ -116,7 +117,7 @@ and open the template in the editor.
                     <h:panelGrid columns="1" style="margin: 10 auto">
                         <br/><h:outputLabel value="Items in Cart: " />
                         <h:outputText value="$#{sp.total}" />
-                        
+
                         <br/><h:outputLabel value="Cart total: " />
                         <h:outputText value="$#{sp.total}" />
                     </h:panelGrid>
@@ -125,13 +126,15 @@ and open the template in the editor.
                 </p:layoutUnit>
             </p:layout>
             <!--Ads-->
-            <p:imageSwitch class="switch" effect="fade" id="fadeEffect">
-                <ui:repeat value="#{imagesView.images}" var="image" id="fadeEffectImages">
-                    <h:outputLink value="https://www.expedia.com/">
-                        <p:graphicImage name="DashImages/#{image}" id="image" width="1000" height="100"/>
-                    </h:outputLink>
-                </ui:repeat>
-            </p:imageSwitch>
+            <c:if test="#{loginController.profile.paid == false}">
+                <p:imageSwitch class="switch" effect="fade" id="fadeEffect">
+                    <ui:repeat value="#{imagesView.images}" var="image" id="fadeEffectImages">
+                        <h:outputLink value="https://www.expedia.com/">
+                            <p:graphicImage name="DashImages/#{image}" id="image" width="1000" height="100"/>
+                        </h:outputLink>
+                    </ui:repeat>
+                </p:imageSwitch>
+            </c:if>
             <!--Ads-->
         </h:form>
     </h:body>
