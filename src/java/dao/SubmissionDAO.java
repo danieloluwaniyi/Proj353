@@ -60,7 +60,7 @@ public class SubmissionDAO {
     }
 
     //Insert an image into the Submission Database
-    public void insertImage(byte[] file,String username,String tags) {
+    public void insertImage(byte[] file, String username, String tags) {
         PreparedStatement ps;
 
         try {
@@ -72,7 +72,10 @@ public class SubmissionDAO {
         try {
             String myDB = "jdbc:derby://localhost:1527/project353";
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
-
+            if ((tags == null) || (tags.equals(""))) {
+                //do something
+                tags = "None";
+            }
             ps = DBConn.prepareStatement("insert into project353.submissions(USER_ID, RATING, SUBMISSION_CONTENT,TAGS) " + "values(?,?,?,?)");
             ps.setString(1, username);
             ps.setDouble(2, 0.0);
@@ -88,22 +91,22 @@ public class SubmissionDAO {
 
     }
 
-    public ArrayList findAllSubmissions(int param,String tag) {
+    public ArrayList findAllSubmissions(int param, String tag) {
         ArrayList<Submission> submission = new ArrayList();
-        String query="select * from project353.submissions";
-        if(param==1){
-         query = "select * from project353.submissions";
+        String query = "select * from project353.submissions";
+        if (param == 1) {
+            query = "select * from project353.submissions";
         }
-        if(param ==2){//tags
-            query="select * from project353.submissions where tags like ?";
+        if (param == 2) {//tags
+            query = "select * from project353.submissions where tags like ?";
         }
-        submission = getAllSubmissions(query,param,tag);
+        submission = getAllSubmissions(query, param, tag);
         return submission;
 
     }
 
     //Helper function for findAllSubmissions to get all the current submissions
-    private ArrayList getAllSubmissions(String query,int param,String tag) {
+    private ArrayList getAllSubmissions(String query, int param, String tag) {
         ArrayList<Submission> submissionCollection = new ArrayList();
         Submission submission = null;
 
@@ -118,12 +121,12 @@ public class SubmissionDAO {
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
 
             PreparedStatement stmt = DBConn.prepareStatement(query);
-            if(param==2){
-                stmt.setString(1,"%"+tag+"%");
+            if (param == 2) {
+                stmt.setString(1, "%" + tag + "%");
             }
-            
+
             ResultSet rs = stmt.executeQuery();
-            String username,tags;
+            String username, tags;
             double rating = 0.0;
             byte[] image = null;
             int id = 0;
@@ -138,7 +141,7 @@ public class SubmissionDAO {
                 image = rs.getBytes("submission_content");
                 tags = rs.getString("tags");
 
-                submission = new Submission(rating, image, id, price, raters,tags);
+                submission = new Submission(rating, image, id, price, raters, tags);
                 submissionCollection.add(submission);
             }
 
@@ -151,7 +154,7 @@ public class SubmissionDAO {
         return submissionCollection;
     }
 
-    public int updateRating(int id, double rating,int raters) {
+    public int updateRating(int id, double rating, int raters) {
         PreparedStatement ps;
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
@@ -176,7 +179,7 @@ public class SubmissionDAO {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-        
+
         return rowCount;
     }
 }
