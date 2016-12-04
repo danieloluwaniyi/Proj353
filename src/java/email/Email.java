@@ -86,7 +86,7 @@ public class Email implements Serializable {
     }
     
         
-            public void adminLoginEmail() {
+        public void adminLoginEmail() {
         String to = "snehsonu1@ilstu.edu";
         String username = "snehsonu1@gmail.com";
         String password = "sohanlal";
@@ -146,7 +146,7 @@ public class Email implements Serializable {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(email));
             message.setSubject("Congratulations...");
-            message.setText("You have been paid Royalty for your paintings.");
+            message.setText("You have been paid Royalty for your painting.");
                     
 
             Transport.send(message);
