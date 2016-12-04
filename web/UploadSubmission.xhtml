@@ -45,11 +45,12 @@
                                    update="messages" fileLimit="3" process="param" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" style="background-color: transparent; color: white;">
                         <f:param name ="userId" value="#{loginController.profile.userID}"/>
                     </p:fileUpload>
+                    <p:growl id="messages" showDetail="true" />
                 </h:panelGrid>
             </p:panel>
 
 
-            <p:growl id="messages" showDetail="true" />
+            
             <p:commandButton value="View Current Submissions" action="dashboard.xhtml?faces-redirect=true" style="background-color: transparent; color: white;"/>
             <!--Ads-->
 

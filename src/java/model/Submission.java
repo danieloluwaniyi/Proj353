@@ -10,6 +10,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +44,7 @@ public class Submission implements Serializable {
     private int numRaters;
     private String tags;
     private int searchParam;//1->all, 2->tags, 3->tbd
+    private String formattedPrice;
 
     public int getNumRaters() {
         return numRaters;
@@ -229,4 +232,17 @@ public class Submission implements Serializable {
         this.tags = tags;
     }
 
+
+    public String getFormattedPrice() {
+         NumberFormat formatter = new DecimalFormat("#0.00"); 
+   
+        return formatter.format(price);
+
+    }
+
+    public void setFormattedPrice(String formattedPrice) {
+        this.formattedPrice = formattedPrice;
+    }
+
+    
 }
