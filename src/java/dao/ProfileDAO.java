@@ -15,9 +15,6 @@ import javax.faces.bean.SessionScoped;
 import model.Profile;
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
  *
  * Reference: http://javaonlineguide.net/2016/01/how-to-display-images-in-datatable-using-pgraphicimage-in-primefaces.html
                https://www.mkyong.com/hibernate/hibernate-save-image-into-database/
@@ -341,6 +338,7 @@ public class ProfileDAO implements Serializable {
         return retVal;
     }
     
+    //For login
     public boolean checkPasswordExists(String userID, String password) {
         boolean retVal = false;
         
@@ -358,13 +356,51 @@ public class ProfileDAO implements Serializable {
             PreparedStatement pstmt = DBConn.prepareStatement(query);
             pstmt.setString(1, userID);
             ResultSet rs = pstmt.executeQuery();
-            String oldPass = null;
+            String passInDB = null;
             if(rs.next()) {
-                oldPass = rs.getString("password");
+                passInDB = rs.getString("password");
             } else {
                 retVal = false;
             }
-            if (oldPass.equals(password)) {
+            if (passInDB.equals(password)) {
+                retVal = true;
+            }
+            DBConn.close();
+        } catch (SQLException ex) {
+            System.out.println(ex + " was caught.");
+            retVal = false;
+        } catch (NullPointerException ne) {
+            System.out.println("Null was caught");
+            retVal = false;
+        }
+        return retVal;
+    }
+    
+    //For update
+    public boolean checkPasswordExists(String password) {
+        boolean retVal = false;
+        
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(0);
+        }
+
+        String myDB = "jdbc:derby://localhost:1527/project353";
+        try {
+            Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
+            String query = "SELECT * FROM Project353.Users WHERE user_id = ?";
+            PreparedStatement pstmt = DBConn.prepareStatement(query);
+            pstmt.setString(1, this.profile.getUserID());
+            ResultSet rs = pstmt.executeQuery();
+            String passInDB = null;
+            if(rs.next()) {
+                passInDB = rs.getString("password");
+            } else {
+                retVal = false;
+            }
+            if (passInDB.equals(password)) {
                 retVal = true;
             }
             DBConn.close();

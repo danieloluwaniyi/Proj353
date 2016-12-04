@@ -170,7 +170,7 @@ public class ProfileController implements Serializable {
         return retVal;
     }
     //End of singup page methods by Suguru
-
+    
   //Updates
     public String updateName() {
         String retVal = null;
