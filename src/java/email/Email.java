@@ -264,7 +264,7 @@ public class Email implements Serializable {
                     new InternetAddress(to));
 
             // Set Subject: header field
-            message.setSubject("ccount Created");
+            message.setSubject("Submissioins Portal: Account Created");
             // Send the actual HTML message, as big as you like
             message.setContent("Hi " + profile.getFirstName() + "," + "<br/>" + "You have been Succesfully signed up with Submissions Portal!" + "<br/><br/>"
                     + "Your UserID :" + profile.getUserID() + "<br/>"
@@ -328,7 +328,7 @@ public class Email implements Serializable {
 
             if (type.equals("name")) {
                 // Set Subject: header field
-                message.setSubject("Name updated");
+                message.setSubject("Submissioins Portal: Name updated");
                 // Send the actual HTML message, as big as you like
                 message.setContent("Your name has been updated!" + "<br/><br/>"
                         + "First name: " + profile.getFirstName() + "<br/>"
@@ -338,7 +338,7 @@ public class Email implements Serializable {
                         "text/html");
             } else if (type.equals("email")) {
                 // Set Subject: header field
-                message.setSubject("Email updated");
+                message.setSubject("Submissioins Portal: Email updated");
                 // Send the actual HTML message, as big as you like
                 message.setContent("Your email has been updated!" + "<br/><br/>"
                         + "New email: " + profile.getEmail() + "<br/>"
@@ -347,7 +347,7 @@ public class Email implements Serializable {
                         "text/html");
             } else if (type.equals("password")) {
                 // Set Subject: header field
-                message.setSubject("Password updated");
+                message.setSubject("Submissioins Portal: Password updated");
                 // Send the actual HTML message, as big as you like
                 message.setContent("Your password has been updated!" + "<br/><br/>"
                         + "New email: " + profile.getPassword() + "<br/>"
