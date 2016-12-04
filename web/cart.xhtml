@@ -9,30 +9,43 @@
     </h:head>
     <h:body>
         <h:form>
-            <h:dataTable value="#{sp.cart}" var="i" border="1" cellpadding="7px" style=" border-collapse: collapse">
-                <h:column>
+            <p:dataTable value="#{sp.cart}" var="i" style=" border-collapse: collapse" id="cartid">
+                <p:column>
                     <f:facet name="header">ID</f:facet>
                     #{i.item.submissionId}
-                </h:column>
-                <h:column>
+                </p:column>
+                <p:column>
                     <f:facet name="header">Quantity</f:facet>
-                    <h:inputText value="#{i.quantity}" style="width:20px"/>
-                </h:column>
-                <h:column>
+                    <p:inputText value="#{i.quantity}" style="width:20px"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Price</f:facet>
+                    <p:inputText value="#{i.item.price}" style="width:40px"/>
+                </p:column>
+                <p:column>
                     <f:facet name="header">Picture</f:facet>
                     <p:graphicImage style="width:46px;height:46px" value="#{submissionController.theModel.submission}">
                         <f:param name="sid" value="#{i.item.submissionId}"/>
                        </p:graphicImage>
                                  
-                </h:column>
-                <h:column>
+                </p:column>
+                <p:column>
                     <f:facet name="header">
-                        Action
+                       Action 
                    </f:facet>
-                    Delete
-                </h:column>
-            </h:dataTable>
+                    <p:commandButton update="cartid" value="delete" action="#{sp.remove(i)}"/>
+                </p:column>
+                <f:facet name="footer">Total: $#{sp.total}</f:facet>
+            </p:dataTable>
+            <p:commandButton value="Update"
+                             action ="#{sp.update}" update="cartid"/>
+            <p:commandButton value="Checkout"
+                             action ="checkout?faces-redirect=true" update="cartid"/>
+            <p:commandLink id="dashredirect" action="dashboard?faces-redirect=true" ajax="false">
+        <h:outputText value="Back to dashboard" />
+    </p:commandLink>
         </h:form>
+        
     </h:body>
 </html>
 

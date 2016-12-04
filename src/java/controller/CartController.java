@@ -6,16 +6,17 @@
 package controller;
 
 import dao.ProfileDAO;
-import static java.lang.Boolean.FALSE;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import model.Order;
 import model.Profile;
 import model.Submission;
 import dao.CartDAO;
-import static java.lang.Boolean.TRUE;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import javax.faces.context.FacesContext;
 import model.OrderItems;
 
 
@@ -34,6 +35,14 @@ public class CartController {
     private CartDAO cartDAO;
     private List <OrderItems>cart = new ArrayList<>();
     private double total;
+
+    public CartController() {
+        
+        this.order = new Order();
+        cartDAO = new CartDAO();
+    }
+    
+    
     
     public String addtoCart(Submission s)
     {
@@ -41,7 +50,7 @@ public class CartController {
         for(OrderItems item:cart){
             if(item.getItem().getSubmissionId()== s.getSubmissionId()){
                 item.setQuantity(item.getQuantity()+1);
-                return "cart.xhtml";
+                return "cart.xhtml?faces-redirect=true";
             }
         }
         
@@ -50,7 +59,7 @@ public class CartController {
         i.setQuantity(1);
         i.setItem(s);
         cart.add(i);
-        return "cart.xhtml";
+        return "cart.xhtml?faces-redirect=true";
         
     }
     
@@ -63,6 +72,10 @@ public class CartController {
     }
 
     public double getTotal() {
+        total=0;
+        for(OrderItems item:cart){
+            total=total+(item.getQuantity()*item.getItem().getPrice());
+        }
         return total;
     }
 
@@ -70,38 +83,41 @@ public class CartController {
         this.total = total;
     }
     
-
-    
-    
-    public boolean itemsCount(){
-        
-        boolean retVal= FALSE;
-        
-        if(cartDAO.cartLength()>0)
-            retVal= TRUE;
-            
-        return retVal;
-    }
-
-    public boolean addToCart()throws Exception  {
-        boolean retVal = false;
-        try {
-            int[] list = order.getCart();
-            int cartLength;
-            cartLength = list.length - 1;
-            list[cartLength] = sub.getSubmissionId();
-            retVal = true;
+    public void remove(OrderItems i){
+        for(OrderItems item: cart){
+            if(item.equals(i)){
+                cart.remove(item);
+                break;
+            }
         }
-        catch(Exception e){ System.out.println("error");}
-        return retVal;
-    }
-
-    public String plcaeOrder(){
-        String retStr = "Something is wrong in processing the order";
-        
-            
-        
-        return retStr;
     }
     
+    public void update(){
+        //Skeleton to update page
+    }
+    
+    public String processOrder() throws SQLException{
+        //remember to check if cart is empty
+        
+        this.order.setCart(cart);
+        FacesContext fc = FacesContext.getCurrentInstance();;
+        Map<String,String> params =
+                fc.getExternalContext().getRequestParameterMap();
+	 String userID = params.get("userId");
+        cartDAO.placeOrder(userID, order, total);
+        
+        return "orderConfirmation.xhtml?faces-redirect=true";
+        
+        
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+    
+
 }

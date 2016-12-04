@@ -10,7 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import model.Order;
+import model.OrderItems;
 import model.Submission;
 import model.Profile;
 
@@ -24,11 +26,7 @@ public class CartDAO {
     private Submission submission;
     private Order order;
     
-    public double cartLength(){
-        int[] subs = order.getCart();
-        return subs.length;
-    
-    }
+
     
     
     public double totalGet(String q){
@@ -51,7 +49,7 @@ public class CartDAO {
         return totalPrice;
      }
         
-    public boolean placeOrder(String id) throws SQLException{
+    public boolean placeOrder(String userId,Order order,double price) throws SQLException{
       
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
         String myDB = "jdbc:derby://localhost:1527/project353";
@@ -59,26 +57,22 @@ public class CartDAO {
         boolean retVal = false;
         
         
-        double total =0;
+        double total =price;
         String subid="";
-        int[] subs = order.getCart();
+        List<OrderItems> subs = order.getCart();
         
-        for(int i =0; i < subs.length;i++){
-            subid = subs[i]+";";
-        }
-        
-       
-        for (int i =0; i<subs.length;i++){
-            String getpricequery = "Select price from submissions werere submission_id="+subs[i];
-            total = total + totalGet(getpricequery);
+        for(int i =0; i < subs.size();i++){
+            subid += subs.get(i).getItem().getSubmissionId()+";";
         }
         
         
-        String insertString = "INSERT INTO ORDERS (User_id, submission_id, total) VALUES (?, ?, ?)";
+        
+        String insertString = "INSERT INTO Project353.ORDERS (User_id, submission_id, total) VALUES (?, ?, ?)";
         PreparedStatement pstmt = DBConn.prepareStatement(insertString);
-            pstmt.setString(1, profile.getUserID());
+            pstmt.setString(1, userId);
             pstmt.setString(2, subid);
             pstmt.setDouble(3, total);
+            pstmt.execute();
         return retVal;
     }
 }

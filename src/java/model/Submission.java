@@ -5,12 +5,10 @@
  */
 package model;
 
-import dao.ProfileDAO;
 import dao.SubmissionDAO;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import javax.inject.Named;
-import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

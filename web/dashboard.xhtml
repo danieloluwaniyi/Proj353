@@ -161,7 +161,11 @@ and open the template in the editor.
 
                     <h:panelGrid columns="1" style="margin: 10 auto">
                         <br/><h:outputLabel value="Items in Cart: " />
-                        <h:outputText value="0" /></h:panelGrid>
+                        <h:outputText value="$#{sp.total}" />
+                        
+                        <br/><h:outputLabel value="Cart total: " />
+                        <h:outputText value="$#{sp.total}" />
+                    </h:panelGrid>
 
                     <p:commandButton value="View Cart" id="disabled" action="cart?faces-redirect=true" />
                 </p:layoutUnit>
