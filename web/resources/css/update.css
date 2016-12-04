@@ -56,3 +56,8 @@
                 left:92%;
                 top:97%;
             }
+            .switch {
+                position: absolute;
+                left: 15%;
+                top: 89%;
+            }

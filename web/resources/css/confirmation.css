@@ -54,3 +54,8 @@ body {
     left:35%;
     top:25%;
 }
+.switch {
+    position: absolute;
+    left: 15%;
+    top: 89%;
+}

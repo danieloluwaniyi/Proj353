@@ -9,7 +9,8 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Update</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -60,13 +61,15 @@ and open the template in the editor.
                 <p:outputLabel value="Password: "/><p:password value="#{loginController.profile.password}" readonly="true"/><p:commandButton class="button" id="updatePassword" value="Update Password" action="passwordUpdate?faces-redirect=true" style="width: 210px;"/>
             </h:panelGrid>
             <!--Ads-->
-            <p:imageSwitch class="switch" effect="fade" id="fadeEffect">
-                <ui:repeat value="#{imagesView.images}" var="image" id="fadeEffectImages">
-                    <h:outputLink value="https://www.expedia.com/">
-                        <p:graphicImage name="DashImages/#{image}" id="image" width="1000" height="100"/>
-                    </h:outputLink>
-                </ui:repeat>
-            </p:imageSwitch>
+            <c:if test="#{loginController.profile.paid == false}">
+                <p:imageSwitch class="switch" effect="fade" id="fadeEffect">
+                    <ui:repeat value="#{imagesView.images}" var="image" id="fadeEffectImages">
+                        <h:outputLink value="https://www.expedia.com/">
+                            <p:graphicImage name="DashImages/#{image}" id="image" width="1000" height="100"/>
+                        </h:outputLink>
+                    </ui:repeat>
+                </p:imageSwitch>
+            </c:if>
             <!--Ads-->
         </h:form>
     </h:body>

@@ -4,7 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Submission Upload</title>
     </h:head>
@@ -53,7 +54,7 @@
             
             <p:commandButton value="View Current Submissions" action="dashboard.xhtml?faces-redirect=true" style="background-color: transparent; color: white;"/>
             <!--Ads-->
-
+            <c:if test="#{loginController.profile.paid == false}">
             <p:imageSwitch class="switch" effect="fade" id="fadeEffect">
                 <ui:repeat value="#{imagesView.images}" var="image" id="fadeEffectImages">
                     <h:outputLink value="https://www.expedia.com/">
@@ -61,6 +62,7 @@
                     </h:outputLink>
                 </ui:repeat>
             </p:imageSwitch>
+                </c:if>
             <!--Ads-->
         </h:form>
     </h:body>
