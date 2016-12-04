@@ -234,6 +234,8 @@ public class ProfileDAO implements Serializable {
                     profile.setEmail(rs.getString("email"));
                     profile.setPaid(rs.getBoolean("paid"));
                     profile.setNameOnCard(rs.getString("nameOnCard"));
+                    profile.setCreditCardNum("creditCardNum");
+                    profile.setSecurityCode("securityCode");
                     profile.setExpirationMonth(rs.getInt("expirationMonth"));
                     profile.setExpirationYear(rs.getInt("expirationYear"));
                     profile.setLoggedIn(true);

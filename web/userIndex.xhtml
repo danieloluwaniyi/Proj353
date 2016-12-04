@@ -10,7 +10,8 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>User Index Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -44,6 +45,7 @@ and open the template in the editor.
                 </f:facet>
             </p:toolbar>
             <!--Ads-->
+            <c:if test="#{loginController.profile.paid == false}">
             <p:imageSwitch class="switch" effect="fade" id="fadeEffect">
                 <ui:repeat value="#{imagesView.images}" var="image" id="fadeEffectImages">
                     <h:outputLink value="https://www.expedia.com/">
@@ -51,6 +53,7 @@ and open the template in the editor.
                     </h:outputLink>
                 </ui:repeat>
             </p:imageSwitch>
+                </c:if>
             <!--Ads-->
         </h:form>
     </h:body>
