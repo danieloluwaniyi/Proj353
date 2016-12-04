@@ -1,50 +1,70 @@
+package dao;
 
-import dao.DBHelper;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import model.Royalty;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-
-
 @ManagedBean
 @SessionScoped
-public class RoyaltyBean {
-
-    public List<Royalty> getRoyaltyList() {
+public class RoyaltyBean implements Serializable {
+    
+//    private 
+//    
+//    public List<String> getUserEmail() throws SQLException{
+//        
+//    
+//    }
+//    
+    
+    public List<Royalty> getRoyaltyList() throws SQLException {
         List<Royalty> list = new ArrayList<Royalty>();
-        PreparedStatement ps = null;
-        Connection con = null;
-        ResultSet rs = null;
+        DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
+        String myDB = "jdbc:derby://localhost:1527/project353";
+        Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         try {
-            DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-            con = DriverManager.getConnection("jdbc:derby://localhost:1527/project353", "itkstu", "student");
-            String sql = "select * from ROYALTY where ROYALTY_PAID = ?";
-            ps = con.prepareStatement(sql);
-            ps.setBoolean(1, false);
-            rs = ps.executeQuery();
+            String sql = "select * from project353.ROYALTY where ROYALTY_PAID = FALSE";
+            Statement s = DBConn.createStatement();
+            ResultSet rs = s.executeQuery(sql);
             while (rs.next()) {
                 Royalty roy = new Royalty();
-                roy.setUserID("USER_ID");
+                roy.setUserID(rs.getString("USER_ID"));
                 roy.setSubID(rs.getDouble("SUBMISSION_ID"));
                 roy.setAmount(rs.getDouble("ROYALTY_AMOUNT"));
                 list.add(roy);
             }
+            DBConn.close();
+            s.close();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                con.close();
-                ps.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
         return list;
+    }
+
+    public String payRoyalty() {
+        String retVal = null;
+        DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
+        String myDB = "jdbc:derby://localhost:1527/project353";
+        Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
+        try {
+            String sql = "update project353.ROYALTY set ROYALTY_PAID = TRUE where ROYALTY_PAID = FALSE";
+            Statement s = DBConn.createStatement();
+            int i = s.executeUpdate(sql);
+            DBConn.close();
+            s.close();
+            retVal = "goodadmin?faces-redirect=true";
+            } catch (Exception e) {
+            retVal = "";
+        }
+        return retVal;
     }
 }
