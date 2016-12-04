@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Credit Card Authentication</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style>
+            .conf {
+                height: 45px;
+                width: 250px;
+                font-size: 130%;
+                background-color: transparent;
+                text-align: center;
+                color: white
+            }
+        </style>
+        <!--<h:outputScript library="js" name="proj353.js"/>-->
+    </h:head>
+    <body>
+        <h:outputStylesheet library="css" name="beforeLogin.css"/>
+        <h:form id="checkoutForm">
+            <p:growl id="messages" showDetail="true" />
+            <p:toolbar style="background-color: dodgerblue; color: white; height: 100; font-size: 32px" >
+                <f:facet name="left">
+                    <p:outputLabel value="Submissions Portal" />
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton class="button" value="Log in" action="home?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
+                </f:facet>
+                <f:facet name="right">
+                </f:facet>
+            </p:toolbar>
+        </h:form>
+        <h:form>
+            <h:panelGrid columns="1" class="panelGrid">
+                <f:facet name="header">
+                    <h:outputText class="header1" value="Order Checkout"/>
+                </f:facet>
+                <!--Name on the Card-->
+                <p:outputLabel class="outputLabel" value="Total Order Amount"/>
+                <p:inputText class="inputText" value="$#{sp.total}" disabled="true"/>
+
+                <p:outputLabel class="outputLabel" value="Name on card"/>
+                <p:inputText class="inputText" value="#{sp.order.nameOnCard}" placeholder="Name" required="true">
+                    <p:keyFilter regEx="/[A-Z\s]/i"/>
+                </p:inputText>
+
+                <!--Card Number-->
+                <p:outputLabel class="outputLabel" value="Card number"/>
+                <p:inputText class="inputText" id="cardNum" value = "#{sp.order.creditCardNum}" maxlength="16" placeholder="Card number" required="true">
+                    <!--<f:ajax event="keydown" execute="cardNum" render="cardNum"/>-->
+                    <p:keyFilter regEx="/[0-9]/i"/>
+                </p:inputText>
+                <!--Security code-->
+                <p:outputLabel class="outputLabel" value="Security code"/>
+                <p:inputText class="inputText" id="securityCode" value="#{sp.order.securityCode}" maxlength="3" placeholder="Security code" required="true">
+                    <p:keyFilter regEx="/[0-9]/i"/>
+                </p:inputText>
+
+
+
+
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:outputLabel class="outputLabel" value="Expiration date"/>
+                    <br/>
+                    <p:outputLabel class="expiration" value="Month"/>
+                    <p:outputLabel class="expiration" value="Year"/>
+                    <p:selectOneMenu value="#{sp.order.expirationMonth}" required="true">
+                        <f:selectItems value="#{sp.order.months}"/>
+                    </p:selectOneMenu>
+
+                    <p:selectOneMenu id="year" value="#{sp.order.expirationYear}" style="width:80px" required="true">
+                        <f:selectItems class="dropdown" value="#{sp.order.years}" />                
+                    </p:selectOneMenu>
+
+                </h:panelGrid>
+                <p:commandButton class="conf" value="Complete Payment" action="#{sp.processOrder}">
+                    <f:param name="userId" value="#{loginController.profile.userID}" />
+                </p:commandButton>
+            </h:panelGrid>
+        </h:form>
+    </body>
+</html>

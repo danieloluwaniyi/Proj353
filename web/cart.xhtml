@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:dataTable value="#{sp.cart}" var="i" style=" border-collapse: collapse" id="cartid">
+                <p:column>
+                    <f:facet name="header">ID</f:facet>
+                    #{i.item.submissionId}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Quantity</f:facet>
+                    <p:inputText value="#{i.quantity}" style="width:20px"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Price</f:facet>
+                    <p:inputText value="#{i.item.price}" style="width:40px"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Picture</f:facet>
+                    <p:graphicImage style="width:46px;height:46px" value="#{submissionController.theModel.submission}">
+                        <f:param name="sid" value="#{i.item.submissionId}"/>
+                       </p:graphicImage>
+                                 
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                       Action 
+                   </f:facet>
+                    <p:commandButton update="cartid" value="delete" action="#{sp.remove(i)}"/>
+                </p:column>
+                <f:facet name="footer">Total: $#{sp.total}</f:facet>
+            </p:dataTable>
+            <p:commandButton value="Update"
+                             action ="#{sp.update}" update="cartid"/>
+            <p:commandButton value="Checkout"
+                             action ="checkout?faces-redirect=true" update="cartid"/>
+            <p:commandLink id="dashredirect" action="dashboard?faces-redirect=true" ajax="false">
+        <h:outputText value="Back to dashboard" />
+    </p:commandLink>
+        </h:form>
+        
+    </h:body>
+</html>
+

@@ -24,19 +24,20 @@ public class EmailMatchChecker implements Validator {
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         
         String email = value.toString();
-        UIInput uiInputEmail = (UIInput) component.getAttributes().get("email");
+//        UIInput uiInputEmail = (UIInput) component.getAttributes().get("emailConfirmation");
+        UIInput uiInputConfEmail = (UIInput) component.getAttributes().get("emailConfirmation");
         String confEmail = null;
                 try {
-	confEmail = uiInputEmail.getSubmittedValue().toString();
+	confEmail = uiInputConfEmail.getSubmittedValue().toString();
         } catch (NullPointerException ne) {
             System.out.println("NullPointerException was caught");
         }
 
         if (email != null && confEmail != null) {
-            if (!email.equals(uiInputEmail)) {
+            if (!email.equals(confEmail)) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "info", "Password must match confirm password."));
                 throw new ValidatorException(new FacesMessage(
-                        "Email must match confirm email."));
+                        "Email must match the confirm email."));
             }
         }
 

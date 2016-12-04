@@ -9,7 +9,8 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>User Index Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -99,23 +100,20 @@ and open the template in the editor.
                         <span class="ui-icon ui-icon-grip-dotted-vertical"/>
                     </span>
                 </f:facet>
-                
+
                 <f:facet name="right">
                     <p:commandButton class="button" value="Log out" action="#{loginController.logout()}" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
                 </f:facet>
                 <f:facet name="right">
                 </f:facet>
             </p:toolbar>
+            <p:imageSwitch class="switch" effect="fade" id="fadeEffect">
+                <ui:repeat value="#{imagesView.images}" var="image" id="fadeEffectImages">
+                    <p:link outcome="https://www.yahoo.com/">
+                        <p:graphicImage name="DashImages/#{image}" id="image" />
+                    </p:link>
+                </ui:repeat>
+            </p:imageSwitch>
         </h:form>
-<!--        <h:form>
-            <div class="container">
-
-                <div class="fake_img"><p:graphicImage styleClass="centered" alt="image" name="DashImages/ViewWinner.jpg"  /></div>
-                <div class="fake_img"><h:commandLink action="update?faces-redirect=true"><p:graphicImage styleClass="centered" alt="image" name="DashImages/update Profile.jpg"  /></h:commandLink></div>
-                <div class="fake_img"><h:commandLink action="UploadSubmission?faces-redirect=true"><p:graphicImage styleClass="centered" alt="image" name="DashImages/upload submission.jpg"  /></h:commandLink></div>
-                <div class="fake_img"><h:commandLink action="dashboard?faces-redirect=true"><p:graphicImage styleClass="centered" alt="image" name="DashImages/viewdash.jpg"  /></h:commandLink></div>
-                <div class="fake_img"><p:graphicImage styleClass="centered" alt="image" name="DashImages/viewsponsr.jpg"  /></div>
-            </div>
-        </h:form>-->
     </h:body>
 </html>

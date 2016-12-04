@@ -4,7 +4,9 @@ import dao.ProfileDAO;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
@@ -16,6 +18,8 @@ import javax.faces.validator.ValidatorException;
  *
  * @author Suguru
  */
+@ManagedBean
+@SessionScoped
 @FacesValidator("passwordUpdateChecker")
 public class PasswordUpdateChecker implements Validator {
 
