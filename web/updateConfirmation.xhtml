@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>Update Confirmation</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -35,11 +36,20 @@
                 <f:facet name="right">
                 </f:facet>
             </p:toolbar>
-            
+
             <h:panelGrid class="panelGrid" columns="1" cellpadding="10">
                 <p:outputLabel value="#{profileController.updateMsg} has been updated!" escape="false" style="font-size: 200%"/>
                 <p:commandButton class="button" value="Main" action="userIndex?faces-redirect=true" style="position: absolute; left: 42.5%"/>
             </h:panelGrid>
+            <!--Ads-->
+            <p:imageSwitch class="switch" effect="fade" id="fadeEffect">
+                <ui:repeat value="#{imagesView.images}" var="image" id="fadeEffectImages">
+                    <h:outputLink value="https://www.expedia.com/">
+                        <p:graphicImage name="DashImages/#{image}" id="image" width="1000" height="100"/>
+                    </h:outputLink>
+                </ui:repeat>
+            </p:imageSwitch>
+            <!--Ads-->
         </h:form>
     </h:body>
 </html>

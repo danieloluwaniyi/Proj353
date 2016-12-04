@@ -13,12 +13,10 @@ public class ImagesView {
     @PostConstruct
     public void init() {
         images = new ArrayList<String>();
-        for (int i = 1; i <= 5; i++) {
-            images.add("ViewWinner.jpg");
-            images.add("update Profile.jpg");
-            images.add("upload submission.jpg");
-            images.add("viewdash.jpg");
-            images.add("viewsponsor.jpg");
+        for (int i = 1; i <= 3; i++) {
+            images.add("ad1.gif");
+            images.add("ad2.jpg");
+            images.add("ad3.jpg");
         }
     }
  
