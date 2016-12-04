@@ -6,60 +6,13 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>Dashboard</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <style>
-            h1 {
-                color: white;
-                background-color: blue;
-            }
-            body {
-                background-color: dodgerblue;
-                color: white;
-            }
-            .button {
-                background-color: blue;
-                color: white;
-            }
-            .top {
-                font-family: Arial;
-                font-weight: normal;
-                font-size: 150%;
-                display:block;
-                text-align: center;
-            }
-            .outputLabel {
-                font-family: Arial;
-                font-weight: bold;
-                font-size: 80%;
-                text-align: left;
-            }
-            .inputText {
-                height: 20px;
-                width: 200px;
-                font-size: 100%;
-            }
-            .button {
-                height: 40px;
-                width: 210px;
-                font-size: 130%;
-                background-color: transparent;
-            }
-            .panelGrid {
-                /*                display:block;
-                                text-align: center;*/
-                margin: 0 auto;
-            }
-            .admin {
-                position:absolute;
-                left:92%;
-                top:97%;
-            }
-        </style>
     </h:head>
     <h:body>
         <h:outputStylesheet library="css" name="afterLogin.css"/>
@@ -71,11 +24,11 @@ and open the template in the editor.
                 </f:facet>
                 <f:facet name="right">
 
-                    <p:commandButton class="button" value="View Winners" style="background-color: transparent; color: white; font-size: 20px; width: 120px" />
-                    <p:commandButton class="button" value="Update Profile" action="update?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 120px" />
-                    <p:commandButton class="button" value="Upload Submission" action="UploadSubmission?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 150px "/>
-                    <p:commandButton class="button" value="View Dashboard" action="dashboard?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 140px "/>
-                    <p:commandButton class="button" value="View Sponsors" style="background-color: transparent; color: white; font-size: 20px; width: 120px" />                    
+                    <p:commandButton class="button" value="View Winners" style="background-color: transparent; color: white; font-size: 16px; width: 120px" />
+                    <p:commandButton class="button" value="Update Profile" action="update?faces-redirect=true" style="background-color: transparent; color: white; font-size: 16px; width: 120px; alignment-adjust: middle" />
+                    <p:commandButton class="button" value="Upload Submission" action="UploadSubmission?faces-redirect=true" style="background-color: transparent; color: white; font-size: 16px; width: 150px "/>
+                    <p:commandButton class="button" value="View Dashboard" action="dashboard?faces-redirect=true" style="background-color: transparent; color: white; font-size: 16px; width: 140px "/>
+                    <p:commandButton class="button" value="View Sponsors" style="background-color: transparent; color: white; font-size: 16px; width: 120px" />                    
 
                     <span class="ui-separator">    
                         <span class="ui-icon ui-icon-grip-dotted-vertical"/>
@@ -90,7 +43,8 @@ and open the template in the editor.
             </p:toolbar>
         </h:form>
         <h:form id="form" >
-            <p:layout style="background-color: lightblue">
+
+            <p:layout fullPage="false" >
                 <p:layoutUnit position = "center">   
 
                     <p:dataGrid var="image" value="#{submissionController.theModel.submissionList}" columns="3"
@@ -166,6 +120,15 @@ and open the template in the editor.
                     <p:commandButton value="View Cart" id="disabled" disabled="true" />
                 </p:layoutUnit>
             </p:layout>
+            <!--Ads-->
+            <p:imageSwitch class="switch" effect="fade" id="fadeEffect">
+                <ui:repeat value="#{imagesView.images}" var="image" id="fadeEffectImages">
+                    <h:outputLink value="https://www.expedia.com/">
+                        <p:graphicImage name="DashImages/#{image}" id="image" width="1000" height="100"/>
+                    </h:outputLink>
+                </ui:repeat>
+            </p:imageSwitch>
+            <!--Ads-->
         </h:form>
     </h:body>
 </html>

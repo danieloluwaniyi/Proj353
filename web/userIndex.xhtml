@@ -14,74 +14,10 @@ and open the template in the editor.
     <h:head>
         <title>User Index Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <style>
-            .container{
-                text-align:center;
-
-                border:none;
-                margin:auto
-            }
-
-            .fake_img{
-                display:inline-block;
-                margin:5px 20px;
-                padding:5px;
-
-                border:none;
-            }
-            h1 {
-                color: white;
-                background-color: blue;
-            }
-            body {
-                background-color: dodgerblue;
-                color: white;
-            }
-            .button {
-                background-color: blue;
-                color: white;
-            }
-            .top {
-                font-family: Arial;
-                font-weight: normal;
-                font-size: 150%;
-                display:block;
-                text-align: center;
-            }
-            .outputLabel {
-                font-family: Arial;
-                font-weight: bold;
-                font-size: 80%;
-                text-align: left;
-            }
-            .inputText {
-                height: 20px;
-                width: 200px;
-                font-size: 100%;
-            }
-            .button {
-                background-color: transparent;
-                color: white;
-                font-size: 20px;
-                width: 120px;
-                /*                height: 40px;
-                                width: 210px;
-                                font-size: 130%;
-                                background-color: transparent;*/
-            }
-            .panelGrid {
-                /*                display:block;
-                                text-align: center;*/
-                margin: 0 auto;
-            }
-            .admin {
-                position:absolute;
-                left:92%;
-                top:97%;
-            }
-        </style>
     </h:head>
     <h:body>
+        <h:outputStylesheet library="css" name="userIndex.css"/>
+
         <h:form>
             <p:growl id="messages" showDetail="true" />
             <p:toolbar style="background-color: transparent; color: white; height: 100; font-size: 32px" >
@@ -107,13 +43,15 @@ and open the template in the editor.
                 <f:facet name="right">
                 </f:facet>
             </p:toolbar>
+            <!--Ads-->
             <p:imageSwitch class="switch" effect="fade" id="fadeEffect">
                 <ui:repeat value="#{imagesView.images}" var="image" id="fadeEffectImages">
-                    <p:link outcome="https://www.yahoo.com/">
-                        <p:graphicImage name="DashImages/#{image}" id="image" />
-                    </p:link>
+                    <h:outputLink value="https://www.expedia.com/">
+                        <p:graphicImage name="DashImages/#{image}" id="image" width="1000" height="100"/>
+                    </h:outputLink>
                 </ui:repeat>
             </p:imageSwitch>
+            <!--Ads-->
         </h:form>
     </h:body>
 </html>
