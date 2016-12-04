@@ -37,19 +37,20 @@
             </p:toolbar>
         </h:form>
         <h:form id="form" enctype="multipart/form-data">
-            <!--
-            User Name:&emsp;&emsp;&emsp;<h:outputText id="userID" value="">
-                 </h:outputText><br/><br/>
-            -->
-            Testing:<p:inputText id="param" value="#{loginController.profile.userID}"></p:inputText><br/>
-            Enter Tags here:<p:inputText value="#{submissionController.theModel.tags}"/><br/>
-            <p:fileUpload  fileUploadListener="#{submissionController.theModel.insertImage}" mode="advanced" dragDropSupport="false"
-                           update="messages" fileLimit="3" process="param" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" style="background-color: transparent; color: white;">
-                <f:param name ="userId" value="#{loginController.profile.userID}"/>
-            </p:fileUpload>
+            <p:panel id="basic" header="Upload" style="margin-bottom:20px">
+                <h:panelGrid columns="1" cellpadding="10">
+                    Username:<p:inputText disabled="true" id="param" value="#{loginController.profile.userID}"></p:inputText>
+                    Tag Image:<p:inputText placeholder="Optional" value="#{submissionController.theModel.tags}"/>
+                    <p:fileUpload  fileUploadListener="#{submissionController.theModel.insertImage}" mode="advanced" dragDropSupport="false"
+                                   update="messages" fileLimit="3" process="param" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" style="background-color: transparent; color: white;">
+                        <f:param name ="userId" value="#{loginController.profile.userID}"/>
+                    </p:fileUpload>
+                </h:panelGrid>
+            </p:panel>
+
 
             <p:growl id="messages" showDetail="true" />
-            <p:commandButton value="View Current Submissions" action="dashboard.xhtml?faces-redirect=true" style="background-color: transparent; color: white;"/>
+            <p:commandButton value="View Current Submissions" action="dashboard.xhtml?faces-redirect=true" style="margin:0;background-color: transparent; color: white;"/>
         </h:form>
     </h:body>
 </html>

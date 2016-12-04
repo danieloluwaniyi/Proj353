@@ -107,13 +107,7 @@ and open the template in the editor.
                 <f:facet name="right">
                 </f:facet>
             </p:toolbar>
-            <p:imageSwitch class="switch" effect="fade" id="fadeEffect">
-                <ui:repeat value="#{imagesView.images}" var="image" id="fadeEffectImages">
-                    <p:link outcome="https://www.yahoo.com/">
-                        <p:graphicImage name="DashImages/#{image}" id="image" />
-                    </p:link>
-                </ui:repeat>
-            </p:imageSwitch>
+
         </h:form>
     </h:body>
 </html>
