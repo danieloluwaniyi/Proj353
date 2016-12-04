@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,13 +10,11 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import model.Profile;
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
  *
  * Reference: http://javaonlineguide.net/2016/01/how-to-display-images-in-datatable-using-pgraphicimage-in-primefaces.html
                https://www.mkyong.com/hibernate/hibernate-save-image-into-database/
@@ -27,7 +26,11 @@ import model.Profile;
  */
 @ManagedBean
 @SessionScoped
-public class ProfileDAO {
+public class ProfileDAO implements Serializable {
+    
+    // Returns null....
+    @ManagedProperty("#{profile}")
+    private Profile profile;
 
     //Checks if the userID & email are already exist.
     public boolean checkUserExists(String userID) {
@@ -334,6 +337,82 @@ public class ProfileDAO {
 
         return retVal;
     }
+    
+    //For login
+    public boolean checkPasswordExists(String userID, String password) {
+        boolean retVal = false;
+        
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(0);
+        }
+
+        String myDB = "jdbc:derby://localhost:1527/project353";
+        try {
+            Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
+            String query = "SELECT * FROM Project353.Users WHERE user_id = ?";
+            PreparedStatement pstmt = DBConn.prepareStatement(query);
+            pstmt.setString(1, userID);
+            ResultSet rs = pstmt.executeQuery();
+            String passInDB = null;
+            if(rs.next()) {
+                passInDB = rs.getString("password");
+            } else {
+                retVal = false;
+            }
+            if (passInDB.equals(password)) {
+                retVal = true;
+            }
+            DBConn.close();
+        } catch (SQLException ex) {
+            System.out.println(ex + " was caught.");
+            retVal = false;
+        } catch (NullPointerException ne) {
+            System.out.println("Null was caught");
+            retVal = false;
+        }
+        return retVal;
+    }
+    
+    //For update
+    public boolean checkPasswordExists(String password) {
+        boolean retVal = false;
+        
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(0);
+        }
+
+        String myDB = "jdbc:derby://localhost:1527/project353";
+        try {
+            Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
+            String query = "SELECT * FROM Project353.Users WHERE user_id = ?";
+            PreparedStatement pstmt = DBConn.prepareStatement(query);
+            pstmt.setString(1, this.profile.getUserID());
+            ResultSet rs = pstmt.executeQuery();
+            String passInDB = null;
+            if(rs.next()) {
+                passInDB = rs.getString("password");
+            } else {
+                retVal = false;
+            }
+            if (passInDB.equals(password)) {
+                retVal = true;
+            }
+            DBConn.close();
+        } catch (SQLException ex) {
+            System.out.println(ex + " was caught.");
+            retVal = false;
+        } catch (NullPointerException ne) {
+            System.out.println("Null was caught");
+            retVal = false;
+        }
+        return retVal;
+    }
 
     public int updatePassword(Profile profile) {
         int retVal = 0;
@@ -377,6 +456,7 @@ public class ProfileDAO {
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             String query = "Update project353.submissions set paid =" + true + " where USER_ID=" + userID + ";";
             PreparedStatement stmt = DBConn.prepareStatement(query);
+            stmt.execute();
             userPaid = true;
             DBConn.close();
         } catch (SQLException e) {
@@ -397,6 +477,20 @@ public class ProfileDAO {
 
     public boolean addToCartDAO(String userID) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * @return the profile
+     */
+    public Profile getProfile() {
+        return profile;
+    }
+
+    /**
+     * @param profile the profile to set
+     */
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 
 }

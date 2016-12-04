@@ -63,7 +63,7 @@ public class LoginController {
     //Logout
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession(); // the above is unnecessary once the session is invalidated
-        return "home.xhtml?faces-redirect=true";
+        return "home?faces-redirect=true";
     }
 
     /**
@@ -136,5 +136,91 @@ public class LoginController {
     public void setEmail(Email email) {
         this.email = email;
     }
+    
+    
+    //TestTestTeset
+    //Updates
+    public String updateName() {
+        String retVal = null;
+        int status = 0;
+        if (profileDAO.checkPassMatch(profile)) {
+            status = getProfileDAO().updateName(profile);
+            this.setUpdateMsg("Name");
+        } else {
+            this.setErrorMsg("Password doesn't match to the user ID. Enter again");
+            return retVal;
+        }
+        if (status == 1) {
+            setMailed(getEmail().updateEmail(profile, "name"));
+            if (isMailed()) {
+                FacesContext fc = FacesContext.getCurrentInstance();
+                ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+                nav.performNavigation("updateConfirmation?faces-redirect=true");
+            }
+        }
+        return retVal;
+    }
+
+    public String updateEmail() {
+        String retVal = null;
+        int status = 0;
+        if (profileDAO.checkPassMatch(profile)) {
+            status = getProfileDAO().updateEmail(profile);
+            this.setUpdateMsg("Email");
+        } else {
+            this.setErrorMsg("Password doesn't match to the user ID. Enter again");
+            return retVal;
+        }
+        if (status == 1) {
+            setMailed(getEmail().updateEmail(profile, "email"));
+            if (isMailed()) {
+                FacesContext fc = FacesContext.getCurrentInstance();
+                ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+                nav.performNavigation("updateConfirmation?faces-redirect=true");
+            }
+        }
+
+        return retVal;
+    }
+
+    public String updatePassword() {
+        String retVal = null;
+        int status = 0;
+        if (profileDAO.checkPassMatch(profile)) {
+            status = getProfileDAO().updatePassword(profile);
+            this.setUpdateMsg("Password");
+        } else {
+            this.setErrorMsg("Password doesn't match to the user ID. Enter again");
+            return retVal;
+        }
+        if (status == 1) {
+            setMailed(getEmail().updateEmail(profile, "password"));
+            if (isMailed()) {
+                FacesContext fc = FacesContext.getCurrentInstance();
+                ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+                nav.performNavigation("updateConfirmation?faces-redirect=true");
+            }
+        }
+
+        return retVal;
+    }  
+    //TestTestTest
+
+    /**
+     * @return the updateMsg
+     */
+    public String getUpdateMsg() {
+        return updateMsg;
+    }
+
+    /**
+     * @param updateMsg the updateMsg to set
+     */
+    public void setUpdateMsg(String updateMsg) {
+        this.updateMsg = updateMsg;
+    }
+    
+    //TestTestTest
+    
 
 }

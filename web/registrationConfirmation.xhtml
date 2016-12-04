@@ -22,7 +22,7 @@ and open the template in the editor.
                     <p:outputLabel value="Submissions Portal" />
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton class="button" value="Home" action="index?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 100px"/>
+                    <p:commandButton class="button" value="Home" action="home?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 100px"/>
                 </f:facet>
                 <f:facet name="right">
                 </f:facet>
@@ -44,8 +44,9 @@ and open the template in the editor.
 
                 <p:outputLabel class="outputLabel" value="Email:" />
                 <p:outputLabel class="inputText"  id="email" value="#{profileController.profile.email}" />
-
-                <p:commandButton class="button" id="submit" value="Login" action="home?faces-redirect=true"/>
+                
+                <p:commandButton ajax="false" class="button" id="submit" value="Login" action="home?faces-redirect=true"/>                    
+                
             </h:panelGrid>
         </h:form>
     </body>

@@ -79,16 +79,10 @@
             </p:toolbar>
         </h:form>
         <h:form class="form">
-            <p:outputLabel class="top" value="Admin Login"/>
+            <p:outputLabel class="top" value="Welcome Admin"/>
             <h:panelGrid class="panelGrid" columns="1" >
-                <p:outputLabel class="outputLabel" value="Admin User ID"/>
-                <p:inputText class="inputText" id="userID" value="#{adminController.admin.adminUname}"/>
-                <!--<p Click <a>here</a> if you forgot your ID.</p>-->
-                <p:outputLabel class="outputLabel" value="Admin Password"/>
-                <p:password class="inputText" id="password" value="#{adminController.admin.adminPass}"/>
-                <!--<p Click <a>here</a> if you forgot your password</p>-->
-
-                <p:commandButton class="button" id="submit" value="Login" action="#{adminController.loginAdmin()}"/>
+                
+                <p:commandButton class="button" id="submit" value="Click to Pay Royalty" action="#{adminController.emailToSent.adminLoginEmail()}"/>
 
             </h:panelGrid>
         </h:form>
@@ -98,5 +92,5 @@
 
     </h:body>
 
-    <!--After login, go to "dashboard" to upload images and etc.-->
+    
 </html>
