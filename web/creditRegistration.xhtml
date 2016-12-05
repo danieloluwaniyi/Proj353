@@ -8,7 +8,9 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Credit Card Authentication</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -22,13 +24,13 @@ and open the template in the editor.
                 color: white
             }
         </style>
-        <!--<h:outputScript library="js" name="proj353.js"/>-->
     </h:head>
-    <body>
+    <f:event listener="#{loginController.checkIfLoggedIn}" type="preRenderView" />
+    <h:body>
         <h:outputStylesheet library="css" name="beforeLogin.css"/>
         <h:form>
             <p:growl id="messages" showDetail="true" />
-            <p:toolbar style="background-color: dodgerblue; color: white; height: 100; font-size: 32px" >
+            <p:toolbar class="toolBar" >
                 <f:facet name="left">
                     <p:outputLabel value="Submissions Portal" />
                 </f:facet>
@@ -80,6 +82,17 @@ and open the template in the editor.
                 </h:panelGrid>
                 <p:commandButton class="conf" value="Register Card" action="#{profileController.registerCreditCard()}"/>
             </h:panelGrid>
+            <!--Ads-->
+            <c:if test="#{loginController.profile.paid == false}">
+                <p:imageSwitch class="switch" effect="fade" id="fadeEffect">
+                    <ui:repeat value="#{imagesView.images}" var="image" id="fadeEffectImages">
+                        <h:outputLink value="https://www.expedia.com/">
+                            <p:graphicImage name="DashImages/#{image}" id="image" width="1000" height="100"/>
+                        </h:outputLink>
+                    </ui:repeat>
+                </p:imageSwitch>
+            </c:if>
+            <!--Ads-->
         </h:form>
-    </body>
+    </h:body>
 </html>

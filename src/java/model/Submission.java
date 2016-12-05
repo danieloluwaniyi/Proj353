@@ -10,12 +10,15 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import org.primefaces.event.FileUploadEvent;
@@ -27,7 +30,9 @@ import org.primefaces.event.RateEvent;
  *
  * @author Daniel
  */
+@ApplicationScoped
 @Named(value = "submissionBean")
+
 
 public class Submission implements Serializable {
 
@@ -42,6 +47,7 @@ public class Submission implements Serializable {
     private int numRaters;
     private String tags;
     private int searchParam;//1->all, 2->tags, 3->tbd
+    private String formattedPrice;
 
     public int getNumRaters() {
         return numRaters;
@@ -65,6 +71,7 @@ public class Submission implements Serializable {
         this.content = content;
         this.price = price;
         this.tags = tags;
+        this.numRaters=numRaters;
     }
 
     /**
@@ -229,4 +236,17 @@ public class Submission implements Serializable {
         this.tags = tags;
     }
 
+
+    public String getFormattedPrice() {
+         NumberFormat formatter = new DecimalFormat("#0.00"); 
+   
+        return formatter.format(price);
+
+    }
+
+    public void setFormattedPrice(String formattedPrice) {
+        this.formattedPrice = formattedPrice;
+    }
+
+    
 }

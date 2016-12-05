@@ -5,6 +5,7 @@
  */
 package controller;
 
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import model.Submission;
@@ -14,7 +15,7 @@ import model.Submission;
  * @author it353f616
  */
 @ManagedBean
-@SessionScoped
+@ApplicationScoped
 public class SubmissionController {
     
     private Submission theModel;

@@ -11,7 +11,7 @@
         <h:outputStylesheet library="css" name="home.css"/>
         <h:form>
             <p:growl id="messages" showDetail="true" />
-            <p:toolbar style="background-color: transparent; color: white; height: 100; font-size: 32px" >
+            <p:toolbar class="toolBar" >
                 <f:facet name="left">
                     <p:outputLabel value="Submissions Portal" />
                 </f:facet>
@@ -28,18 +28,23 @@
             <h:panelGrid class="panelGrid" columns="1" >
                 <p:outputLabel class="outputLabel" value="User ID"/>
                 <p:inputText class="inputText" id="userID" value="#{loginController.profile.userID}" binding="#{userID}"/>
-<!--                    <f:validator validatorId="passwordChecker"/>
-                    <f:attribute name="userID" value="#{password}"/>-->
+                <!--                    <f:validator validatorId="passwordChecker"/>
+                                    <f:attribute name="userID" value="#{password}"/>-->
                 <!--<p Click <a>here</a> if you forgot your ID.</p>-->
                 <p:outputLabel class="outputLabel" value="Password"/>
                 <p:password class="inputText" id="password" value="#{loginController.profile.password}" binding="#{password}">
                     <f:validator validatorId="passwordChecker"/>
                     <f:attribute name="userID" value="#{userID}"/>
                 </p:password>
-                    <p:message id="passMsg" for="password"/>                
+                <p:message id="passMsg" for="password"/>                
                 <!--<p Click <a>here</a> if you forgot your password</p>-->
                 <p:commandButton class="button" id="submit" value="Login" action="#{loginController.login()}" update="passMsg"/>
+
+
             </h:panelGrid>
+        </h:form>
+        <h:form style="position: absolute; left: 42.5%; top: 55%">
+            <p:commandLink value="Forgot password?" action="passwordRetrieve?faces-redirect=true"/>
         </h:form>
     </h:body>
 </html>

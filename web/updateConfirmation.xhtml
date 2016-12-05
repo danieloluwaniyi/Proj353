@@ -4,16 +4,18 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Update Confirmation</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
+    <f:event listener="#{loginController.checkIfLoggedIn}" type="preRenderView" />
     <h:body>
         <h:outputStylesheet library="css" name="confirmation.css"/>
         <h:form>
             <p:growl id="messages" showDetail="true" />
-            <p:toolbar style="background-color: transparent; color: white; height: 100px; font-size: 32px" >
+            <p:toolbar class="toolBar" >
                 <f:facet name="left">
                     <p:outputLabel value="Submissions Portal" />
                 </f:facet>
@@ -23,7 +25,6 @@
                     <p:commandButton class="button" value="Update Profile" action="update?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 130px; height: 60px"/>
                     <p:commandButton class="button" value="Upload Submission" action="UploadSubmission?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 150px; height: 60px"/>
                     <p:commandButton class="button" value="View Dashboard" action="dashboard?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 140px; height: 60px"/>
-                    <p:commandButton class="button" value="View Sponsors" style="background-color: transparent; color: white; font-size: 20px; width: 130px; height: 60px "/>                    
 
                     <span class="ui-separator">    
                         <span class="ui-icon ui-icon-grip-dotted-vertical"/>
@@ -42,13 +43,15 @@
                 <p:commandButton class="button" value="Main" action="userIndex?faces-redirect=true" style="position: absolute; left: 42.5%"/>
             </h:panelGrid>
             <!--Ads-->
-            <p:imageSwitch class="switch" effect="fade" id="fadeEffect">
-                <ui:repeat value="#{imagesView.images}" var="image" id="fadeEffectImages">
-                    <h:outputLink value="https://www.expedia.com/">
-                        <p:graphicImage name="DashImages/#{image}" id="image" width="1000" height="100"/>
-                    </h:outputLink>
-                </ui:repeat>
-            </p:imageSwitch>
+            <c:if test="#{loginController.profile.paid == false}">
+                <p:imageSwitch class="switch" effect="fade" id="fadeEffect">
+                    <ui:repeat value="#{imagesView.images}" var="image" id="fadeEffectImages">
+                        <h:outputLink value="https://www.expedia.com/">
+                            <p:graphicImage name="DashImages/#{image}" id="image" width="1000" height="100"/>
+                        </h:outputLink>
+                    </ui:repeat>
+                </p:imageSwitch>
+            </c:if>
             <!--Ads-->
         </h:form>
     </h:body>
