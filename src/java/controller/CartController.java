@@ -13,6 +13,8 @@ import model.Profile;
 import model.Submission;
 import dao.CartDAO;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,11 +37,15 @@ public class CartController {
     private CartDAO cartDAO;
     private List <OrderItems>cart = new ArrayList<>();
     private double total;
+    private String formattedtotal;
 
     public CartController() {
         
+        NumberFormat formatter = new DecimalFormat("#0.00");     
+        
         this.order = new Order();
         cartDAO = new CartDAO();
+        this.formattedtotal = formatter.format(total);
     }
     
     
@@ -76,6 +82,8 @@ public class CartController {
         for(OrderItems item:cart){
             total=total+(item.getQuantity()*item.getItem().getPrice());
         }
+        
+       
         return total;
     }
 
@@ -99,6 +107,10 @@ public class CartController {
     public String processOrder() throws SQLException{
         //remember to check if cart is empty
         
+        if(cart.size()==0){
+            return "orderConfirmation.xhtml";
+        }
+        
         this.order.setCart(cart);
         FacesContext fc = FacesContext.getCurrentInstance();;
         Map<String,String> params =
@@ -117,6 +129,20 @@ public class CartController {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public String getFormattedtotal() {
+        
+        NumberFormat formatter = new DecimalFormat("#0.00"); 
+        this.formattedtotal= formatter.format(getTotal());
+        return formattedtotal;
+    }
+
+    public void setFormattedtotal(String formattedtotal) {
+             
+        NumberFormat formatter = new DecimalFormat("#0.00"); 
+        this.formattedtotal= formatter.format(getTotal());
+        
     }
     
 
