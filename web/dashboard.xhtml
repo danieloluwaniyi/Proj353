@@ -66,7 +66,10 @@ and open the template in the editor.
                                 <h:panelGrid columns="5" style="margin: 0 auto">
                                     <h:outputText value="Rating: " />
                                     <p:rating value="#{image.intRating}" stars="5" style="text-align:center" id="rater">
-                                        <p:ajax event="rate" listener="#{image.updateRating}" update="rater numRater" />
+                                        <p:ajax event="rate" listener="#{image.updateRating}" update="rater numRater" >
+                                            <f:param name ="userId" value="#{loginController.profile.userID}"/>
+                                        </p:ajax>
+                                        <f:param name ="userId" value="#{loginController.profile.userID}"/>
                                     </p:rating>
                                     (<h:outputText value="#{image.numRaters}" id="numRater" />)
                                 </h:panelGrid>
@@ -114,7 +117,7 @@ and open the template in the editor.
                         <p:commandButton style="margin: 0 auto" actionListener="#{submissionController.theModel.filteredList}" update="image" id="searchTagId" value="Search" styleClass="ui-priority-primary"/>
                     </p:panelGrid>
 
-                    <h:outputLabel value="Cart total: " />
+                    <br/><h:outputLabel value="Cart total: " />
                     <h:outputText value="$#{sp.formattedtotal}" />
             
 

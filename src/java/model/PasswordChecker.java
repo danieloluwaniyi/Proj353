@@ -36,7 +36,7 @@ public class PasswordChecker implements Validator {
         String password = value.toString();
 //        String userID = value.toString();
     FacesContext fc = FacesContext.getCurrentInstance();
-        //UIInput uiUserID = new UIInput();
+//        UIInput uiUserID = new UIInput();
 //        Map testMap = component.getAttributes();
         UIInput uiUserID = (UIInput) component.getAttributes().get("userID");
 //        Map<String,String> params =
