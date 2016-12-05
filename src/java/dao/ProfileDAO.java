@@ -271,6 +271,7 @@ public class ProfileDAO implements Serializable {
             while (rs.next()) {
                 retVal.setUserID(rs.getString("user_ID"));
                 retVal.setPassword(rs.getString("password"));
+                retVal.setEmail(rs.getString("email"));
             }
             DBConn.close();
         } catch (SQLException ex) {
