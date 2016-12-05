@@ -107,8 +107,8 @@ public class CartController {
     public String processOrder() throws SQLException{
         //remember to check if cart is empty
         
-        if(cart.size()==0){
-            return "orderConfirmation.xhtml";
+        if(cart.isEmpty()){
+            return "cart.xhtml";
         }
         
         this.order.setCart(cart);

@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.event.PhaseId;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.*;
@@ -117,10 +118,11 @@ public class Submission implements Serializable {
      * @return the submissionList
      */
     public List<Submission> getSubmissionList() {
-        if (submissionList == null) {
+
             ArrayList sub = (new SubmissionDAO().findAllSubmissions(searchParam,tags));
+            this.searchParam = 1;
             this.submissionList = sub;
-        }
+
         return submissionList;
     }
     
@@ -129,6 +131,12 @@ public class Submission implements Serializable {
         ArrayList sub = (new SubmissionDAO().findAllSubmissions(searchParam,tags));
         this.submissionList = sub;
        // return sub;
+    }
+    
+    public void fullList(){
+        this.searchParam = 1;
+        ArrayList sub = (new SubmissionDAO().findAllSubmissions(searchParam,tags));
+        this.submissionList = sub;
     }
 
     /**
@@ -150,16 +158,23 @@ public class Submission implements Serializable {
             Logger.getLogger(Submission.class.getName()).log(Level.SEVERE, null, ex);
         }
         FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String, String> params
-                = fc.getExternalContext().getRequestParameterMap();
-        String user = params.get("form:param");
-        this.tags=params.get("form:j_idt19");
+        
+        Map<String, Object> params  = fc.getExternalContext().getSessionMap();
+        Object profile = params.get("profile");
+        String user = ((Profile)profile).getUserID();
+        //this.tags=params.get("form:j_idt19");
         dao.insertImage(fileUpload.getContents(), user, this.tags);
         displayUploadMsg(event);
 
     }
 
     public void updateRating(RateEvent rateEvent) {
+        
+        String action = (String)rateEvent.getComponent().getAttributes().get("userId");
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String, String> params
+                = fc.getExternalContext().getRequestParameterMap();
+        String user = params.get("userId");
         SubmissionDAO sDAO = new SubmissionDAO();
         calcRating(((Integer) rateEvent.getRating()));
         int rowCount = sDAO.updateRating(getSubmissionId(), rating, numRaters);
