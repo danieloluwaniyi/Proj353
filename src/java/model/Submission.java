@@ -20,7 +20,6 @@ import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.faces.event.PhaseId;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.*;
@@ -33,7 +32,6 @@ import org.primefaces.event.RateEvent;
  */
 @ApplicationScoped
 @Named(value = "submissionBean")
-
 
 public class Submission implements Serializable {
 
@@ -49,14 +47,7 @@ public class Submission implements Serializable {
     private String tags;
     private int searchParam;//1->all, 2->tags, 3->tbd
     private String formattedPrice;
-
-    public int getNumRaters() {
-        return numRaters;
-    }
-
-    public void setNumRaters(int numRaters) {
-        this.numRaters = numRaters;
-    }
+    private Profile profile;
 
     /**
      * Creates a new instance of SubmissionBean
@@ -64,15 +55,32 @@ public class Submission implements Serializable {
     public Submission() {
         numRaters = 0;
         searchParam = 1;
+
     }
 
-    public Submission(double rating, byte[] content, int submissionId, double price, int numRaters,String tags) {
+    public Submission(double rating, byte[] content, int submissionId, double price, int numRaters, String tags) {
         this.submissionId = submissionId;
         this.rating = rating;
         this.content = content;
         this.price = price;
         this.tags = tags;
-        this.numRaters=numRaters;
+        this.numRaters = numRaters;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
+    public int getNumRaters() {
+        return numRaters;
+    }
+
+    public void setNumRaters(int numRaters) {
+        this.numRaters = numRaters;
     }
 
     /**
@@ -96,13 +104,12 @@ public class Submission implements Serializable {
 
         FacesContext context = FacesContext.getCurrentInstance();
         if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
-            submission= new DefaultStreamedContent();
+            submission = new DefaultStreamedContent();
         } else {
             String id = context.getExternalContext().getRequestParameterMap().get("sid");
             byte[] image = new SubmissionDAO().getSubmissionContent(id);
             submission = new DefaultStreamedContent(new ByteArrayInputStream(image));
-            
-                    
+
         }
         return submission;
     }
@@ -119,23 +126,22 @@ public class Submission implements Serializable {
      */
     public List<Submission> getSubmissionList() {
 
-            ArrayList sub = (new SubmissionDAO().findAllSubmissions(searchParam,tags));
-            this.searchParam = 1;
-            this.submissionList = sub;
-
+        ArrayList sub = (new SubmissionDAO().findAllSubmissions(searchParam, tags));
+        this.searchParam = 1;
+        this.submissionList = sub;
         return submissionList;
     }
-    
-    public void filteredList(){
+
+    public void filteredList() {
         this.searchParam = 2;
-        ArrayList sub = (new SubmissionDAO().findAllSubmissions(searchParam,tags));
+        ArrayList sub = (new SubmissionDAO().findAllSubmissions(searchParam, tags));
         this.submissionList = sub;
-       // return sub;
+        // return sub;
     }
-    
-    public void fullList(){
+
+    public void fullList() {
         this.searchParam = 1;
-        ArrayList sub = (new SubmissionDAO().findAllSubmissions(searchParam,tags));
+        ArrayList sub = (new SubmissionDAO().findAllSubmissions(searchParam, tags));
         this.submissionList = sub;
     }
 
@@ -158,26 +164,35 @@ public class Submission implements Serializable {
             Logger.getLogger(Submission.class.getName()).log(Level.SEVERE, null, ex);
         }
         FacesContext fc = FacesContext.getCurrentInstance();
-        
-        Map<String, Object> params  = fc.getExternalContext().getSessionMap();
-        Object profile = params.get("profile");
-        String user = ((Profile)profile).getUserID();
-        //this.tags=params.get("form:j_idt19");
+        Map<String, String> param = fc.getExternalContext().getRequestParameterMap();
+        Map<String, Object> params = fc.getExternalContext().getSessionMap();
+        Object sessionProfile = params.get("profile");
+        this.profile = (Profile) sessionProfile;
+
+        String user = profile.getUserID();
+        this.tags = param.get("form:j_idt17");
         dao.insertImage(fileUpload.getContents(), user, this.tags);
         displayUploadMsg(event);
 
     }
 
     public void updateRating(RateEvent rateEvent) {
-        
-        String action = (String)rateEvent.getComponent().getAttributes().get("userId");
         FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String, String> params
-                = fc.getExternalContext().getRequestParameterMap();
-        String user = params.get("userId");
+
+        Map<String, Object> params = fc.getExternalContext().getSessionMap();
+        Object sessionProfile = params.get("profile");
+        this.profile = (Profile) sessionProfile;
+        String userId = profile.getUserID();
+
         SubmissionDAO sDAO = new SubmissionDAO();
-        calcRating(((Integer) rateEvent.getRating()));
-        int rowCount = sDAO.updateRating(getSubmissionId(), rating, numRaters);
+        int check = sDAO.searchSubmissionRaters(userId,this.submissionId);
+        if(check==0){
+            calcRating(((Integer) rateEvent.getRating()));
+            int rowCount = sDAO.updateRating(getSubmissionId(), rating, numRaters);
+            sDAO.insertSubmissionRaters(userId, this.submissionId);
+        }
+        
+        
 
     }
 
@@ -251,10 +266,9 @@ public class Submission implements Serializable {
         this.tags = tags;
     }
 
-
     public String getFormattedPrice() {
-         NumberFormat formatter = new DecimalFormat("#0.00"); 
-   
+        NumberFormat formatter = new DecimalFormat("#0.00");
+
         return formatter.format(price);
 
     }
@@ -263,5 +277,16 @@ public class Submission implements Serializable {
         this.formattedPrice = formattedPrice;
     }
 
-    
+    private boolean isPresent(ArrayList<String> list, String value) {
+        boolean retVal = false;
+
+        for (String i : list) {
+            if (i.equals(value));
+            retVal = true;
+        }
+
+        return retVal;
+
+    }
+
 }
