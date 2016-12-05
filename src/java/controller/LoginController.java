@@ -206,9 +206,7 @@ public class LoginController {
     }
 
     public void updatePassword() {
-        String retVal = null;
         int status = 0;
-//        if (profileDAO.checkPassMatch(profile)) {
             status = getProfileDAO().updatePassword(profile);
             this.setUpdateMsg("Password");
 
@@ -222,8 +220,6 @@ public class LoginController {
         } else {
             
         }
-
-//        return retVal;
     }
     //TestTestTest
 
