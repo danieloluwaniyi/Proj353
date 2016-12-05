@@ -43,3 +43,9 @@ body {
     font-family: arial;
     color: red;
 }
+.toolBar {
+  background-color: transparent;
+  color: white;
+  height: 70px;
+  font-size: 32px
+}

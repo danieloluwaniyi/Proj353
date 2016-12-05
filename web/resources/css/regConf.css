@@ -48,3 +48,9 @@ body {
                 left: 15%;
                 top: 89%;
             }
+            .toolBar {
+              background-color: transparent;
+              color: white;
+              height: 70px;
+              font-size: 32px
+            }

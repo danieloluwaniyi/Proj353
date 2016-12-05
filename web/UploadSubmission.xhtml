@@ -9,11 +9,12 @@
     <h:head>
         <title>Submission Upload</title>
     </h:head>
+    <f:event listener="#{loginController.checkIfLoggedIn}" type="preRenderView" />
     <h:body>
         <h:outputStylesheet library="css" name="afterLogin.css"/>
         <h:form>
             <p:growl id="messages" showDetail="true" />
-            <p:toolbar style="background-color: transparent; color: white; height: 100; font-size: 32px" >
+            <p:toolbar class="toolBar" >
                 <f:facet name="left">
                     <p:outputLabel value="Submissions Portal" />
                 </f:facet>
@@ -23,7 +24,6 @@
                     <p:commandButton class="button" value="Update Profile" action="update?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
                     <p:commandButton class="button" value="Upload Submission" action="UploadSubmission?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 150px "/>
                     <p:commandButton class="button" value="View Dashboard" action="dashboard?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 140px "/>
-                    <p:commandButton class="button" value="View Sponsors" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>                    
 
                     <span class="ui-separator">    
                         <span class="ui-icon ui-icon-grip-dotted-vertical"/>

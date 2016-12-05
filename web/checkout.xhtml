@@ -26,16 +26,28 @@ and open the template in the editor.
         </style>
         <!--<h:outputScript library="js" name="proj353.js"/>-->
     </h:head>
-    <body>
-        <h:outputStylesheet library="css" name="beforeLogin.css"/>
-        <h:form id="checkoutForm">
+    <h:body>
+        <h:outputStylesheet library="css" name="afterLogin.css"/>
+        <h:form>
             <p:growl id="messages" showDetail="true" />
-            <p:toolbar style="background-color: dodgerblue; color: white; height: 100; font-size: 32px" >
+            <p:toolbar class="toolBar" >
                 <f:facet name="left">
                     <p:outputLabel value="Submissions Portal" />
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton class="button" value="Log in" action="home?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
+
+                    <p:commandButton class="button" value="View Winners" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
+                    <p:commandButton class="button" value="Update Profile" action="update?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
+                    <p:commandButton class="button" value="Upload Submission" action="UploadSubmission?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 150px "/>
+                    <p:commandButton class="button" value="View Dashboard" action="dashboard?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 140px "/>
+
+                    <span class="ui-separator">    
+                        <span class="ui-icon ui-icon-grip-dotted-vertical"/>
+                    </span>
+                </f:facet>
+
+                <f:facet name="right">
+                    <p:commandButton class="button" value="Log out" action="#{loginController.logout()}" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
                 </f:facet>
                 <f:facet name="right">
                 </f:facet>
@@ -48,7 +60,7 @@ and open the template in the editor.
                 </f:facet>
                 <!--Name on the Card-->
                 <p:outputLabel class="outputLabel" value="Total Order Amount"/>
-                <p:inputText class="inputText" value="$#{sp.formattedtotal}" disabled="true"/>
+                <p:inputText class="inputText" value="$#{sp.formattedtotal}" disabled="false" readonly="true"/>
 
                 <p:outputLabel class="outputLabel" value="Name on card"/>
                 <p:inputText class="inputText" value="#{sp.order.nameOnCard}" placeholder="Name" required="true">
@@ -100,5 +112,5 @@ and open the template in the editor.
             </c:if>
             <!--Ads-->
         </h:form>
-    </body>
+    </h:body>
 </html>

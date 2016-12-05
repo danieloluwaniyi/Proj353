@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Royalty;
 import email.Email;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -22,7 +25,7 @@ public class RoyaltyBean implements Serializable {
     private List<String> emails = new ArrayList<String>();
     private Email email = new Email();
     
-   
+  
     
     public List<String> getEmail(){
         List<String> list = new ArrayList<String>();
@@ -30,7 +33,7 @@ public class RoyaltyBean implements Serializable {
         String myDB = "jdbc:derby://localhost:1527/project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         try {
-            String sql = "select u.email from project353.users u join project353.ROYALTY r using(USER_ID) where ROYALTY_PAID = FALSE";
+            String sql = "select u.email from project353.users u join project353.ROYALTY r using(USER_ID) where r.ROYALTY_PAID = FALSE";
             Statement s = DBConn.createStatement();
             ResultSet rs = s.executeQuery(sql);
             while (rs.next()) {

@@ -9,11 +9,38 @@
     <h:head>
         <title>Shopping Cart</title>
     </h:head>
+    <h:outputStylesheet library="css" name="update.css"/>
     <h:body>
+        <h:outputStylesheet library="css" name="afterLogin.css"/>
         <h:form>
-            <p:dataTable value="#{sp.cart}" var="i" style=" border-collapse: collapse" id="cartid">
+            <p:growl id="messages" showDetail="true" />
+            <p:toolbar class="toolBar" >
+                <f:facet name="left">
+                    <p:outputLabel value="Submissions Portal" />
+                </f:facet>
+                <f:facet name="right">
+
+                    <p:commandButton class="button" value="View Winners" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
+                    <p:commandButton class="button" value="Update Profile" action="update?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
+                    <p:commandButton class="button" value="Upload Submission" action="UploadSubmission?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 150px "/>
+                    <p:commandButton class="button" value="View Dashboard" action="dashboard?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 140px "/>
+
+                    <span class="ui-separator">    
+                        <span class="ui-icon ui-icon-grip-dotted-vertical"/>
+                    </span>
+                </f:facet>
+
+                <f:facet name="right">
+                    <p:commandButton class="button" value="Log out" action="#{loginController.logout()}" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
+                </f:facet>
+                <f:facet name="right">
+                </f:facet>
+            </p:toolbar>
+        </h:form>
+        <h:form>
+            <p:dataTable value="#{sp.cart}" var="i" style="border-collapse: collapse; background-color: transparent" id="cartid">
                 <p:column>
-                    <f:facet name="header">ID</f:facet>
+                    <f:facet name="header" >ID</f:facet>
                         #{i.item.submissionId}
                 </p:column>
                 <p:column>
@@ -39,10 +66,8 @@
                 </p:column>
                 <f:facet name="footer">Total: $#{sp.formattedtotal}</f:facet>
             </p:dataTable>
-            <p:commandButton value="Update"
-                             action ="#{sp.update}" update="cartid" />
-            <p:commandButton value="Checkout"
-                             action ="checkout?faces-redirect=true" update="cartid"/>
+            <p:commandButton value="Update" action ="#{sp.update}" update="cartid" style="background-color: transparent; color: white"/>
+            <p:commandButton value="Checkout" action ="checkout?faces-redirect=true" update="cartid" style="background-color: transparent; color: white"/>
             <p:commandLink id="dashredirect" action="dashboard?faces-redirect=true" ajax="false"><br/>
                 <h:outputText value="Back to dashboard" />
             </p:commandLink>

@@ -20,13 +20,42 @@
         </style>
     </h:head>
     <h:body>
-        <p:panel style="height:500px;position:relative;">
-            <p:panelGrid columns="1" style="" styleClass="centered">
+        <h:form>
+            <h:outputStylesheet library="css" name="confirmation.css"/>
+            <p:growl id="messages" showDetail="true" />
+            <p:toolbar class="toolBar" >
+                <f:facet name="left">
+                    <p:outputLabel value="Submissions Portal" />
+                </f:facet>
+                <f:facet name="right">
 
-                Thank you for your order!
+                    <p:commandButton class="command" value="View Winners" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
+                    <p:commandButton class="command" value="Update Profile" action="update?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
+                    <p:commandButton class="command" value="Upload Submission" action="UploadSubmission?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 150px "/>
+                    <p:commandButton class="command" value="View Dashboard" action="dashboard?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 140px "/>
 
-            </p:panelGrid>
-            <h:form>
+                    <span class="ui-separator">    
+                        <span class="ui-icon ui-icon-grip-dotted-vertical"/>
+                    </span>
+                </f:facet>
+
+                <f:facet name="right">
+                    <p:commandButton class="command" value="Log out" action="#{loginController.logout()}" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
+                </f:facet>
+                <f:facet name="right">
+                </f:facet>
+            </p:toolbar>
+            <h:panelGrid class="panelGrid" columns="1" style="position: absolute; top: 40%; left: 35%" border="0" >
+                <f:facet name="header">
+                    <p:outputLabel class="header1" value="Thank you for your order!"/>
+                </f:facet>
+                <h:panelGroup/>
+                <h:panelGroup/>
+                <div align="center">
+                    <p:commandButton class="button" value="Back to Dashboad" action="dashboard?faces-redirect=true" style="width: 200px; position: absolute; left: 20%" />
+                </div>
+            </h:panelGrid>
+
             <!--Ads-->
             <c:if test="#{loginController.profile.paid == false}">
                 <p:imageSwitch class="switch" effect="fade" id="fadeEffect">
@@ -38,7 +67,7 @@
                 </p:imageSwitch>
             </c:if>
             <!--Ads-->
-            </h:form>
-        </p:panel>
+        </h:form>
+        <!--</p:panel>-->
     </h:body>
 </html>

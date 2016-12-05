@@ -107,8 +107,7 @@ public class ProfileController implements Serializable {
         }
     }
 
-    public String freeSingup() {
-        String retVal = null;
+    public void freeSingup() {
         profile.setPaid(false);
 
         int status = getProfileDAO().createUser(profile);
@@ -120,18 +119,14 @@ public class ProfileController implements Serializable {
             if (isMailed() == true) {
                 nav.performNavigation("registrationConfirmation?faces-redirect=true");
             }
-//            retVal = "registrationConfirmation.xhtml";
         } else {
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
             nav.performNavigation("freeSignup?faces-redirect=true");
-//            retVal = "error.xhtml";
         }
-        return retVal;
     }
 
-    public String paidSingup() {
-        String retVal = null;
+    public void paidSingup() {
         profile.setPaid(true);
 
         int status = getProfileDAO().createUser(profile);
@@ -147,12 +142,9 @@ public class ProfileController implements Serializable {
             nav.performNavigation("paidSignup?faces-redirect=true");
 //            retVal = "error.xhtml";
         }
-        return retVal;
     }
 
-    public String registerCreditCard() {
-        String retVal = null;
-
+    public void registerCreditCard() {
         int status = getProfileDAO().addCreditCard(profile);
         if (status == 1) {
             setMailed(this.getEmail().confirmationEmail(profile));
@@ -166,8 +158,6 @@ public class ProfileController implements Serializable {
             nav.performNavigation("creditRegistration?faces-redirect=true");
 //            retVal = "creditRegistration.xhtml";
         }
-
-        return retVal;
     }
     //End of singup page methods by Suguru
     
@@ -193,7 +183,7 @@ public class ProfileController implements Serializable {
         return retVal;
     }
 
-    public String updateEmail() {
+    public void updateEmail() {
         String retVal = null;
         int status = 0;
         if (profileDAO.checkPassMatch(profile)) {
@@ -201,7 +191,6 @@ public class ProfileController implements Serializable {
             this.setUpdateMsg("Email");
         } else {
             this.setErrorMsg("Password doesn't match to the user ID. Enter again");
-            return retVal;
         }
         if (status == 1) {
             setMailed(getEmail().updateEmail(profile, "email"));
@@ -211,19 +200,15 @@ public class ProfileController implements Serializable {
                 nav.performNavigation("updateConfirmation?faces-redirect=true");
             }
         }
-
-        return retVal;
     }
 
-    public String updatePassword() {
-        String retVal = null;
+    public void updatePassword() {
         int status = 0;
         if (profileDAO.checkPassMatch(profile)) {
             status = getProfileDAO().updatePassword(profile);
             this.setUpdateMsg("Password");
         } else {
             this.setErrorMsg("Password doesn't match to the user ID. Enter again");
-            return retVal;
         }
         if (status == 1) {
             setMailed(getEmail().updateEmail(profile, "password"));
@@ -233,8 +218,6 @@ public class ProfileController implements Serializable {
                 nav.performNavigation("updateConfirmation?faces-redirect=true");
             }
         }
-
-        return retVal;
     }  
 
     /**
