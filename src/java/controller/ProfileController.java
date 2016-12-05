@@ -162,16 +162,10 @@ public class ProfileController implements Serializable {
     //End of singup page methods by Suguru
     
   //Updates
-    public String updateName() {
-        String retVal = null;
+    public void updateName() {
         int status = 0;
-        if (profileDAO.checkPassMatch(profile)) {
             status = getProfileDAO().updateName(profile);
             this.setUpdateMsg("Name");
-        } else {
-            this.setErrorMsg("Password doesn't match to the user ID. Enter again");
-            return retVal;
-        }
         if (status == 1) {
             setMailed(getEmail().updateEmail(profile, "name"));
             if (isMailed()) {
@@ -179,12 +173,13 @@ public class ProfileController implements Serializable {
                 ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
                 nav.performNavigation("updateConfirmation?faces-redirect=true");
             }
+        } else {
+            
         }
-        return retVal;
     }
 
     public void updateEmail() {
-        String retVal = null;
+//        String retVal = null;
         int status = 0;
         if (profileDAO.checkPassMatch(profile)) {
             status = getProfileDAO().updateEmail(profile);
@@ -204,12 +199,9 @@ public class ProfileController implements Serializable {
 
     public void updatePassword() {
         int status = 0;
-        if (profileDAO.checkPassMatch(profile)) {
             status = getProfileDAO().updatePassword(profile);
             this.setUpdateMsg("Password");
-        } else {
-            this.setErrorMsg("Password doesn't match to the user ID. Enter again");
-        }
+
         if (status == 1) {
             setMailed(getEmail().updateEmail(profile, "password"));
             if (isMailed()) {
@@ -217,8 +209,10 @@ public class ProfileController implements Serializable {
                 ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
                 nav.performNavigation("updateConfirmation?faces-redirect=true");
             }
+        } else {
+            
         }
-    }  
+    }
 
     /**
      * @return the mailed

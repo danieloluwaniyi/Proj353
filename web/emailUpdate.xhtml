@@ -14,6 +14,11 @@ and open the template in the editor.
     <h:head>
         <title>Email Update</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style>
+            .outputLabel {
+                width: 200px;
+            }
+            </style>
     </h:head>
     <f:event listener="#{loginController.checkIfLoggedIn}" type="preRenderView" />
     <h:body>
@@ -51,35 +56,32 @@ and open the template in the editor.
                 <p:outputLabel class="" value="#{profileController.profile.email}" />
 
                 <!--New Email-->
-                <p:outputLabel class="outputLabel" value="Email"/>
-                <p:inputText id="email" value="#{profileController.profile.email}" >
+                <p:outputLabel class="outputLabel" value="New Email"/>
+                <p:inputText id="email" value="#{profileController.profile.email}" style="width: 230px;" >
                     <f:validator validatorId="emailMatchChecker"/>
                     <f:attribute name="emailConfirmation" value="#{emailConfirmation}"/>
                 </p:inputText>
 
                 <!--Confirmation Email-->
-                <p:outputLabel class="outputLabel" value="Email again"/>
-                <p:inputText id="emailConfirmation" value="#{profileController.profile.confirmationEmail}" binding="#{emailConfirmation}">
+                <p:outputLabel class="outputLabel" value="New Email again" />
+                <p:inputText id="emailConfirmation" value="#{profileController.profile.confirmationEmail}" binding="#{emailConfirmation}" style="width: 230px;">
                 </p:inputText>
                 <p:message id="passMatchMsg" for="email"/>
 
                 <!--Password-->
                 <p:outputLabel class="outputLabel" value="Password" />
-                <p:password class="inputText"  id="password" value="#{profileController.profile.password}" feedback="false" inline="true" binding="#{password}">
-                    <f:validator validatorId="passwordMatchChecker"/>
-                    <f:attribute name="password" value="#{confirmPassword}"/>
-                </p:password>
+                <p:password class="inputText"  id="password" value="#{profileController.profile.password}" feedback="false" inline="true" binding="#{password}" style="width: 230px;"/>
                 <p:messages class="warning" id="passwordMsg" for="password" escape="false"/>
 
                 <!--Confirm Password-->
                 <p:outputLabel class="outputLabel" value="Password again" />
-                <p:password class="inputText" id="confirmPassword" required="true" binding="#{confirmPassword}">
+                <p:password class="inputText" id="confirmPassword" required="true" binding="#{confirmPassword}" style="width: 230px;">
                     <f:validator validatorId="passwordMatchChecker"/>
                     <f:attribute name="password" value="#{password}"/>
                 </p:password>
                 <p:message class="warning" id="passConfMsg" for="confirmPassword" escape="false"/>
 
-                <p:commandButton class="button" id="submit" value="Update" action="#{profileController.updateEmail()}" update="passMatchMsg passConfMsg" />
+                <p:commandButton class="button" id="submit" value="Update" action="#{profileController.updateEmail()}" update="passwordMsg passMatchMsg passConfMsg" style="width: 240px" />
             </h:panelGrid>
             <!--Ads-->
             <c:if test="#{loginController.profile.paid == false}">

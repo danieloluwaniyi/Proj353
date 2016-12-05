@@ -329,7 +329,7 @@ public class ProfileDAO implements Serializable {
         String myDB = "jdbc:derby://localhost:1527/project353";
         try {
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
-            String insertString = "UPDATE Project353.Users SET firstName=?, lastName=?, email=?, password=? WHERE user_id = ?";
+            String insertString = "UPDATE Project353.Users SET firstName=?, lastName=? WHERE user_id = ?";
             PreparedStatement pstmt = DBConn.prepareStatement(insertString);
             pstmt.setString(1, profile.getFirstName());
             pstmt.setString(2, profile.getLastName());
