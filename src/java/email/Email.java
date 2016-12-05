@@ -387,7 +387,7 @@ public class Email implements Serializable {
                 message.setSubject("Submissioins Portal: Password updated");
                 // Send the actual HTML message, as big as you like
                 message.setContent("Your password has been updated!" + "<br/><br/>"
-                        + "New email: " + profile.getPassword() + "<br/>"
+                        + "New password: " + profile.getPassword() + "<br/>"
                         + "<br/>" + "Please keep in touch." + "<br/>" + "Regards," + "<br/>" + "Team Project353"
                         + "<br/>" + "<img src=\"http://content.sportslogos.net/logos/32/707/thumbs/wgpjcd57fikjji1qy97f2gsqk.gif\">",
                         "text/html");

@@ -205,26 +205,21 @@ public class LoginController {
         return retVal;
     }
 
-    public String updatePassword() {
-        String retVal = null;
+    public void updatePassword() {
         int status = 0;
-        if (profileDAO.checkPassMatch(profile)) {
             status = getProfileDAO().updatePassword(profile);
             this.setUpdateMsg("Password");
-        } else {
-            this.setErrorMsg("Password doesn't match to the user ID. Enter again");
-            return retVal;
-        }
+
         if (status == 1) {
             setMailed(getEmail().updateEmail(profile, "password"));
             if (isMailed()) {
                 FacesContext fc = FacesContext.getCurrentInstance();
                 ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-                nav.performNavigation("passwordRetrieve?faces-redirect=true");
+                nav.performNavigation("updateConfirmation?faces-redirect=true");
             }
+        } else {
+            
         }
-
-        return retVal;
     }
     //TestTestTest
 

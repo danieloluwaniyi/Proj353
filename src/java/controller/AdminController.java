@@ -120,8 +120,8 @@ public class AdminController {
         return retVal;
     }
 
-    public String loginAdmin() {
-        String retVal = null;
+    public void loginAdmin() {
+//        String retVal = null;
            String adminpass = admin.getAdminPass();
            String adminuname = admin.getAdminUname();
         
@@ -136,7 +136,7 @@ public class AdminController {
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
             nav.performNavigation("badadmin?faces-redirect=true");
         }
-        return retVal;
+//        return retVal;
     }
 
 

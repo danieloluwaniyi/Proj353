@@ -7,11 +7,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import model.Profile;
 
 /*
@@ -327,7 +329,7 @@ public class ProfileDAO implements Serializable {
         String myDB = "jdbc:derby://localhost:1527/project353";
         try {
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
-            String insertString = "UPDATE Project353.Users SET firstName=?, lastName=?, email=?, password=? WHERE user_id = ?";
+            String insertString = "UPDATE Project353.Users SET firstName=?, lastName=? WHERE user_id = ?";
             PreparedStatement pstmt = DBConn.prepareStatement(insertString);
             pstmt.setString(1, profile.getFirstName());
             pstmt.setString(2, profile.getLastName());
@@ -412,6 +414,12 @@ public class ProfileDAO implements Serializable {
     public boolean checkPasswordExists(String password) {
         boolean retVal = false;
         
+        FacesContext fc = FacesContext.getCurrentInstance();
+        
+        Map<String, Object> params  = fc.getExternalContext().getSessionMap();
+        Object profile = params.get("profile");
+        String userID = ((Profile)profile).getUserID();
+        
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
         } catch (ClassNotFoundException e) {
@@ -424,7 +432,7 @@ public class ProfileDAO implements Serializable {
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             String query = "SELECT * FROM Project353.Users WHERE user_id = ?";
             PreparedStatement pstmt = DBConn.prepareStatement(query);
-            pstmt.setString(1, this.profile.getUserID());
+            pstmt.setString(1, userID);
             ResultSet rs = pstmt.executeQuery();
             String passInDB = null;
             if(rs.next()) {

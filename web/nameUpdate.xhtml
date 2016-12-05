@@ -49,41 +49,37 @@ and open the template in the editor.
                          cellspacing="0">
                 <!--Current name-->
                 <p:outputLabel class="outputLabel" value="Current Name"/>
-                <p:outputLabel class="" value="#{loginController.profile.firstName} #{profileController.profile.lastName}" escape="false"/>
+                <p:outputLabel class="" value="#{profileController.profile.firstName} #{profileController.profile.lastName}" escape="false"/>
                 <!--First name-->
                 <p:outputLabel class="outputLabel" value="New First Name"/>
                 <p:inputText class="inputText" id="firstName" value="#{profileController.profile.firstName}" required="true">
                     <f:validateLength minimum="2" maximum="25"/>
                 </p:inputText>
-                <p:message for="firstName" class="warning"/>
+                <p:message id="firstNameMsg" for="firstName" class="warning"/>
 
                 <!--Last name-->
                 <p:outputLabel class="outputLabel" value="New Last Name" />
                 <p:inputText class="inputText"  id="lastName" value="#{profileController.profile.lastName}" required="true">
                     <f:validateLength minimum="2" maximum="25"/>
                 </p:inputText>
-                <p:message for="lastName" class="warning"/>
-
-                <!--                UserID
-                                <p:outputLabel style="text-align: left" class="outputLabel" value="User ID" />
-                                <p:inputText class="inputText"  id="userID" value="#{profileController.profile.userID}" readonly="true"/>-->
-
+                <p:message id="lastNameMsg" for="lastName" class="warning"/>
+                
                 <!--Password-->
                 <p:outputLabel class="outputLabel" value="Password" />
                 <p:password class="inputText"  id="password" value="#{profileController.profile.password}" feedback="false" inline="true" binding="#{password}" required="true">
-                    <f:validator validatorId="passwordChecker"/>
+                    <f:validator validatorId="oldPassUpdateChecker"/>
                 </p:password>
                 <p:messages class="warning" id="passwordMsg" for="password" escape="false"/>
 
                 <!--Confirm Password-->
                 <p:outputLabel class="outputLabel" value="Password again" />
-                <p:password class="inputText" id="confirmPassword" onblur="checkPasswordMatch(this.form)" required="true">
+                <p:password class="inputText" id="confirmPassword" required="true">
                     <f:validator validatorId="passwordMatchChecker" />
                     <f:attribute name="password" value="#{password}"/>
                 </p:password>
                 <p:message class="warning" id="passConfMessage" for="confirmPassword"/>
 
-                <p:commandButton class="button" id="submit" value="Update" action="#{profileController.updateName()}" />
+                <p:commandButton class="button" id="submit" value="Update" action="#{profileController.updateName()}" update="firstNameMsg lastNameMsg passwordMsg passConfMessage" />
             </h:panelGrid>
             <!--Ads-->
             <c:if test="#{loginController.profile.paid == false}">

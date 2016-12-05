@@ -34,22 +34,16 @@ public class PasswordChecker implements Validator {
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 
         String password = value.toString();
-//        String userID = value.toString();
     FacesContext fc = FacesContext.getCurrentInstance();
-        //UIInput uiUserID = new UIInput();
-//        Map testMap = component.getAttributes();
         UIInput uiUserID = (UIInput) component.getAttributes().get("userID");
-//        Map<String,String> params =
-//	fc.getExternalContext().getRequestParameterMap();
-//        String user1 = params.get("userID");
-//        UIInput uiPassword = (UIInput) component.getAttributes().get("password");
-        
+
         String userID = null;
-//        String passwod = null;
         try {
             userID = uiUserID.getValue().toString();
         } catch (NullPointerException ne) {
-            throw new ValidatorException(new FacesMessage("Null was caught"));
+        Map<String,String> params =
+	fc.getExternalContext().getRequestParameterMap();
+        userID = params.get("userID");
         }
 
         if (password == null || password.isEmpty()) {
