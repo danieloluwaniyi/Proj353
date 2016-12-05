@@ -16,6 +16,7 @@ and open the template in the editor.
         <title>User Index Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
+    <f:event listener="#{loginController.checkIfLoggedIn}" type="preRenderView" />
     <h:body>
         <h:outputStylesheet library="css" name="userIndex.css"/>
 

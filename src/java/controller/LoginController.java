@@ -31,14 +31,14 @@ public class LoginController {
     private boolean mailed;
     private String errorMsg;
     private String updateMsg;
-    
+
     //To see if the user has already logged in
     public void checkIfLoggedIn() {
         if (!profile.isLoggedIn()) {
             // Can't just return "login" as it not an "action" event (// Ref: http://stackoverflow.com/questions/16106418/how-to-perform-navigation-in-prerenderview-listener-method)
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-            nav.performNavigation("login?faces-redirect=true");
+            nav.performNavigation("home?faces-redirect=true");
         }
     }
 
@@ -64,6 +64,29 @@ public class LoginController {
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession(); // the above is unnecessary once the session is invalidated
         return "home?faces-redirect=true";
+    }
+
+    //Retreieve password
+    public void retrievePassword() {
+//        String retVal = null;
+        Profile retProfile = null;
+        retProfile = profileDAO.retrievePassword(profile.getEmail());
+
+        if (retProfile != null) {
+            this.setMailed(this.email.resendPassword(retProfile));
+            FacesContext fc = FacesContext.getCurrentInstance();
+            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+            if (isMailed() == true) {
+                nav.performNavigation("passwordResent?faces-redirect=true");
+            }
+        } else {
+            FacesContext fc = FacesContext.getCurrentInstance();
+            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+            if (isMailed() == false) {
+                nav.performNavigation("passwordResent?faces-redirect=true");
+            }
+        }
+//        return retVal;
     }
 
     /**
@@ -93,8 +116,8 @@ public class LoginController {
     public void setProfileDAO(ProfileDAO profileDAO) {
         this.profileDAO = profileDAO;
     }
-    
-        /**
+
+    /**
      * @return the errorMsg
      */
     public String getErrorMsg() {
@@ -107,8 +130,8 @@ public class LoginController {
     public void setErrorMsg(String errorMsg) {
         this.errorMsg = errorMsg;
     }
-    
-        /**
+
+    /**
      * @return the mailed
      */
     public boolean isMailed() {
@@ -136,8 +159,7 @@ public class LoginController {
     public void setEmail(Email email) {
         this.email = email;
     }
-    
-    
+
     //TestTestTeset
     //Updates
     public String updateName() {
@@ -198,12 +220,12 @@ public class LoginController {
             if (isMailed()) {
                 FacesContext fc = FacesContext.getCurrentInstance();
                 ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-                nav.performNavigation("updateConfirmation?faces-redirect=true");
+                nav.performNavigation("passwordRetrieve?faces-redirect=true");
             }
         }
 
         return retVal;
-    }  
+    }
     //TestTestTest
 
     /**
@@ -219,8 +241,6 @@ public class LoginController {
     public void setUpdateMsg(String updateMsg) {
         this.updateMsg = updateMsg;
     }
-    
-    //TestTestTest
-    
 
+    //TestTestTest
 }

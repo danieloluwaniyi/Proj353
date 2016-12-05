@@ -9,6 +9,7 @@
     <h:head>
         <title>Submission Upload</title>
     </h:head>
+    <f:event listener="#{loginController.checkIfLoggedIn}" type="preRenderView" />
     <h:body>
         <h:outputStylesheet library="css" name="afterLogin.css"/>
         <h:form>

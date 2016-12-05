@@ -26,7 +26,8 @@ and open the template in the editor.
         </style>
         <!--<h:outputScript library="js" name="proj353.js"/>-->
     </h:head>
-    <body>
+    <f:event listener="#{loginController.checkIfLoggedIn}" type="preRenderView" />
+    <h:body>
         <h:outputStylesheet library="css" name="beforeLogin.css"/>
         <h:form>
             <p:growl id="messages" showDetail="true" />
@@ -94,5 +95,5 @@ and open the template in the editor.
             </c:if>
             <!--Ads-->
         </h:form>
-    </body>
+    </h:body>
 </html>

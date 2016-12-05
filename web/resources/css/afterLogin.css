@@ -1,6 +1,5 @@
 .container{
                 text-align:center;
-
                 border:none;
                 margin:auto
             }
@@ -19,6 +18,11 @@
             body {
                 background-color: dodgerblue;
                 color: white;
+            }
+            .header1 {
+                font-family: Arial;
+                font-weight: normal;
+                font-size: 150%;
             }
             .button {
                 background-color: blue;

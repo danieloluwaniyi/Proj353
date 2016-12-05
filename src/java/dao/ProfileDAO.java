@@ -249,6 +249,35 @@ public class ProfileDAO implements Serializable {
 
         return retVal;
     }
+    
+    //Retrieve password
+    public Profile retrievePassword(String email) {
+        Profile retVal = new Profile();
+        
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(0);
+        }
+        String myDB = "jdbc:derby://localhost:1527/project353";
+        try {
+            Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
+            String query = "SELECT * FROM Project353.Users WHERE email=?";
+            PreparedStatement pstmt = DBConn.prepareStatement(query);
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+            retVal = new Profile();
+            while (rs.next()) {
+                retVal.setUserID(rs.getString("user_ID"));
+                retVal.setPassword(rs.getString("password"));
+            }
+            DBConn.close();
+        } catch (SQLException ex) {
+            System.out.println(ex + " was caught.");
+        }
+        return retVal;
+    }
 
     //Update methods
     public boolean checkPassMatch(Profile profile) {
