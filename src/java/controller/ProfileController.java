@@ -14,6 +14,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import email.Email;
 import java.io.Serializable;
+import javax.faces.application.FacesMessage;
 
 /**
  *
@@ -33,6 +34,16 @@ public class ProfileController implements Serializable {
     private boolean mailed;
     private String errorMsg;
     private String updateMsg;
+    
+        //To see if the user has already logged in
+    public void checkIfPaid() {
+        if (!profile.getPaid()) {
+            // Can't just return "login" as it not an "action" event (// Ref: http://stackoverflow.com/questions/16106418/how-to-perform-navigation-in-prerenderview-listener-method)
+            FacesContext fc = FacesContext.getCurrentInstance();
+            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+            nav.performNavigation("dashboard?faces-redirect=true");
+        }
+    }
 
     /**
      * @return the profile

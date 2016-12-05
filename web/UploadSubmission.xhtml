@@ -10,9 +10,12 @@
         <title>Submission Upload</title>
     </h:head>
     <f:event listener="#{loginController.checkIfLoggedIn}" type="preRenderView" />
+    <f:event listener="#{profileController.checkIfPaid()}" type="preRenderView" />
+    
     <h:body>
         <h:outputStylesheet library="css" name="afterLogin.css"/>
         <h:form>
+            
             <p:growl id="messages" showDetail="true" />
             <p:toolbar class="toolBar" >
                 <f:facet name="left">

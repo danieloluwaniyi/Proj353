@@ -31,12 +31,13 @@ public class CartDAO {
     private Order order;
 
 
-    public boolean placeOrder(String userId, Order order, double price) throws SQLException {
+    public boolean placeOrder(String buyerId, Order order, double price) throws SQLException {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
         String myDB = "jdbc:derby://localhost:1527/project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         boolean retVal = false;
+        String userId="";
 
         double total = price;
         String subid = "";
@@ -56,7 +57,7 @@ public class CartDAO {
                 }
                 String selectString2 = "select price from PROJECT353.SUBMISSIONS where SUBMISSION_ID = ?";
                 PreparedStatement pstmt1 = DBConn.prepareStatement(selectString2);
-                pstmt.setInt(1, subs.get(i).getItem().getSubmissionId());
+                pstmt1.setInt(1, subs.get(i).getItem().getSubmissionId());
                 ResultSet rs1 = pstmt1.executeQuery();
                 while (rs1.next()) {
                     price = rs1.getInt("PRICE");
@@ -73,7 +74,7 @@ public class CartDAO {
 
             String insertString = "INSERT INTO Project353.ORDERS (User_id, submission_id, total) VALUES (?, ?, ?)";
             PreparedStatement pstmt = DBConn.prepareStatement(insertString);
-            pstmt.setString(1, userId);
+            pstmt.setString(1, buyerId);
             pstmt.setString(2, subid);
             pstmt.setDouble(3, total);
             pstmt.execute();

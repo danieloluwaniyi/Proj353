@@ -28,7 +28,8 @@ and open the template in the editor.
 
                     <p:commandButton class="button" value="View Winners" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
                     <p:commandButton class="button" value="Update Profile" action="update?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
-                    <p:commandButton class="button" value="Upload Submission" action="UploadSubmission?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 150px "/>
+                    <c:if test="#{loginController.profile.paid == true}">
+                    <p:commandButton class="button" value="Upload Submission" action="UploadSubmission?faces-redirect=true" style="background-color: transparent; color: white; font-size: 16px; width: 150px "/></c:if>
                     <p:commandButton class="button" value="View Dashboard" action="dashboard?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 140px "/>
 
                     <span class="ui-separator">    
