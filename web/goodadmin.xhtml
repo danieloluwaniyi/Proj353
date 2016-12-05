@@ -69,7 +69,7 @@
             <p:growl id="messages" showDetail="true" />
             <p:toolbar style="background-color: transparent; color: white; height: 100; font-size: 32px" >
                 <f:facet name="left">
-                    <p:outputLabel value="Admin Page" />
+                    <p:outputLabel value="Admin Portal" />
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton class="button" value="Home" action="home?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
@@ -81,9 +81,9 @@
         <h:form class="form">
             <p:outputLabel class="top" value="Welcome Admin"/>
             <h:panelGrid class="panelGrid" columns="1" >
-                <p:commandButton class="button" id="submit" value="Select Winners" action="#{winnerBean.setWinners()}"/>
-                <p:commandButton class="button" id="submit" value="Pay Royalty" action="payroyalties?faces-redirect=true"/>
-                <p:commandButton class="button" id="submit" value="Pay Winners" action="paywinners?faces-redirect=true"/>
+                <p:commandButton class="button" id="submit1" value="Select Winners" action="#{winnerBean.setWinners()}"/>
+                <p:commandButton class="button" id="submit2" value="Pay Royalty" action="payroyalties?faces-redirect=true"/>
+                <p:commandButton class="button" id="submit3" value="Pay Winners" action="paywinners?faces-redirect=true"/>
 
             </h:panelGrid>
         </h:form>

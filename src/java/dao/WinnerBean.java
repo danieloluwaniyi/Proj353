@@ -33,17 +33,24 @@ public class WinnerBean implements Serializable {
         String myDB = "jdbc:derby://localhost:1527/project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         try {
-            String Query = "SELECT submission_id FROM Project353.submissions where {fn TIMESTAMPDIFF( SQL_TSI_DAY, CURRENT DATE, Submission_date)}<=7 and rating= (select max(rating) from Project353.submissions";
+            String Query = "SELECT submission_id FROM Project353.submissions where {fn TIMESTAMPDIFF( SQL_TSI_DAY, CURRENT DATE, Submission_date)}<=7 and rating= (select max(rating) from Project353.submissions)";
             Statement s = DBConn.createStatement();
             ResultSet rs = s.executeQuery(Query);
             Statement s1 = DBConn.createStatement();
+          
             while (rs.next()) {
                 double winner_id = rs.getDouble("Submission_id");
                 String updateQuery = "UPDATE PROJECT353.SUBMISSIONS SET WINNER = TRUE WHERE SUBMISSION_ID = " + winner_id;
                 int i = s1.executeUpdate(updateQuery);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException se) {
+            System.out.println("======");
+            System.out.println("======");
+            System.out.println("======");
+            se.printStackTrace();
+            System.out.println("======");
+            System.out.println("======");
+            System.out.println("======");
         }
 
     }
@@ -57,12 +64,12 @@ public class WinnerBean implements Serializable {
             String Query = "SELECT * FROM Project353.submissions where winner = true";
             Statement s = DBConn.createStatement();
             ResultSet rs = s.executeQuery(Query);
-            Statement s1 = DBConn.createStatement();
+//            Statement s1 = DBConn.createStatement();
             while (rs.next()) {
                 double winner_id = rs.getDouble("Submission_id");
                 String user_id = rs.getString("USER_ID");
-                String updateQuery = "UPDATE PROJECT353.SUBMISSIONS SET WINNER = TRUE WHERE SUBMISSION_ID = " + winner_id;
-                int i = s1.executeUpdate(updateQuery);
+//                String updateQuery = "UPDATE PROJECT353.SUBMISSIONS SET WINNER = TRUE WHERE SUBMISSION_ID = " + winner_id;
+//                int i = s1.executeUpdate(updateQuery);
                 String winner_table = "insert into winners (user_id,Submission_id) values(" + user_id + "," + winner_id + ")";
                 s.executeQuery(winner_table);
             }

@@ -42,7 +42,7 @@
                 <h:panelGrid columns="1" cellpadding="10">
                     Username:<p:inputText disabled="true" id="param" value="#{loginController.profile.userID}"></p:inputText>
                     Tag Image:<p:inputText placeholder="Optional" value="#{submissionController.theModel.tags}"/>
-                    <p:fileUpload  fileUploadListener="#{submissionController.theModel.insertImage}" mode="advanced" dragDropSupport="false"
+                    <p:fileUpload id="upload"  fileUploadListener="#{submissionController.theModel.insertImage}" mode="advanced" dragDropSupport="false"
                                    update="messages" fileLimit="3" process="param" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" style="background-color: transparent; color: white;">
                         <f:param name ="userId" value="#{loginController.profile.userID}"/>
                     </p:fileUpload>
