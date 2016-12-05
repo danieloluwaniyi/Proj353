@@ -107,6 +107,10 @@ public class CartController {
     public String processOrder() throws SQLException{
         //remember to check if cart is empty
         
+        if(cart.size()==0){
+            return "orderConfirmation.xhtml";
+        }
+        
         this.order.setCart(cart);
         FacesContext fc = FacesContext.getCurrentInstance();;
         Map<String,String> params =
@@ -130,14 +134,15 @@ public class CartController {
     public String getFormattedtotal() {
         
         NumberFormat formatter = new DecimalFormat("#0.00"); 
-   
-        return formatter.format(total);
+        this.formattedtotal= formatter.format(getTotal());
+        return formattedtotal;
     }
 
     public void setFormattedtotal(String formattedtotal) {
              
+        NumberFormat formatter = new DecimalFormat("#0.00"); 
+        this.formattedtotal= formatter.format(getTotal());
         
-        this.formattedtotal = formattedtotal;
     }
     
 

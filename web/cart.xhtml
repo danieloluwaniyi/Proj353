@@ -7,7 +7,7 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Shopping Cart</title>
     </h:head>
     <h:body>
         <h:form>
@@ -22,11 +22,11 @@
                 </p:column>
                 <p:column>
                     <f:facet name="header">Price</f:facet>
-                    <p:inputText value="#{i.item.price}" style="width:40px"/>
+                    <p:inputText value="#{i.item.formattedPrice}" style="width:50px"/>
                 </p:column>
                 <p:column>
                     <f:facet name="header">Picture</f:facet>
-                    <p:graphicImage style="width:46px;height:46px" value="#{submissionController.theModel.submission}">
+                    <p:graphicImage style="width:75px;height:75px" value="#{submissionController.theModel.submission}">
                         <f:param name="sid" value="#{i.item.submissionId}"/>
                     </p:graphicImage>
 
@@ -37,13 +37,13 @@
                     </f:facet>
                     <p:commandButton update="cartid" value="delete" action="#{sp.remove(i)}"/>
                 </p:column>
-                <f:facet name="footer">Total: $#{sp.total}</f:facet>
+                <f:facet name="footer">Total: $#{sp.formattedtotal}</f:facet>
             </p:dataTable>
             <p:commandButton value="Update"
-                             action ="#{sp.update}" update="cartid"/>
+                             action ="#{sp.update}" update="cartid" />
             <p:commandButton value="Checkout"
                              action ="checkout?faces-redirect=true" update="cartid"/>
-            <p:commandLink id="dashredirect" action="dashboard?faces-redirect=true" ajax="false">
+            <p:commandLink id="dashredirect" action="dashboard?faces-redirect=true" ajax="false"><br/>
                 <h:outputText value="Back to dashboard" />
             </p:commandLink>
             <!--Ads-->

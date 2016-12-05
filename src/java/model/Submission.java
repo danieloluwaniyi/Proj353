@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import org.primefaces.event.FileUploadEvent;
@@ -29,7 +30,9 @@ import org.primefaces.event.RateEvent;
  *
  * @author Daniel
  */
+@ApplicationScoped
 @Named(value = "submissionBean")
+
 
 public class Submission implements Serializable {
 
@@ -68,6 +71,7 @@ public class Submission implements Serializable {
         this.content = content;
         this.price = price;
         this.tags = tags;
+        this.numRaters=numRaters;
     }
 
     /**
