@@ -25,7 +25,7 @@ public class Winner {
     private String userID;
     private double subID;
     private boolean paid;
-    private double amount;
+    
 
     /**
      * @return the id
@@ -83,17 +83,4 @@ public class Winner {
         this.paid = paid;
     }
 
-    /**
-     * @return the amount
-     */
-    public double getAmount() {
-        return amount;
-    }
-
-    /**
-     * @param amount the amount to set
-     */
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
 }
