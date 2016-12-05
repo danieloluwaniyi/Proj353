@@ -81,8 +81,9 @@
         <h:form class="form">
             <p:outputLabel class="top" value="Welcome Admin"/>
             <h:panelGrid class="panelGrid" columns="1" >
-                
+                <p:commandButton class="button" id="submit" value="Select Winners" action="#{winnerBean.setWinners()}"/>
                 <p:commandButton class="button" id="submit" value="Pay Royalty" action="payroyalties?faces-redirect=true"/>
+                <p:commandButton class="button" id="submit" value="Pay Winners" action="paywinners?faces-redirect=true"/>
 
             </h:panelGrid>
         </h:form>
