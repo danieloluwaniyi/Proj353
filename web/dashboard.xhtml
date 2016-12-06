@@ -84,12 +84,12 @@ and open the template in the editor.
                         </f:facet>
 
                         <p:panel header="#{image.submissionId}" style="text-align:center; background-color: lightblue;" id="panelID">
-                            
+
                             <h:panelGrid columns="1" style="width:90%" styleClass="ui-datagrid-no-border">
-                                <p:panelGrid columns="1" style="left:10%;width:400px;height:300px; align-self: auto">
-                                <p:graphicImage style="align-content: center;width:450px;height:300px" value="#{submissionController.theModel.submission}">
-                                    <f:param name="sid" value="#{image.submissionId}"/>
-                                </p:graphicImage></p:panelGrid>
+                                <p:panelGrid columns="1" style="left:10%;width:400px;height:200px; align-self: auto">
+                                    <p:graphicImage style="margin: 0 auto; width: 100%;height:200px" value="#{submissionController.theModel.submission}">
+                                        <f:param name="sid" value="#{image.submissionId}"/>
+                                    </p:graphicImage></p:panelGrid>
 
                                 <h:panelGrid columns="5" style="margin: 0 auto">
                                     <h:outputText value="Rating: " />
@@ -120,8 +120,8 @@ and open the template in the editor.
 
                 <p:dialog position="center" width="500" height="500" header="Submission" widgetVar="subDialog" modal="true" showEffect="fade" hideEffect="fade" draggable="false" resizable="false">
                     <p:outputPanel id="carDetail" style="text-align:center">
-                        <p:panelGrid columns="1" style="text-align:center;height:400px; width: 400px"  rendered="#{not empty submissionController.theModel}" columnClasses="label,value">
-                            <p:graphicImage style="width:100%" value="#{submissionController.theModel.submission}">
+                        <p:panelGrid columns="1" style="text-align:center;height:400px; width: 200px"  rendered="#{not empty submissionController.theModel}" columnClasses="label,value">
+                            <p:graphicImage style="width:340px; height:400px" value="#{submissionController.theModel.submission}">
                                 <f:param name="sid" value="#{submissionController.theModel.submissionId}"/>
                             </p:graphicImage>
                         </p:panelGrid>
@@ -144,11 +144,34 @@ and open the template in the editor.
                         <p:inputText value="#{submissionController.theModel.tags}"/><br/>
                         <p:commandButton style="margin: 0 auto" actionListener="#{submissionController.theModel.filteredList}" update="image" id="searchTagId" value="Search" styleClass="ui-priority-primary"/>
                     </p:panelGrid>
+                    <p:panelGrid style="margin: 0 auto; text-align: center; background-color: transparent">
+                        <p:commandButton style="margin: 0 auto" actionListener="#{submissionController.theModel.winnerList}" update="image" id="winnerListId" value="Winner" styleClass="ui-priority-primary"/>
+                    </p:panelGrid>
+                    <p:panelGrid style="margin: 0 auto; text-align: center; background-color: transparent">
+                        <p:commandButton style="margin: 0 auto" actionListener="#{submissionController.theModel.fullList}" update="image" id="fullListId" value="Winner" styleClass="ui-priority-primary"/>
+                    </p:panelGrid>
 
                     <br/><h:outputLabel value="Cart total: " />
                     <h:outputText value="$#{sp.formattedtotal}" />
 
-                    <p:commandButton value="View Cart" id="disabled" action="cart?faces-redirect=true" />
+                    <p:outputPanel id="customPanel" style="margin-bottom:10px">
+                        <p:selectOneRadio id="customRadio" value="#{submissionController.theModel.searchParam}" layout="custom">
+                            <f:selectItem itemLabel="All" itemValue="1" />
+                            <f:selectItem itemLabel="Winning" itemValue="3" />
+
+                        </p:selectOneRadio></p:outputPanel>
+
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <p:radioButton id="opt1" for="customRadio" itemIndex="0" />
+                        <h:outputLabel for="opt1" value="ALL" />
+
+
+                        <p:radioButton id="opt2" for="customRadio" itemIndex="1" />
+                        <h:outputLabel for="opt2" value="Winning" />
+                    </h:panelGrid>
+                    <p:commandButton value="Filter" update="image" id="filterButton" actionListener="#{submissionController.theModel.filter}" />
+
+                        <p:commandButton value="View Cart" id="disabled" action="cart?faces-redirect=true" />
                 </p:layoutUnit>
             </p:layout>
         </h:form>

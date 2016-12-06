@@ -48,6 +48,7 @@ public class Submission implements Serializable {
     private int searchParam;//1->all, 2->tags, 3->tbd
     private String formattedPrice;
     private Profile profile;
+    
 
     /**
      * Creates a new instance of SubmissionBean
@@ -127,7 +128,7 @@ public class Submission implements Serializable {
     public List<Submission> getSubmissionList() {
 
         ArrayList sub = (new SubmissionDAO().findAllSubmissions(searchParam, tags));
-        this.searchParam = 1;
+        //this.searchParam = 1;
         this.submissionList = sub;
         return submissionList;
     }
@@ -138,11 +139,35 @@ public class Submission implements Serializable {
         this.submissionList = sub;
         // return sub;
     }
+    
+    public String winnerList() {
+        this.searchParam = 3;
+        ArrayList sub = (new SubmissionDAO().findAllSubmissions(searchParam, tags));
+        this.submissionList = sub;
+        // return sub;
+        return "dashboard.xhtml?faces-redirect=true";
+    }
 
-    public void fullList() {
+    public String fullList() {
         this.searchParam = 1;
         ArrayList sub = (new SubmissionDAO().findAllSubmissions(searchParam, tags));
         this.submissionList = sub;
+        return "dashboard.xhtml?faces-redirect=true";
+    }
+    
+    public String filter(){
+        int val = this.searchParam;
+        switch(val){
+            case 1:{
+               return fullList();
+            }
+            case 3:{
+              return  winnerList();
+            }
+            
+            default:
+                return "dashboard.xhtml?faces-redirect=true";
+        }
     }
 
     /**
@@ -277,16 +302,15 @@ public class Submission implements Serializable {
         this.formattedPrice = formattedPrice;
     }
 
-    private boolean isPresent(ArrayList<String> list, String value) {
-        boolean retVal = false;
-
-        for (String i : list) {
-            if (i.equals(value));
-            retVal = true;
-        }
-
-        return retVal;
-
+    public int getSearchParam() {
+        return searchParam;
     }
+
+    public void setSearchParam(int searchParam) {
+        this.searchParam = searchParam;
+    }
+
+
+    
 
 }
