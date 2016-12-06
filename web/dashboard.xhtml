@@ -71,18 +71,18 @@ and open the template in the editor.
         <h:form id="form" >
 
             <p:layout fullPage="false">
-                <p:layoutUnit position = "center">   
+                <p:layoutUnit position = "center" style="background-color: transparent">   
 
                     <p:dataGrid var="image" value="#{submissionController.theModel.submissionList}" columns="3"
                                 rows="12" paginator="true" id="image"
                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                rowsPerPageTemplate="6,12,16" layout="grid">
+                                rowsPerPageTemplate="6,12,16" layout="grid" style="background-color: transparent">
 
                         <f:facet name="header">
                             Submissions
                         </f:facet>
 
-                        <p:panel header="#{image.submissionId}" style="text-align:center; background-color: lightblue;" id="panelID">
+                        <p:panel header="#{image.submissionId}" style="text-align:center; background-color: transparent;" id="panelID">
                             <h:panelGrid columns="1" style="width:100%">
                                 <p:graphicImage style="width:100%" value="#{submissionController.theModel.submission}">
                                     <f:param name="sid" value="#{image.submissionId}"/>
@@ -100,7 +100,7 @@ and open the template in the editor.
                                 </h:panelGrid>
 
 
-                                <h:panelGrid columns="2" style="margin: 0 auto">
+                                <h:panelGrid columns="2" style="margin: 0 auto; background-color: transparent" >
                                     <h:outputText value="Price:" />
                                     <h:outputText value="$#{image.formattedPrice}" /></h:panelGrid>
                                 <p:commandButton value="Add to Cart" action="#{sp.addtoCart(image)}" id="ajax" styleClass="ui-priority-primary" />
@@ -135,8 +135,8 @@ and open the template in the editor.
                         </p:panelGrid>
                     </p:outputPanel>
                 </p:dialog>
-                <p:layoutUnit position="west" header="Filters" resizable="true" closable="true" collapsible="true">
-                    <p:panelGrid style="margin: 0 auto; text-align: center">
+                <p:layoutUnit position="west" header="Filters" resizable="true" closable="true" collapsible="true" style="background-color: transparent">
+                    <p:panelGrid style="margin: 0 auto; text-align: center; background-color: transparent">
                         <p:outputLabel for="searchTagId" value="Picture Tag:" /><br/>
                         <p:inputText value="#{submissionController.theModel.tags}"/><br/>
                         <p:commandButton style="margin: 0 auto" actionListener="#{submissionController.theModel.filteredList}" update="image" id="searchTagId" value="Search" styleClass="ui-priority-primary"/>
@@ -144,7 +144,6 @@ and open the template in the editor.
 
                     <br/><h:outputLabel value="Cart total: " />
                     <h:outputText value="$#{sp.formattedtotal}" />
-
 
                     <p:commandButton value="View Cart" id="disabled" action="cart?faces-redirect=true" />
                 </p:layoutUnit>
