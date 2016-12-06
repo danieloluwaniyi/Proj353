@@ -28,6 +28,30 @@ and open the template in the editor.
     </h:head>
     <h:body>
         <h:outputStylesheet library="css" name="afterLogin.css"/>
+        <h:panelGrid columns="4" >
+            <!--Ads-->
+            <c:if test="#{loginController.profile.paid == false}">
+                <p:imageSwitch class="switch" effect="fade" id="fadeEffect" style="left: 15%">
+                    <ui:repeat value="#{imagesView.images}" var="image" id="fadeEffectImages">
+                        <h:outputLink value="https://www.expedia.com/">
+                            <p:graphicImage name="DashImages/#{image}" id="image" width="600" height="100"/>
+                        </h:outputLink>
+                    </ui:repeat>
+                </p:imageSwitch>
+            </c:if>
+            <!--Ads-->
+            <!--Ads-->
+            <c:if test="#{loginController.profile.paid == false}">
+                <p:imageSwitch class="switch" effect="fade" id="fadeEffect2" style="left: 25%">
+                    <ui:repeat value="#{imagesView.images2}" var="image" id="fadeEffectImages2">
+                        <h:outputLink value="https://www.bk.com/">
+                            <p:graphicImage name="DashImages/#{image}" id="image" width="600" height="100"/>
+                        </h:outputLink>
+                    </ui:repeat>
+                </p:imageSwitch>
+            </c:if>
+            <!--Ads-->
+        </h:panelGrid>
         <h:form>
             <p:growl id="messages" showDetail="true" />
             <p:toolbar class="toolBar" >
@@ -38,7 +62,8 @@ and open the template in the editor.
 
                     <p:commandButton class="button" value="View Winners" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
                     <p:commandButton class="button" value="Update Profile" action="update?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
-                    <p:commandButton class="button" value="Upload Submission" action="UploadSubmission?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 150px "/>
+                    <c:if test="#{loginController.profile.paid == true}">
+                        <p:commandButton class="button" value="Upload Submission" action="UploadSubmission?faces-redirect=true" style="background-color: transparent; color: white; font-size: 16px; width: 150px "/></c:if>
                     <p:commandButton class="button" value="View Dashboard" action="dashboard?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 140px "/>
 
                     <span class="ui-separator">    
@@ -100,17 +125,6 @@ and open the template in the editor.
                     <f:param name="userId" value="#{loginController.profile.userID}" />
                 </p:commandButton>
             </h:panelGrid>
-            <!--Ads-->
-            <c:if test="#{loginController.profile.paid == false}">
-                <p:imageSwitch class="switch" effect="fade" id="fadeEffect">
-                    <ui:repeat value="#{imagesView.images}" var="image" id="fadeEffectImages">
-                        <h:outputLink value="https://www.expedia.com/">
-                            <p:graphicImage name="DashImages/#{image}" id="image" width="1000" height="100"/>
-                        </h:outputLink>
-                    </ui:repeat>
-                </p:imageSwitch>
-            </c:if>
-            <!--Ads-->
         </h:form>
     </h:body>
 </html>

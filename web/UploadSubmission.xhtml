@@ -10,9 +10,11 @@
         <title>Submission Upload</title>
     </h:head>
     <f:event listener="#{loginController.checkIfLoggedIn}" type="preRenderView" />
+    <f:event listener="#{profileController.checkIfPaid()}" type="preRenderView" />
     <h:body>
         <h:outputStylesheet library="css" name="afterLogin.css"/>
         <h:form>
+            
             <p:growl id="messages" showDetail="true" />
             <p:toolbar class="toolBar" >
                 <f:facet name="left">
@@ -37,12 +39,15 @@
                 </f:facet>
             </p:toolbar>
         </h:form>
-        <h:form id="form" enctype="multipart/form-data">
+        <h:form id="form"  enctype="multipart/form-data">
             <p:panel id="basic" header="Upload" style="margin-bottom:20px">
-                <h:panelGrid columns="1" cellpadding="10">
+                <h:panelGrid id="updateParam" columns="1" cellpadding="10">
                     Username:<p:inputText disabled="true" id="param" value="#{loginController.profile.userID}"></p:inputText>
-                    Tag Image:<p:inputText placeholder="Optional" value="#{submissionController.theModel.tags}"/>
-                    <p:fileUpload id="upload"  fileUploadListener="#{submissionController.theModel.insertImage}" mode="advanced" dragDropSupport="false"
+                    Tag Image:<p:inputText placeholder="Optional" value="#{submissionController.theModel.tags}">
+                        <f:param value="#{submissionController.theModel.tags}"/>
+                        
+                    </p:inputText>
+                    <p:fileUpload  fileUploadListener="#{submissionController.theModel.insertImage}" mode="advanced" dragDropSupport="false"
                                    update="messages" fileLimit="3" process="param" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" style="background-color: transparent; color: white;">
                  
                     </p:fileUpload>
@@ -53,17 +58,6 @@
 
             
             <p:commandButton value="View Current Submissions" action="dashboard.xhtml?faces-redirect=true" style="background-color: transparent; color: white;"/>
-            <!--Ads-->
-            <c:if test="#{loginController.profile.paid == false}">
-            <p:imageSwitch class="switch" effect="fade" id="fadeEffect">
-                <ui:repeat value="#{imagesView.images}" var="image" id="fadeEffectImages">
-                    <h:outputLink value="https://www.expedia.com/">
-                        <p:graphicImage name="DashImages/#{image}" id="image" width="1000" height="100"/>
-                    </h:outputLink>
-                </ui:repeat>
-            </p:imageSwitch>
-                </c:if>
-            <!--Ads-->
         </h:form>
     </h:body>
 </html>

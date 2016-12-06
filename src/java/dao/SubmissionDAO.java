@@ -183,4 +183,52 @@ public class SubmissionDAO {
 
         return rowCount;
     }
+
+    public int searchSubmissionRaters(String user, int subid) {
+        int retVal = 0;
+        String query = "SELECT * FROM project353.ratedimages WHERE user_id = ? and submission_id=?";
+        DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
+        String myDB = "jdbc:derby://localhost:1527/project353";
+        Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
+
+        try {
+            PreparedStatement pstmt = DBConn.prepareStatement(query);
+            pstmt.setString(1, user);
+            pstmt.setInt(2, subid);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                retVal++;
+            }
+
+            DBConn.close();
+            rs.close();
+        } catch (SQLException ex) {
+            System.err.println(ex + " was caught.");
+        }
+
+        return retVal;
+    }
+
+    public void insertSubmissionRaters(String user, int subid) {
+        PreparedStatement ps;
+        
+     
+        DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
+        String myDB = "jdbc:derby://localhost:1527/project353";
+        Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
+        
+        try {
+           
+            ps = DBConn.prepareStatement("insert into project353.ratedimages(SUBMISSION_ID,USER_ID) " + "values(?,?)");
+            ps.setInt(1, subid);
+            ps.setString(2, user);
+            ps.execute();
+            ps.close();
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        
+    }
+
 }

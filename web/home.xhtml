@@ -28,9 +28,7 @@
             <h:panelGrid class="panelGrid" columns="1" >
                 <p:outputLabel class="outputLabel" value="User ID"/>
                 <p:inputText class="inputText" id="userID" value="#{loginController.profile.userID}" binding="#{userID}"/>
-                <!--                    <f:validator validatorId="passwordChecker"/>
-                                    <f:attribute name="userID" value="#{password}"/>-->
-                <!--<p Click <a>here</a> if you forgot your ID.</p>-->
+
                 <p:outputLabel class="outputLabel" value="Password"/>
                 <p:password class="inputText" id="password" value="#{loginController.profile.password}" binding="#{password}">
                     <f:validator validatorId="passwordChecker"/>
@@ -39,12 +37,9 @@
                 <p:message id="passMsg" for="password"/>                
                 <!--<p Click <a>here</a> if you forgot your password</p>-->
                 <p:commandButton class="button" id="submit" value="Login" action="#{loginController.login()}" update="passMsg"/>
-
+                <p:commandLink value="Forgot password?" action="passwordRetrieve?faces-redirect=true"/>
 
             </h:panelGrid>
-        </h:form>
-        <h:form style="position: absolute; left: 42.3%; top: 57%">
-            <p:commandLink value="Forgot password?" action="passwordRetrieve?faces-redirect=true"/>
         </h:form>
     </h:body>
 </html>
