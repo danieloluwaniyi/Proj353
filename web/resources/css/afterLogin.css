@@ -57,10 +57,8 @@
                 top:97%;
             }
           .switch {
-              position: absolute;
-              left: 15%;
-              /*top: 89%;*/
-              bottom: 0;
+              /*position: absolute;*/
+/*              left: 28%;*/
           }
           .toolBar {
             background-color: transparent;
