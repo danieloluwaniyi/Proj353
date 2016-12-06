@@ -9,29 +9,37 @@
         <title>Winners</title>
     </h:head>
     <h:body>
+        <h:outputStylesheet library="css" name="admin.css"/>
+        <h:form>
+            <p:growl id="messages" showDetail="true" />
+            <p:toolbar style="background-color: transparent; color: white; height: 100; font-size: 32px" >
+                <f:facet name="left">
+                    <p:outputLabel value="Admin Page" />
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton class="button" value="Home" action="home?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
+                </f:facet>
+                <f:facet name="right">
+                </f:facet>
+            </p:toolbar>
+        </h:form>
 
         <h1>Winners so far...</h1>
         <h:form>
-            <h:dataTable value="#{winnerBean.getAllWinner()}" var="w" border="1">
-
-                <h:column>
+            <p:dataTable value="#{winnerBean.getAllWinner()}" var="w">
+                <p:column class="column">
                     <f:facet name="header">
                         User ID
                     </f:facet>
                     #{w.userID}
-                </h:column>
-
-                <h:column>
+                </p:column>
+                <p:column class="column">
                     <f:facet name="header">
                         Submission ID
                     </f:facet>
                     #{w.subID}
-                </h:column>
-
-               
-            </h:dataTable>
-            
-
+                </p:column>
+            </p:dataTable>
 
         </h:form>
     </h:body>
