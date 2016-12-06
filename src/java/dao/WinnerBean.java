@@ -35,7 +35,7 @@ public class WinnerBean implements Serializable {
         String myDB = "jdbc:derby://localhost:1527/project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         try {
-            String Query = "SELECT submission_id FROM Project353.submissions where {fn TIMESTAMPDIFF( SQL_TSI_DAY, CURRENT DATE, Submission_date)}<=7 and rating= (select max(rating) from Project353.submissions)";
+            String Query = "SELECT submission_id FROM Project353.submissions where {fn TIMESTAMPDIFF( SQL_TSI_DAY, CURRENT DATE, Submission_date)}<=7 and rating= (select max(rating) from Project353.submissions) and WINNER = FALSE";
             Statement s = DBConn.createStatement();
             ResultSet rs = s.executeQuery(Query);
             Statement s1 = DBConn.createStatement();
@@ -158,4 +158,28 @@ public class WinnerBean implements Serializable {
         return retVal;
     }
 
+
+
+public List<Winner> getAllWinner() throws SQLException {
+        List<Winner> list = new ArrayList<Winner>();
+        DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
+        String myDB = "jdbc:derby://localhost:1527/project353";
+        Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
+        try {
+            String sql = "SELECT * FROM PROJECT353.WINNNER";
+            Statement s = DBConn.createStatement();
+            ResultSet rs = s.executeQuery(sql);
+            while (rs.next()) {
+                Winner win= new Winner();
+                win.setUserID(rs.getString("USER_ID"));
+                win.setSubID(rs.getDouble("SUBMISSION_ID"));
+                list.add(win);
+            }
+            DBConn.close();
+            s.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }
