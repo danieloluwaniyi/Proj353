@@ -14,6 +14,7 @@ and open the template in the editor.
     <h:head>
         <title>Dashboard</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
     </h:head>
     <f:event listener="#{loginController.checkIfLoggedIn}" type="preRenderView" />
     <h:body>
@@ -32,7 +33,7 @@ and open the template in the editor.
             <!--Ads-->
                                         <!--Ads-->
             <c:if test="#{loginController.profile.paid == false}">
-                <p:imageSwitch class="switch" effect="fade" id="fadeEffect2" style="left: 25%">
+                <p:imageSwitch class="switch" effect="fade" id="fadeEffect2" style="left: 15%">
                     <ui:repeat value="#{imagesView.images2}" var="image" id="fadeEffectImages2">
                         <h:outputLink value="https://www.bk.com/">
                             <p:graphicImage name="DashImages/#{image}" id="image" width="600" height="100"/>
@@ -70,13 +71,13 @@ and open the template in the editor.
         </h:form>
         <h:form id="form" >
 
-            <p:layout fullPage="false" style="position: relative">
-                <p:layoutUnit position = "center">   
+            <p:layout  styleClass="ui-datagrid-no-border">
+                <p:layoutUnit position = "center" styleClass="ui-datagrid-no-border">   
 
-                    <p:dataGrid var="image" value="#{submissionController.theModel.submissionList}" columns="3"
+                    <p:dataGrid var="image" value="#{submissionController.theModel.submissionList}" columns="2"
                                 rows="12" paginator="true" id="image"
                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                rowsPerPageTemplate="6,12,16" layout="grid">
+                                rowsPerPageTemplate="6,12,16" layout="grid" style="color:blue;background-color: blue">
 
                         <f:facet name="header">
                             Submissions
@@ -84,9 +85,9 @@ and open the template in the editor.
 
                         <p:panel header="#{image.submissionId}" style="text-align:center; background-color: lightblue;" id="panelID">
                             
-                            <h:panelGrid columns="1" style="width:100%; height:100px">
-                                <p:panelGrid columns="1">
-                                <p:graphicImage style="width:100%" value="#{submissionController.theModel.submission}">
+                            <h:panelGrid columns="1" style="width:90%" styleClass="ui-datagrid-no-border">
+                                <p:panelGrid columns="1" style="left:10%;width:400px;height:300px; align-self: auto">
+                                <p:graphicImage style="align-content: center;width:450px;height:300px" value="#{submissionController.theModel.submission}">
                                     <f:param name="sid" value="#{image.submissionId}"/>
                                 </p:graphicImage></p:panelGrid>
 
