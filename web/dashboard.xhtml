@@ -14,7 +14,6 @@ and open the template in the editor.
     <h:head>
         <title>Dashboard</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
     </h:head>
     <f:event listener="#{loginController.checkIfLoggedIn}" type="preRenderView" />
     <h:body>
@@ -72,7 +71,7 @@ and open the template in the editor.
         <h:form id="form" >
 
             <p:layout fullPage="false">
-                <p:layoutUnit position = "center" style="background-color: transparent">   
+                <p:layoutUnit  styleClass="ui-top" position = "center" style="background-color: transparent">   
 
                     <p:dataGrid var="image" value="#{submissionController.theModel.submissionList}" columns="2"
                                 rows="12" paginator="true" id="image"
@@ -141,18 +140,17 @@ and open the template in the editor.
                 <p:layoutUnit position="west" header="Filters" resizable="true" closable="true" collapsible="true" style="background-color: transparent">
                     <p:panelGrid style="margin: 0 auto; text-align: center; background-color: transparent">
                         <p:outputLabel for="searchTagId" value="Picture Tag:" /><br/>
-                        <p:inputText value="#{submissionController.theModel.tags}"/><br/>
+                        <p:inputText style="width:80%" value="#{submissionController.theModel.tags}"/><br/>
                         <p:commandButton style="margin: 0 auto" actionListener="#{submissionController.theModel.filteredList}" update="image" id="searchTagId" value="Search" styleClass="ui-priority-primary"/>
                     </p:panelGrid>
-                    <p:panelGrid style="margin: 0 auto; text-align: center; background-color: transparent">
-                        <p:commandButton style="margin: 0 auto" actionListener="#{submissionController.theModel.winnerList}" update="image" id="winnerListId" value="Winner" styleClass="ui-priority-primary"/>
-                    </p:panelGrid>
-                    <p:panelGrid style="margin: 0 auto; text-align: center; background-color: transparent">
-                        <p:commandButton style="margin: 0 auto" actionListener="#{submissionController.theModel.fullList}" update="image" id="fullListId" value="Winner" styleClass="ui-priority-primary"/>
-                    </p:panelGrid>
+                    <!--                    <p:panelGrid style="margin: 0 auto; text-align: center; background-color: transparent">
+                                            <p:commandButton style="margin: 0 auto" actionListener="{submissionController.theModel.winnerList}" update="image" id="winnerListId" value="Winner" styleClass="ui-priority-primary"/>
+                                        </p:panelGrid>
+                                        <p:panelGrid style="margin: 0 auto; text-align: center; background-color: transparent">
+                                            <p:commandButton style="margin: 0 auto" actionListener="{submissionController.theModel.fullList}" update="image" id="fullListId" value="Winner" styleClass="ui-priority-primary"/>
+                                        </p:panelGrid>-->
 
-                    <br/><h:outputLabel value="Cart total: " />
-                    <h:outputText value="$#{sp.formattedtotal}" />
+                    <br/>
 
                     <p:outputPanel id="customPanel" style="margin-bottom:10px">
                         <p:selectOneRadio id="customRadio" value="#{submissionController.theModel.searchParam}" layout="custom">
@@ -160,18 +158,32 @@ and open the template in the editor.
                             <f:selectItem itemLabel="Winning" itemValue="3" />
 
                         </p:selectOneRadio></p:outputPanel>
+                    <p:outputPanel>
+                        <p:panelGrid columns="2" style="width:80%">
+                            <f:facet name="header">
+                                <h:outputText value="View Submissions by:"/>
+                            </f:facet>
+                            <p:radioButton id="opt1" for="customRadio" itemIndex="0" />
+                            <h:outputLabel for="opt1" value="All" />
 
-                    <h:panelGrid columns="2" cellpadding="5">
-                        <p:radioButton id="opt1" for="customRadio" itemIndex="0" />
-                        <h:outputLabel for="opt1" value="ALL" />
 
+                            <p:radioButton id="opt2" for="customRadio" itemIndex="1" />
+                            <h:outputLabel for="opt2" value="Winning" /><f:facet name="footer">
+                                <p:commandButton value="Filter" update="image" id="filterButton" actionListener="#{submissionController.theModel.filter}" /></f:facet>
+                        </p:panelGrid></p:outputPanel>
+                    <br/><br/>
+                    <p:outputPanel style="margin:0 auto">
+                        <p:panelGrid columns="1">
 
-                        <p:radioButton id="opt2" for="customRadio" itemIndex="1" />
-                        <h:outputLabel for="opt2" value="Winning" />
-                    </h:panelGrid>
-                    <p:commandButton value="Filter" update="image" id="filterButton" actionListener="#{submissionController.theModel.filter}" />
+                            <f:facet name="header">
+                                <h:outputLabel value="Cart Total " />
+                            </f:facet>
+                            <h:outputText style=" text-align: center;margin:0 auto" value="$#{sp.formattedtotal}" />
+                            <f:facet  name="footer">
+                                <p:commandButton value="View Cart" id="disabled" action="cart?faces-redirect=true" />
+                            </f:facet>
 
-                        <p:commandButton value="View Cart" id="disabled" action="cart?faces-redirect=true" />
+                        </p:panelGrid></p:outputPanel>
                 </p:layoutUnit>
             </p:layout>
         </h:form>

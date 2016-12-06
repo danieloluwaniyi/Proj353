@@ -58,6 +58,7 @@ body {
 }
 .switch {
     left: 15%;
+    margin:0 auto;
 }
 .toolBar {
     background-color: transparent;
@@ -65,3 +66,4 @@ body {
     height: 70px;
     font-size: 32px
 }
+

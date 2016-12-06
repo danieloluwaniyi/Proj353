@@ -117,6 +117,7 @@ public class CartController {
                 fc.getExternalContext().getRequestParameterMap();
 	 String userID = params.get("userId");
         cartDAO.placeOrder(userID, order, total);
+        cart.clear();
         
         return "orderConfirmation.xhtml?faces-redirect=true";
         
