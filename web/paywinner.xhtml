@@ -9,31 +9,24 @@
         <title>Royalty Payment</title>
     </h:head>
     <h:body>
-
-        <h1>Royalties to be Paid</h1>
-        <h:form>
-            <h:dataTable value="#{winnerBean.getWinnerList()}" var="w" border="1">
-
-                <h:column>
+        <h:outputStylesheet library="css" name="admin.css"/>
+        <h:form class="form" style="position: relative; left: 0%">
+            <h1>Royalties to be Paid</h1>
+            <p:dataTable value="#{winnerBean.getWinnerList()}" var="w">
+                <p:column class="column">
                     <f:facet name="header">
                         User ID
                     </f:facet>
                     #{w.userID}
-                </h:column>
-
-                <h:column>
+                </p:column>
+                <p:column class="column">
                     <f:facet name="header">
                         Submission ID
                     </f:facet>
                     #{w.subID}
-                </h:column>
-
-               
-            </h:dataTable>
-            <p:commandButton value="Pay Prize" action="#{winnerBean.payWinners()}"/>
-
-
+                </p:column>
+            </p:dataTable>
+            <p:commandButton class="button" value="Pay Prize" action="#{winnerBean.payWinners()}" style="position: relative; left: 45%; width: 10%"/>
         </h:form>
     </h:body>
-
 </html>

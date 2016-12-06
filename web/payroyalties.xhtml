@@ -9,37 +9,30 @@
         <title>Royalty Payment</title>
     </h:head>
     <h:body>
-
-        <h1>Royalties to be Paid</h1>
-        <h:form>
-            <h:dataTable value="#{royaltyBean.getRoyaltyList()}" var="r" border="1">
-
-                <h:column>
+        <h:outputStylesheet library="css" name="admin.css"/>
+        <h:form class="form">
+            <h1>Royalties to be Paid</h1>
+            <p:dataTable value="#{royaltyBean.getRoyaltyList()}" var="r" style="position: relative; left: -33%" >
+                <p:column class="column">
                     <f:facet name="header">
                         User ID
                     </f:facet>
                     #{r.userID}
-                </h:column>
-
-                <h:column>
+                </p:column>
+                <p:column class="column">
                     <f:facet name="header">
                         Submission ID
                     </f:facet>
                     #{r.subID}
-                </h:column>
-
-                <h:column>
+                </p:column>
+                <p:column class="column">
                     <f:facet name="header">
                         Royalty Amount
                     </f:facet>
                     #{r.amount}
-                </h:column>
-
-            </h:dataTable>
-            <p:commandButton value="Pay Royalty" action="#{royaltyBean.payRoyalty()}"/>
-
-
+                </p:column>
+            </p:dataTable>
+            <p:commandButton class="button" value="Pay Royalty" action="#{royaltyBean.payRoyalty()}" style="width: 300; left: 10%; position: relative"/>
         </h:form>
     </h:body>
-
 </html>

@@ -8,6 +8,7 @@ package dao;
 import email.Email;
 import java.io.Serializable;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,18 +31,21 @@ public class WinnerBean implements Serializable {
     private List<String> emails = new ArrayList<String>();
     private Email email = new Email();
 
-    public void selectWinner() {
+    public double selectWinner(Date date) {
+        System.out.println(date);
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
         String myDB = "jdbc:derby://localhost:1527/project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
+        double winner_id  =0;
         try {
-            String Query = "SELECT submission_id FROM Project353.submissions where {fn TIMESTAMPDIFF( SQL_TSI_DAY, CURRENT DATE, Submission_date)}<=7 and rating= (select max(rating) from Project353.submissions) and WINNER = FALSE";
-            Statement s = DBConn.createStatement();
-            ResultSet rs = s.executeQuery(Query);
+            String Query = "SELECT submission_id FROM Project353.submissions where {fn TIMESTAMPDIFF( SQL_TSI_DAY, ?, CURRENT DATE)}>=7 and rating= (select max(rating) from Project353.submissions) and WINNER = FALSE";
+            PreparedStatement s = DBConn.prepareStatement(Query);
+            s.setDate(1, date);
+            ResultSet rs = s.executeQuery();
             Statement s1 = DBConn.createStatement();
           
             while (rs.next()) {
-                double winner_id = rs.getDouble("Submission_id");
+                 winner_id = rs.getDouble("Submission_id");
                 String updateQuery = "UPDATE PROJECT353.SUBMISSIONS SET WINNER = TRUE WHERE SUBMISSION_ID = " + winner_id;
                 int i = s1.executeUpdate(updateQuery);
             }
@@ -54,19 +58,30 @@ public class WinnerBean implements Serializable {
             System.out.println("======");
             System.out.println("======");
         }
-
+        return winner_id;
     }
 
     public void setWinners() {
-        selectWinner();
+      
         PreparedStatement ps;
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
         String myDB = "jdbc:derby://localhost:1527/project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
+         Date date = null;
         try {
-            String Query = "SELECT * FROM Project353.submissions where winner = true";
+            String dateQuery = "SELECT max(windate) WINDATE FROM Project353.winnner ";
+           
+           
             Statement s = DBConn.createStatement();
-            ResultSet rs = s.executeQuery(Query);
+            ResultSet rs;
+            rs = s.executeQuery(dateQuery);
+            while(rs.next()){
+                date=rs.getDate("WINDATE");
+            }
+            double id = selectWinner(date);
+            
+            String Query = "SELECT * FROM Project353.submissions where submission_id= "+id;
+            rs = s.executeQuery(Query);
 //            Statement s1 = DBConn.createStatement();
             while (rs.next()) {
                 double winner_id = rs.getDouble("Submission_id");
