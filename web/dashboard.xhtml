@@ -59,10 +59,12 @@ and open the template in the editor.
                         </f:facet>
 
                         <p:panel header="#{image.submissionId}" style="text-align:center; background-color: lightblue;" id="panelID">
-                            <h:panelGrid columns="1" style="width:100%">
+                            
+                            <h:panelGrid columns="1" style="width:100%; height:100px">
+                                <p:panelGrid columns="1">
                                 <p:graphicImage style="width:100%" value="#{submissionController.theModel.submission}">
                                     <f:param name="sid" value="#{image.submissionId}"/>
-                                </p:graphicImage>
+                                </p:graphicImage></p:panelGrid>
 
                                 <h:panelGrid columns="5" style="margin: 0 auto">
                                     <h:outputText value="Rating: " />
