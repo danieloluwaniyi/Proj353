@@ -53,6 +53,8 @@ and open the template in the editor.
 
                 <!--Confirm Password-->
                 <p:outputLabel class="outputLabel" value="Password again" />
+                                </p:inputText>
+
                 <p:password class="inputText" id="confirmPassword" required="true" binding="#{confirmPassword}">
                     <f:validator validatorId="passwordMatchChecker"/>
                     <f:attribute name="password" value="#{password}"/>
