@@ -34,7 +34,7 @@ public class WinnerBean implements Serializable {
     public double selectWinner(Date date) {
         System.out.println(date);
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/project353";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         double winner_id  =0;
         try {
@@ -65,11 +65,11 @@ public class WinnerBean implements Serializable {
       
         PreparedStatement ps;
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/project353";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
          Date date = null;
         try {
-            String dateQuery = "SELECT max(windate) WINDATE FROM Project353.winnner ";
+            String dateQuery = "SELECT max(windate) WINDATE FROM Project353.winner ";
            
            
             Statement s = DBConn.createStatement();
@@ -88,7 +88,7 @@ public class WinnerBean implements Serializable {
                 String user_id = rs.getString("USER_ID");
 //                String updateQuery = "UPDATE PROJECT353.SUBMISSIONS SET WINNER = TRUE WHERE SUBMISSION_ID = " + winner_id;
 //                int i = s1.executeUpdate(updateQuery);
-                ps = DBConn.prepareStatement("insert into project353.winnner (USER_ID,SUBMISSION_ID) VALUES(?,?)");
+                ps = DBConn.prepareStatement("insert into project353.winner (USER_ID,SUBMISSION_ID) VALUES(?,?)");
                 ps.setString(1, user_id);
                 ps.setDouble(2,winner_id);
                 ps.execute();
@@ -110,10 +110,10 @@ public class WinnerBean implements Serializable {
     public List<String> getEmailWinners() {
         List<String> list = new ArrayList<String>();
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/project353";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         try {
-            String sql = "select u.email from project353.users u join project353.winnner w using(USER_ID) where w.paid = FALSE";
+            String sql = "select u.email from project353.users u join project353.winner w using(USER_ID) where w.paid = FALSE";
             Statement s = DBConn.createStatement();
             ResultSet rs = s.executeQuery(sql);
             while (rs.next()) {
@@ -132,10 +132,10 @@ public class WinnerBean implements Serializable {
     public List<Winner> getWinnerList() throws SQLException {
         List<Winner> list = new ArrayList<Winner>();
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/project353";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         try {
-            String sql = "SELECT * FROM PROJECT353.WINNNER WHERE PAID = FALSE";
+            String sql = "SELECT * FROM PROJECT353.winner WHERE PAID = FALSE";
             Statement s = DBConn.createStatement();
             ResultSet rs = s.executeQuery(sql);
             while (rs.next()) {
@@ -160,10 +160,10 @@ public class WinnerBean implements Serializable {
 
         String retVal = null;
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/project353";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         try {
-            String sql = "update project353.winnner set PAID = TRUE where PAID = FALSE";
+            String sql = "update project353.winner set PAID = TRUE where PAID = FALSE";
             Statement s = DBConn.createStatement();
             int i = s.executeUpdate(sql);
             DBConn.close();
@@ -180,10 +180,10 @@ public class WinnerBean implements Serializable {
 public List<Winner> getAllWinner() throws SQLException {
         List<Winner> list = new ArrayList<Winner>();
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/project353";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         try {
-            String sql = "SELECT * FROM PROJECT353.WINNNER";
+            String sql = "SELECT * FROM PROJECT353.winner";
             Statement s = DBConn.createStatement();
             ResultSet rs = s.executeQuery(sql);
             while (rs.next()) {

@@ -6,10 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -40,7 +37,7 @@ public class ProfileDAO implements Serializable {
 
         String userIDQuery = "SELECT * FROM project353.users WHERE user_id = ?";
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/project353";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
         try {
@@ -68,7 +65,7 @@ public class ProfileDAO implements Serializable {
 
         String emailQuery = "SELECT * FROM project353.users WHERE email = ?";
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/project353";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
         try {
@@ -134,7 +131,7 @@ public class ProfileDAO implements Serializable {
             System.exit(0);
         }
 
-        String myDB = "jdbc:derby://localhost:1527/project353";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         try {
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             String insertString = "INSERT INTO Project353.Users (firstName, lastName, user_ID, Email, Password, Paid) VALUES (?, ?, ?, ?, ?, ?)";
@@ -165,7 +162,7 @@ public class ProfileDAO implements Serializable {
             System.exit(0);
         }
 
-        String myDB = "jdbc:derby://localhost:1527/project353";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         try {
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             String insertString = "UPDATE PROJECT353.USERS SET nameOnCard = ?, creditCardNum = ?, securityCode = ?, expirationMonth = ?, expirationYear = ? WHERE user_id = ?";
@@ -196,7 +193,7 @@ public class ProfileDAO implements Serializable {
             System.exit(0);
         }
 
-        String myDB = "jdbc:derby://localhost:1527/project353";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         try {
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             String idQuery = "SELECT user_ID FROM project353.users WHERE user_ID = ?";
@@ -262,7 +259,7 @@ public class ProfileDAO implements Serializable {
             System.err.println(e.getMessage());
             System.exit(0);
         }
-        String myDB = "jdbc:derby://localhost:1527/project353";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         try {
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             String query = "SELECT * FROM Project353.Users WHERE email=?";
@@ -293,7 +290,7 @@ public class ProfileDAO implements Serializable {
             System.exit(0);
         }
 
-        String myDB = "jdbc:derby://localhost:1527/project353";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         try {
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             String query = "SELECT password FROM Project353.Users WHERE user_ID=?";
@@ -326,7 +323,7 @@ public class ProfileDAO implements Serializable {
             System.exit(0);
         }
 
-        String myDB = "jdbc:derby://localhost:1527/project353";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         try {
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             String insertString = "UPDATE Project353.Users SET firstName=?, lastName=? WHERE user_id = ?";
@@ -355,7 +352,7 @@ public class ProfileDAO implements Serializable {
             System.exit(0);
         }
 
-        String myDB = "jdbc:derby://localhost:1527/project353";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         try {
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             String insertString = "UPDATE Project353.Users SET email=? WHERE user_id = ?";
@@ -383,7 +380,7 @@ public class ProfileDAO implements Serializable {
             System.exit(0);
         }
 
-        String myDB = "jdbc:derby://localhost:1527/project353";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         try {
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             String query = "SELECT * FROM Project353.Users WHERE user_id = ?";
@@ -427,7 +424,7 @@ public class ProfileDAO implements Serializable {
             System.exit(0);
         }
 
-        String myDB = "jdbc:derby://localhost:1527/project353";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         try {
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             String query = "SELECT * FROM Project353.Users WHERE user_id = ?";
@@ -464,7 +461,7 @@ public class ProfileDAO implements Serializable {
             System.exit(0);
         }
 
-        String myDB = "jdbc:derby://localhost:1527/project353";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         try {
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             String insertString = "UPDATE Project353.Users SET password=? WHERE user_id = ?";
@@ -492,7 +489,7 @@ public class ProfileDAO implements Serializable {
             System.exit(0);
         }
         try {
-            String myDB = "jdbc:derby://localhost:1527/project353";
+            String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             String query = "Update project353.submissions set paid =" + true + " where USER_ID=" + userID + ";";
             PreparedStatement stmt = DBConn.prepareStatement(query);
@@ -534,21 +531,4 @@ public class ProfileDAO implements Serializable {
     }
 
 }
-//    public boolean addToCartDAO(String userID) {
-//
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//    
-//    
-//
-//}
-//<<<<<<< HEAD
-////<<<<<<< HEAD
-////        } catch (IOException ex) {
-////            System.out.println(ex.getMessage());
-////
-////
-////>>>>>>> origin/master
-//
+
