@@ -41,7 +41,7 @@
             </p:toolbar>
         </h:form>
         <h:form>
-            <p:dataTable value="#{winnerBean.getAllWinner()}" var="w">
+            <p:dataTable value="#{winnerDAO.allWinner}" var="w">
                 <p:column class="column">
                     <f:facet class="facet" name="header">
                         User ID
