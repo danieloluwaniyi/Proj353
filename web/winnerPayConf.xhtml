@@ -74,20 +74,15 @@
                     <p:outputLabel value="Admin Portal" />
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton class="button" value="Log Out" action="#{adminController.logoutAdmin()}" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
+                    <p:commandButton class="button" value="Home" action="home?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
                 </f:facet>
                 <f:facet name="right">
                 </f:facet>
             </p:toolbar>
         </h:form>
         <h:form class="form">
-            <p:outputLabel class="top" value="Welcome Admin"/>
-            <h:panelGrid class="panelGrid" columns="1" >
-                <p:commandButton class="button" id="submit1" value="Select Winners" action="#{winnerDAO.setWinners()}"/>
-                <p:commandButton class="button" id="submit2" value="Pay Royalty" action="payroyalties?faces-redirect=true"/>
-                <p:commandButton class="button" id="submit3" value="Pay Winners" action="paywinner?faces-redirect=true"/>
-
-            </h:panelGrid>
+            <p:outputLabel class="top" value="Winners are paid Sucessfully."/>
+            
         </h:form>
 
     </h:body>

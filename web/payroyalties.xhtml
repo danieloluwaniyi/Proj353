@@ -8,6 +8,7 @@
     <h:head>
         <title>Royalty Payment</title>
     </h:head>
+    <f:event listener="#{adminController.checkIfLoggedInAsAdmin()}" type="preRenderView" />
     <h:body>
         <h:outputStylesheet library="css" name="admin.css"/>
         <h:form>
@@ -23,9 +24,9 @@
                 </f:facet>
             </p:toolbar>
         </h:form>
-        <h:form class="form">
+        <h:form style="position: absolute; left: 40%">
             <h1>Royalties to be Paid</h1>
-            <p:dataTable value="#{royaltyBean.getRoyaltyList()}" var="r" style="position: relative; left: -33%" >
+            <p:dataTable value="#{royaltyDAO.getRoyaltyList()}" var="r" style="position: relative; left: -33%" >
                 <p:column class="column">
                     <f:facet name="header">
                         User ID
@@ -45,7 +46,8 @@
                     #{r.amount}
                 </p:column>
             </p:dataTable>
-            <p:commandButton class="button" value="Pay Royalty" action="#{royaltyBean.payRoyalty()}" style="width: 300; left: 10%; position: relative"/>
+            <p:commandButton id="payRoyaltyButton" class="button" value="Pay Royalty" action="#{adminController.payRoyalty()}" style="width: 300; left: 10%; position: relative"/>
+            <p:outputLabel for="payRoyaltyButton" value="#{adminController.errorMsg}"/>
         </h:form>
     </h:body>
 </html>
