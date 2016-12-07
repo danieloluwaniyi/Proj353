@@ -101,6 +101,10 @@ public class SubmissionDAO {
         if (param == 2) {//tags
             query = "select * from project353.submissions where tags like ?";
         }
+        
+        if(param==3){
+            query = "select * from project353.submissions where winner=true";
+        }
         submission = getAllSubmissions(query, param, tag);
         return submission;
 
