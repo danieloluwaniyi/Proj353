@@ -48,12 +48,12 @@ and open the template in the editor.
                 <p:inputText class="inputText"  id="lastName" value="#{profileController.profile.lastName}" required="true">
                     
                     <f:attribute name="confirmPassword" value="#{confirmPassword}"/>
-                </p:password>
+                </p:inputText>
                 <p:messages class="warning" id="passwordMsg" for="password" escape="false"/>
 
                 <!--Confirm Password-->
                 <p:outputLabel class="outputLabel" value="Password again" />
-                                </p:inputText>
+                                
 
                 <p:password class="inputText" id="confirmPassword" required="true" binding="#{confirmPassword}">
                     <f:validator validatorId="passwordMatchChecker"/>
