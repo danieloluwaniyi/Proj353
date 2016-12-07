@@ -24,109 +24,49 @@ import model.Profile;
 @ManagedBean
 @SessionScoped
 public class Email implements Serializable {
-
-        public boolean Email(Profile SignUpetails) {
-        boolean sent = false;
-        // Recipient's email ID needs to be mentioned.
-        String to = SignUpetails.getEmail();
-
-        // Sender's email ID needs to be mentioned
-        String from = "svyas12@ilstu.edu";
-
-        // Assuming you are sending email from this host
-        String host = "m.outlook.com";
-
-        // Get system properties
-        Properties props = System.getProperties();
-
-        // Setup mail server
-        props = new Properties();
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.port", "587"); // if needed
-        props.put("mail.smtp.host", "m.outlook.com"); // if needed
-        props.put("mail.smtp.auth", "true");
-        // Get the default Session object.
-        Session session = Session.getDefaultInstance(props);
-        session = Session.getInstance(props, new Authenticator() {
-        @Override
-        protected PasswordAuthentication getPasswordAuthentication() {
-            return new PasswordAuthentication("svyas12@ilstu.edu",
-                    "Sohanlal1!");
-        }
-    });
-
-        try {
-            // Create a default MimeMessage object.
-            MimeMessage message = new MimeMessage(session);
-
-            // Set From: header field of the header.
-            message.setFrom(new InternetAddress(from));
-
-            // Set To: header field of the header.
-            message.setRecipient(Message.RecipientType.TO,
-                    new InternetAddress(to));
-
-            // Set Subject: header field
-            message.setSubject("Your Account has been created");
-            // Send the actual HTML message, as big as you like
-            message.setContent("Hi " + SignUpetails.getFirstName() + "," + "<br/>" + "You have won the contest based on user ratings." + "<br/>"
-                                 ,"text/html");
-
-            // Send message
-            Transport.send(message);
-            sent = true;
-            System.out.println("Message sent successfully....");
-
-        } catch (MessagingException mex) {
-            mex.printStackTrace();
-            sent = false;
-        }
-        return sent;
-
-    }
     
         
-        public void adminLoginEmail() {
-        String to = "snehsonu1@ilstu.edu";
-        String username = "snehsonu1@gmail.com";
-        String password = "sohanlal";
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
-
-        Session session = Session.getInstance(props,
-                new javax.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
-            }
-        });
-        try {
-
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("snehsonu1@gmail.com"));
-            message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse("snehsonu1@gmail.com"));
-            message.setSubject("Congratulations...");
-            message.setText("You have been paid $50 Royalty for your paintings.");
-                    
-
-            Transport.send(message);
-
-            System.out.println("Done");
-
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
+//        public void adminLoginEmail() {
+//        String to = "snehsonu1@ilstu.edu";
+//        String username = "ccola@gmail.com";
+//        String password = "Ccola2017!";
+//        Properties props = new Properties();
+//        props.put("mail.smtp.auth", "true");
+//        props.put("mail.smtp.starttls.enable", "true");
+//        props.put("mail.smtp.host", "smtp.gmail.com");
+//        props.put("mail.smtp.port", "587");
+//
+//        Session session = Session.getInstance(props,
+//                new javax.mail.Authenticator() {
+//            protected PasswordAuthentication getPasswordAuthentication() {
+//                return new PasswordAuthentication(username, password);
+//            }
+//        });
+//        try {
+//
+//            Message message = new MimeMessage(session);
+//            message.setFrom(new InternetAddress("snehsonu1@gmail.com"));
+//            message.setRecipients(Message.RecipientType.TO,
+//                    InternetAddress.parse("snehsonu1@gmail.com"));
+//            message.setSubject("Congratulations...");
+//            message.setText("You have been paid $50 Royalty for your paintings.");
+//                    
+//
+//            Transport.send(message);
+//
+//            System.out.println("Done");
+//
+//        } catch (MessagingException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//    }
         
         
         public void winnerEmail(String email) {
         String to = email;
-        String username = "snehsonu1@gmail.com";
-        String password = "sohanlal";
+        String username = "ccola@gmail.com";
+        String password = "String email";
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -162,8 +102,8 @@ public class Email implements Serializable {
         
     public void royaltyEmail(String email) {
         String to = email;
-        String username = "snehsonu1@gmail.com";
-        String password = "sohanlal";
+        String username = "ccola@gmail.com";
+        String password = "Ccola2017!";
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -195,67 +135,6 @@ public class Email implements Serializable {
         }
 
     }
-        
-        
-//    public boolean confirmationEmail(Profile profile) {
-//        boolean sent = false;
-//        // Recipient's email ID needs to be mentioned.
-//        String to = profile.getEmail();
-//
-//        // Sender's email ID needs to be mentioned
-//        String from = "stokuda@ilstu.edu";
-//
-//        // Assuming you are sending email from this host
-//        String host = "m.outlook.com";
-//
-//        // Get system properties
-//        Properties props = System.getProperties();
-//
-//        // Setup mail server
-//        props = new Properties();
-//        props.put("mail.smtp.starttls.enable", "true");
-//        props.put("mail.smtp.port", "587"); // if needed
-//        props.put("mail.smtp.host", "m.outlook.com"); // if needed
-//        props.put("mail.smtp.auth", "true");
-//        // Get the default Session object.
-//        Session session = Session.getDefaultInstance(props);
-//        session = Session.getInstance(props, new Authenticator() {
-//            @Override
-//            protected PasswordAuthentication getPasswordAuthentication() {
-//                return new PasswordAuthentication("svyas12@ilstu.edu",
-//                        "Sohanlal1!");
-//            }
-//        });
-//
-//        try {
-//            // Create a default MimeMessage object.
-//            MimeMessage message = new MimeMessage(session);
-//
-//            // Set From: header field of the header.
-//            message.setFrom(new InternetAddress(from));
-//
-//            // Set To: header field of the header.
-//            message.setRecipient(Message.RecipientType.TO,
-//                    new InternetAddress(to));
-//
-//            // Set Subject: header field
-//            message.setSubject("Your Account has been created");
-//            // Send the actual HTML message, as big as you like
-//            message.setContent("Hi " + SignUpetails.getFirstName() + "," + "<br/>" + "You have won the contest based on user ratings." + "<br/>",
-//                    "text/html");
-//
-//            // Send message
-//            Transport.send(message);
-//            sent = true;
-//            System.out.println("Message sent successfully....");
-//
-//        } catch (MessagingException mex) {
-//            mex.printStackTrace();
-//            sent = false;
-//        }
-//        return sent;
-//
-//    }
 
     public boolean confirmationEmail(Profile profile) {
 
@@ -264,13 +143,13 @@ public class Email implements Serializable {
         String to = profile.getEmail();
 
         // Sender's email ID needs to be mentioned
-        String from = "suguru.tokuda@gmail.com";
+        String from = "ccola@gmail.com";
 
         // Assuming you are sending email from this host
         String host = "smtp.gmail.com";
 
-        final String username = "suguru.tokuda@gmail.com";
-        final String password = "sfst0812";
+        final String username = "ccola@gmail.com";
+        final String password = "Ccola2017!";
 
         // Get system properties
         Properties props = System.getProperties();
@@ -327,13 +206,13 @@ public class Email implements Serializable {
         String to = profile.getEmail();
 
         // Sender's email ID needs to be mentioned
-        String from = "suguru.tokuda@gmail.com";
+        String from = "ccola@gmail.com";
 
         // Assuming you are sending email from this host
         String host = "smtp.gmail.com";
 
-        final String username = "suguru.tokuda@gmail.com";
-        final String password = "sfst0812";
+        final String username = "ccola@gmail.com";
+        final String password = "Ccola2017!";
 
         // Get system properties
         Properties props = System.getProperties();
@@ -412,13 +291,13 @@ public class Email implements Serializable {
         String to = profile.getEmail();
 
         // Sender's email ID needs to be mentioned
-        String from = "suguru.tokuda@gmail.com";
+        String from = "ccola@gmail.com";
 
         // Assuming you are sending email from this host
         String host = "smtp.gmail.com";
 
-        final String username = "suguru.tokuda@gmail.com";
-        final String password = "sfst0812";
+        final String username = "ccola@gmail.com";
+        final String password = "Ccola2017!";
 
         // Get system properties
         Properties props = System.getProperties();
