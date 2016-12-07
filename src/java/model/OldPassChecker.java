@@ -31,7 +31,7 @@ public class OldPassChecker implements Validator {
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 
         String oldPass = value.toString();
-
+           
         FacesContext fc = FacesContext.getCurrentInstance();
 
         Map<String, Object> params = fc.getExternalContext().getSessionMap();
@@ -41,6 +41,7 @@ public class OldPassChecker implements Validator {
         if (oldPass == null || oldPass.isEmpty()) {
             return;
         }
+        
 
         if (!profileDAO.checkPasswordExists(userID, oldPass)) {
             throw new ValidatorException(new FacesMessage(
@@ -63,4 +64,6 @@ public class OldPassChecker implements Validator {
     public void setProfileDAO(ProfileDAO profileDAO) {
         this.profileDAO = profileDAO;
     }
+
+
 }

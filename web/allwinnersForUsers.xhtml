@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Winners</title>
+    </h:head>
+    <f:event listener="#{loginController.checkIfLoggedIn}" type="preRenderView" />
+    <h:body>
+        <h:outputStylesheet library="css" name="afterLogin.css"/>
+        
+        <h:form>
+            
+            <p:growl id="messages" showDetail="true" />
+            <p:toolbar class="toolBar" >
+                <f:facet name="left">
+                    <p:outputLabel value="Submissions Portal" />
+                </f:facet>
+                <f:facet name="right">
+
+                    <p:commandButton class="button" value="View Winners" action="allwinners?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
+                    <p:commandButton class="button" value="Update Profile" action="update?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
+                    <p:commandButton class="button" value="Upload Submission" action="UploadSubmission?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 150px "/>
+                    <p:commandButton class="button" value="View Dashboard" action="dashboard?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 140px "/>
+
+                    <span class="ui-separator">    
+                        <span class="ui-icon ui-icon-grip-dotted-vertical"/>
+                    </span>
+                </f:facet>
+
+                <f:facet name="right">
+                    <p:commandButton class="button" value="Log out" action="#{loginController.logout()}" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
+                </f:facet>
+                <f:facet name="right">
+                </f:facet>
+            </p:toolbar>
+        </h:form>
+    <h:body>
+        <h:outputStylesheet library="css" name="admin.css"/>
+        <h:form>
+            <p:growl id="messages" showDetail="true" />
+            <p:toolbar style="background-color: transparent; color: white; height: 100; font-size: 32px" >
+                <f:facet name="left">
+                    <p:outputLabel value="Admin Page" />
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton class="button" value="Home" action="home?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 120px "/>
+                </f:facet>
+                <f:facet name="right">
+                </f:facet>
+            </p:toolbar>
+        </h:form>
+
+        <h1>Winners so far...</h1>
+        <h:form>
+            <p:dataTable value="#{winnerBean.getAllWinner()}" var="w">
+                <p:column class="column">
+                    <f:facet class="facet" name="header">
+                        User ID
+                    </f:facet>
+                    #{w.userID}
+                </p:column>
+                <p:column class="column">
+                    <f:facet class="facet" name="header">
+                        Submission ID
+                    </f:facet>
+                    #{w.subID}
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+    </h:body>
+
+</html>
