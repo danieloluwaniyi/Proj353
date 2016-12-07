@@ -129,12 +129,12 @@ public class AdminController {
         if (adminuname.equals("admin")&&  adminpass.equals("admin")) {
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-            nav.performNavigation("goodadmin?faces-redirect=true");
+            nav.performNavigation("adminMenu?faces-redirect=true");
         } 
         else {
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-            nav.performNavigation("badadmin?faces-redirect=true");
+            nav.performNavigation("adminLoginFail?faces-redirect=true");
         }
 //        return retVal;
     }
