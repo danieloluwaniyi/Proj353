@@ -26,7 +26,7 @@ import model.Winner;
  */
 @ManagedBean
 @SessionScoped
-public class WinnerBean implements Serializable {
+public class WinnerDAO implements Serializable {
 
     private List<String> emails = new ArrayList<String>();
     private Email email = new Email();
@@ -152,13 +152,13 @@ public class WinnerBean implements Serializable {
         return list;
     }
 
-    public String payWinners() {
+    public boolean payWinners() {
         emails = getEmailWinners();
         for (int i = 0; i < emails.size(); i++) {
             email.winnerEmail(emails.get(i));
         }
 
-        String retVal = null;
+        boolean retVal = false;
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
         String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
@@ -168,9 +168,9 @@ public class WinnerBean implements Serializable {
             int i = s.executeUpdate(sql);
             DBConn.close();
             s.close();
-            retVal = "goodadmin?faces-redirect=true";
+            retVal = true;
         } catch (Exception e) {
-            retVal = "";
+            retVal = false;
         }
         return retVal;
     }
