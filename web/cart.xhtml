@@ -9,6 +9,7 @@
     <h:head>
         <title>Shopping Cart</title>
     </h:head>
+    <f:event listener="#{loginController.checkIfLoggedIn}" type="preRenderView" />
     <h:outputStylesheet library="css" name="update.css"/>
     <h:body>
         <h:outputStylesheet library="css" name="afterLogin.css"/>

@@ -27,7 +27,7 @@ public class Email implements Serializable {
        
         public void winnerEmail(String email) {
         String to = email;
-        String username = "ccola@gmail.com";
+        String username = "ccola2017@gmail.com";
         String password = "String email";
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -44,7 +44,7 @@ public class Email implements Serializable {
         try {
 
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("ccola@gmail.com"));
+            message.setFrom(new InternetAddress("ccola2017@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(email));
             message.setSubject("Congratulations...");
@@ -64,7 +64,7 @@ public class Email implements Serializable {
         
     public void royaltyEmail(String email) {
         String to = email;
-        String username = "ccola@gmail.com";
+        String username = "ccola2017@gmail.com";
         String password = "Ccola2017!";
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -81,7 +81,7 @@ public class Email implements Serializable {
         try {
 
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("ccola@gmail.com"));
+            message.setFrom(new InternetAddress("ccola2017@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(email));
             message.setSubject("Congratulations...");
@@ -105,12 +105,12 @@ public class Email implements Serializable {
         String to = profile.getEmail();
 
         // Sender's email ID needs to be mentioned
-        String from = "ccola@gmail.com";
+        String from = "ccola2017@gmail.com";
 
         // Assuming you are sending email from this host
         String host = "smtp.gmail.com";
 
-        final String username = "ccola@gmail.com";
+        final String username = "ccola2017@gmail.com";
         final String password = "Ccola2017!";
 
         // Get system properties
@@ -142,7 +142,7 @@ public class Email implements Serializable {
                     new InternetAddress(to));
 
             // Set Subject: header field
-            message.setSubject("Submissioins Portal: Account Created");
+            message.setSubject("Submissions Portal: Account Created");
             // Send the actual HTML message, as big as you like
             message.setContent("Hi " + profile.getFirstName() + "," + "<br/>" + "You have been Succesfully signed up with Submissions Portal!" + "<br/><br/>"
                     + "Your UserID :" + profile.getUserID() + "<br/>"
@@ -168,12 +168,12 @@ public class Email implements Serializable {
         String to = profile.getEmail();
 
         // Sender's email ID needs to be mentioned
-        String from = "ccola@gmail.com";
+        String from = "ccola2017@gmail.com";
 
         // Assuming you are sending email from this host
         String host = "smtp.gmail.com";
 
-        final String username = "ccola@gmail.com";
+        final String username = "ccola2017@gmail.com";
         final String password = "Ccola2017!";
 
         // Get system properties
@@ -206,7 +206,7 @@ public class Email implements Serializable {
 
             if (type.equals("name")) {
                 // Set Subject: header field
-                message.setSubject("Submissioins Portal: Name updated");
+                message.setSubject("Submissions Portal: Name updated");
                 // Send the actual HTML message, as big as you like
                 message.setContent("Your name has been updated!" + "<br/><br/>"
                         + "First name: " + profile.getFirstName() + "<br/>"
@@ -216,7 +216,7 @@ public class Email implements Serializable {
                         "text/html");
             } else if (type.equals("email")) {
                 // Set Subject: header field
-                message.setSubject("Submissioins Portal: Email updated");
+                message.setSubject("Submissions Portal: Email updated");
                 // Send the actual HTML message, as big as you like
                 message.setContent("Your email has been updated!" + "<br/><br/>"
                         + "New email: " + profile.getEmail() + "<br/>"
@@ -225,7 +225,7 @@ public class Email implements Serializable {
                         "text/html");
             } else if (type.equals("password")) {
                 // Set Subject: header field
-                message.setSubject("Submissioins Portal: Password updated");
+                message.setSubject("Submissions Portal: Password updated");
                 // Send the actual HTML message, as big as you like
                 message.setContent("Your password has been updated!" + "<br/><br/>"
                         + "New password: " + profile.getPassword() + "<br/>"
@@ -253,12 +253,12 @@ public class Email implements Serializable {
         String to = profile.getEmail();
 
         // Sender's email ID needs to be mentioned
-        String from = "ccola@gmail.com";
+        String from = "ccola2017@gmail.com";
 
         // Assuming you are sending email from this host
         String host = "smtp.gmail.com";
 
-        final String username = "ccola@gmail.com";
+        final String username = "ccola2017@gmail.com";
         final String password = "Ccola2017!";
 
         // Get system properties
@@ -290,7 +290,7 @@ public class Email implements Serializable {
                     new InternetAddress(to));
 
                 // Set Subject: header field
-                message.setSubject("Submissioins Portal: Password resent");
+                message.setSubject("Submissions Portal: Password resent");
                 // Send the actual HTML message, as big as you like
                 message.setContent("Here's your password!" + "<br/><br/>"
                         + "User ID: " + profile.getUserID() + "<br/>"

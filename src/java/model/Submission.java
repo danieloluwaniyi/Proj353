@@ -133,11 +133,11 @@ public class Submission implements Serializable {
         return submissionList;
     }
 
-    public void filteredList() {
+    public String filteredList() {
         this.searchParam = 2;
         ArrayList sub = (new SubmissionDAO().findAllSubmissions(searchParam, tags));
         this.submissionList = sub;
-        // return sub;
+        return "dashboard.xhtml?faces-redirect=true";
     }
     
     public String winnerList() {
@@ -195,7 +195,7 @@ public class Submission implements Serializable {
         this.profile = (Profile) sessionProfile;
 
         String user = profile.getUserID();
-        this.tags = param.get("form:j_idt17");
+        this.tags = param.get("form:j_idt21");
         dao.insertImage(fileUpload.getContents(), user, this.tags);
         displayUploadMsg(event);
 
