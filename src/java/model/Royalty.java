@@ -1,8 +1,5 @@
 package model;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-
-import java.util.Date;
 import javax.faces.bean.SessionScoped;
 
 @ManagedBean
