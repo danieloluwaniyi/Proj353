@@ -71,5 +71,8 @@ body {
 }
 .column {
     background-color: transparent;
+    color: white;
+}
+.facet {
     color: black;
 }

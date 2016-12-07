@@ -14,13 +14,13 @@
             <h1>Royalties to be Paid</h1>
             <p:dataTable value="#{winnerBean.getWinnerList()}" var="w">
                 <p:column class="column">
-                    <f:facet name="header">
+                    <f:facet class="facet" name="header">
                         User ID
                     </f:facet>
                     #{w.userID}
                 </p:column>
                 <p:column class="column">
-                    <f:facet name="header">
+                    <f:facet class="facet" name="header">
                         Submission ID
                     </f:facet>
                     #{w.subID}
