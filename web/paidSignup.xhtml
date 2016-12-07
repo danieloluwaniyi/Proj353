@@ -51,6 +51,7 @@ and open the template in the editor.
                 <!--UserID-->
                 <p:outputLabel style="text-align: left" class="outputLabel" value="User ID" />
                 <p:inputText class="inputText"  id="userID" value="#{profileController.profile.userID}" required="true">
+                    <f:validateLength minimum="2" maximum="25"/>
                     <f:ajax event="blur" render="idMessage"/>
                     <f:validator validatorId="userIDValidator"/>
                 </p:inputText>
