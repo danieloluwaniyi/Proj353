@@ -330,9 +330,7 @@ public class ProfileDAO implements Serializable {
             PreparedStatement pstmt = DBConn.prepareStatement(insertString);
             pstmt.setString(1, profile.getFirstName());
             pstmt.setString(2, profile.getLastName());
-            pstmt.setString(3, profile.getEmail());
-            pstmt.setString(4, profile.getPassword());
-            pstmt.setString(5, profile.getUserID());
+            pstmt.setString(3, profile.getUserID());
             pstmt.execute();
             retVal = 1;
             DBConn.close();

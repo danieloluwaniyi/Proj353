@@ -82,16 +82,18 @@ and open the template in the editor.
 
                 <!--New Email-->
                 <p:outputLabel class="outputLabel" value="New Email"/>
-                <p:inputText id="email" value="#{profileController.profile.email}" style="width: 230px;" >
+                <p:inputText id="email" value="#{profileController.profile.email}" style="width: 230px;">
+                    <!--<f:ajax event="blur" render="emailMessage"/>-->
+                    <f:validator validatorId="emailValidator"/>
                     <f:validator validatorId="emailMatchChecker"/>
                     <f:attribute name="emailConfirmation" value="#{emailConfirmation}"/>
                 </p:inputText>
+                <p:message id="emailMessage" for="email"/>
 
                 <!--Confirmation Email-->
                 <p:outputLabel class="outputLabel" value="New Email again" />
                 <p:inputText id="emailConfirmation" value="#{profileController.profile.confirmationEmail}" binding="#{emailConfirmation}" style="width: 230px;">
                 </p:inputText>
-                <p:message id="passMatchMsg" for="email"/>
 
                 <!--Password-->
                 <p:outputLabel class="outputLabel" value="Password" />
@@ -106,7 +108,7 @@ and open the template in the editor.
                 </p:password>
                 <p:message class="warning" id="passConfMsg" for="confirmPassword" escape="false"/>
 
-                <p:commandButton class="button" id="submit" value="Update" action="#{profileController.updateEmail()}" update="passwordMsg passMatchMsg passConfMsg" style="width: 240px" />
+                <p:commandButton class="button" id="submit" value="Update" action="#{profileController.updateEmail()}" update="emailMessage passwordMsg passConfMsg" style="width: 240px" />
             </h:panelGrid>
         </h:form>
     </h:body>

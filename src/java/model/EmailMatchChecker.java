@@ -22,13 +22,12 @@ public class EmailMatchChecker implements Validator {
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-        
+
         String email = value.toString();
-//        UIInput uiInputEmail = (UIInput) component.getAttributes().get("emailConfirmation");
         UIInput uiInputConfEmail = (UIInput) component.getAttributes().get("emailConfirmation");
         String confEmail = null;
-                try {
-	confEmail = uiInputConfEmail.getSubmittedValue().toString();
+        try {
+            confEmail = uiInputConfEmail.getSubmittedValue().toString();
         } catch (NullPointerException ne) {
             System.out.println("NullPointerException was caught");
         }
