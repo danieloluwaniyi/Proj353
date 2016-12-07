@@ -8,6 +8,7 @@
     <h:head>
         <title>Admin</title>
     </h:head>
+    <f:event listener="#{adminController.checkIfLoggedInAsAdmin()}" type="preRenderView" />
     <h:body>
         <h:outputStylesheet library="css" name="admin.css"/>
         <h:form>
@@ -33,7 +34,7 @@
                 <p:password class="inputText" id="password" value="#{adminController.admin.adminPass}"/>
                 <!--<p Click <a>here</a> if you forgot your password</p>-->
 
-                <p:commandButton class="button" id="submit" value="Login" action="#{adminController.loginAdmin()}"/>
+                <p:commandButton class="button" id="submit" value="Login" action="#{adminController.loginAdmin()}" style="position: relative; left: 18%"/>
 
             </h:panelGrid>
         </h:form>

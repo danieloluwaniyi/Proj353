@@ -67,7 +67,8 @@ body {
 }
 .form {
     position: absolute;
-    left: 38%;
+    left: 42%;
+    top: 30%;
 }
 .column {
     background-color: transparent;

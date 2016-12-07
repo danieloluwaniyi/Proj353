@@ -20,7 +20,7 @@ import javax.faces.bean.SessionScoped;
 
 @ManagedBean
 @SessionScoped
-public class RoyaltyBean implements Serializable {
+public class RoyaltyDAO implements Serializable {
     
     private List<String> emails = new ArrayList<String>();
     private Email email = new Email();
@@ -75,7 +75,7 @@ public class RoyaltyBean implements Serializable {
         return list;
     }
 
-    public String payRoyalty() {
+    public boolean payRoyalty() {
         //Will Create a mailing list
         emails = getEmail();
         //Iteration through mailing list and sendin them emails.
@@ -83,7 +83,7 @@ public class RoyaltyBean implements Serializable {
             email.royaltyEmail(emails.get(i));
         }
         
-        String retVal = null;
+        boolean retVal = false;
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
         String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
@@ -93,9 +93,9 @@ public class RoyaltyBean implements Serializable {
             int i = s.executeUpdate(sql);
             DBConn.close();
             s.close();
-            retVal = "goodadmin?faces-redirect=true";
+            retVal = true;
             } catch (Exception e) {
-            retVal = "";
+            retVal = false;
         }
         return retVal;
     }

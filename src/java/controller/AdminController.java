@@ -6,6 +6,8 @@
 package controller;
 
 import dao.ProfileDAO;
+import dao.RoyaltyDAO;
+import dao.WinnerDAO;
 import email.Email;
 import java.util.Properties;
 import javax.faces.application.ConfigurableNavigationHandler;
@@ -36,95 +38,37 @@ public class AdminController {
      private Profile profile;
      @ManagedProperty("#{profileDAO}")
      private ProfileDAO profileDAO;
+     @ManagedProperty("#{royaltyDAO}")
+     private RoyaltyDAO royaltyDAO;
+     @ManagedProperty("#{winnerDAO}")
+     private WinnerDAO winnerDAO;
      @ManagedProperty("#{admin}")
      private Admin admin;
      private Email emailToSent;
      private String userIDToPay;
+     private String errorMsg;
+     private boolean loggedInAsAdmin;
      
-     
-
-     public boolean email(Profile profile) {
-        boolean sent = false;
-        // Recipient's email ID needs to be mentioned.
-        String to = profile.getEmail();
-
-        // Sender's email ID needs to be mentioned
-        String from = "svyas12@ilstu.edu";
-
-        // Assuming you are sending email from this host
-        String host = "m.outlook.com";
-
-        // Get system properties
-        Properties props = System.getProperties();
-
-        // Setup mail server
-        props = new Properties();
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.port", "587"); // if needed
-        props.put("mail.smtp.host", "m.outlook.com"); // if needed
-        props.put("mail.smtp.auth", "true");
-        // Get the default Session object.
-        Session session = Session.getDefaultInstance(props);
-        session = Session.getInstance(props, new Authenticator() {
-        @Override
-        protected PasswordAuthentication getPasswordAuthentication() {
-            return new PasswordAuthentication("svyas12@ilstu.edu",
-                    "Sohanlal1!");
+     public void checkIfLoggedInAsAdmin() {
+        if (!loggedInAsAdmin) {
+            // Can't just return "login" as it not an "action" event (// Ref: http://stackoverflow.com/questions/16106418/how-to-perform-navigation-in-prerenderview-listener-method)
+            FacesContext fc = FacesContext.getCurrentInstance();
+            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+            nav.performNavigation("adminLogin?faces-redirect=true");
         }
-    });
-
-        try {
-            // Create a default MimeMessage object.
-            MimeMessage message = new MimeMessage(session);
-
-            // Set From: header field of the header.
-            message.setFrom(new InternetAddress(from));
-
-            // Set To: header field of the header.
-            message.setRecipient(Message.RecipientType.TO,
-                    new InternetAddress(to));
-
-            // Set Subject: header field
-            message.setSubject("Your Account has been created");
-            // Send the actual HTML message, as big as you like
-            message.setContent("Hi " + profile.getFirstName() + "," + "<br/>" + "You have won the contest based on user ratings." + "<br/>"
-                                 ,"text/html");
-
-            // Send message
-            Transport.send(message);
-            sent = true;
-            System.out.println("Message sent successfully....");
-
-        } catch (MessagingException mex) {
-            mex.printStackTrace();
-            sent = false;
-        }
-        return sent;
-
     }
-     
-    public boolean pay(Profile profile){
-        boolean isUsergetPaid = false;
-        String userID = profile.getUserID();
-        if(getProfileDAO().payUser(userID)){
-            isUsergetPaid = true;
-        }
-        return isUsergetPaid;
-    } 
-    
-    public boolean payRoalty(Profile profile){
-        boolean retVal = false;
-        
-        
-        
-        return retVal;
+    public void logoutAdmin() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession(); // the above is unnecessary once the session is invalidated
+        FacesContext fc = FacesContext.getCurrentInstance();
+            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+            loggedInAsAdmin = false;
+            nav.performNavigation("adminLogin?faces-redirect=true");
     }
-
     public void loginAdmin() {
 //        String retVal = null;
            String adminpass = admin.getAdminPass();
            String adminuname = admin.getAdminUname();
-        
+           loggedInAsAdmin = true;
 
         if (adminuname.equals("admin")&&  adminpass.equals("admin")) {
             FacesContext fc = FacesContext.getCurrentInstance();
@@ -138,7 +82,43 @@ public class AdminController {
         }
 //        return retVal;
     }
+        
+    public void payRoyalty() {
+        boolean status = false;
+        
 
+        status = royaltyDAO.payRoyalty();
+        
+        if (status == true) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+            nav.performNavigation("royaltyPayConf?faces-redirect=true");
+        } else {
+            this.errorMsg = "Error, please check the data.";
+            FacesContext fc = FacesContext.getCurrentInstance();
+            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+            nav.performNavigation("payroyalties?faces-redirect=true");
+        }
+    }
+
+    public void payWinner() {
+        boolean status = false;
+        
+
+        status = getWinnerDAO().payWinners();
+        
+        if (status == true) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+            nav.performNavigation("winnerPayConf?faces-redirect=true");
+        } else {
+            this.errorMsg = "Error, please check the data.";
+            FacesContext fc = FacesContext.getCurrentInstance();
+            ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
+            nav.performNavigation("paywinner?faces-redirect=true");
+        }
+    }
+    
 
     public Submission getSubmissionModel() {
         return submissionModel;
@@ -197,6 +177,60 @@ public class AdminController {
     public void setEmailToSent(Email emailToSent) {
         this.emailToSent = emailToSent;
     }
-}
 
-    
+    /**
+     * @return the royaltyDAO
+     */
+    public RoyaltyDAO getRoyaltyDAO() {
+        return royaltyDAO;
+    }
+
+    /**
+     * @param royaltyDAO the royaltyDAO to set
+     */
+    public void setRoyaltyDAO(RoyaltyDAO royaltyDAO) {
+        this.royaltyDAO = royaltyDAO;
+    }
+
+    /**
+     * @return the errorMsg
+     */
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    /**
+     * @param errorMsg the errorMsg to set
+     */
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
+
+    /**
+     * @return the loggedInAsAdmin
+     */
+    public boolean isLoggedInAsAdmin() {
+        return loggedInAsAdmin;
+    }
+
+    /**
+     * @param loggedInAsAdmin the loggedInAsAdmin to set
+     */
+    public void setLoggedInAsAdmin(boolean loggedInAsAdmin) {
+        this.loggedInAsAdmin = loggedInAsAdmin;
+    }
+
+    /**
+     * @return the winnerDAO
+     */
+    public WinnerDAO getWinnerDAO() {
+        return winnerDAO;
+    }
+
+    /**
+     * @param winnerDAO the winnerDAO to set
+     */
+    public void setWinnerDAO(WinnerDAO winnerDAO) {
+        this.winnerDAO = winnerDAO;
+    }
+}

@@ -8,6 +8,7 @@
     <h:head>
         <title>Winners</title>
     </h:head>
+    <f:event listener="#{adminController.checkIfLoggedInAsAdmin()}" type="preRenderView" />
     <h:body>
         <h:outputStylesheet library="css" name="admin.css"/>
         <h:form>
@@ -25,7 +26,7 @@
         </h:form>
         <h1>Winners so far...</h1>
         <h:form>
-            <p:dataTable value="#{winnerBean.getAllWinner()}" var="w">
+            <p:dataTable value="#{winnerDAO.getAllWinner()}" var="w">
                 <p:column class="column" style="color: black">
                     <f:facet class="facet" name="header">
                         User ID

@@ -8,6 +8,7 @@
     <h:head>
         <title>Winner Payment</title>
     </h:head>
+    <f:event listener="#{adminController.checkIfLoggedInAsAdmin()}" type="preRenderView" />
     <h:body>
         <h:outputStylesheet library="css" name="admin.css"/>
         <h:form>
@@ -25,7 +26,7 @@
         </h:form>
         <h:form class="form" style="position: relative; left: 0%">
             <h1>Winners to be Paid</h1>
-            <p:dataTable value="#{winnerBean.getWinnerList()}" var="w">
+            <p:dataTable value="#{winnerDAO.getWinnerList()}" var="w">
                 <p:column class="column">
                     <f:facet class="facet" name="header">
                         User ID
@@ -39,7 +40,8 @@
                     #{w.subID}
                 </p:column>
             </p:dataTable>
-            <p:commandButton class="button" value="Pay Prize" action="#{winnerBean.payWinners()}" style="position: relative; left: 45%; width: 10%"/>
+            <p:commandButton id="payWinnerButton" class="button" value="Pay Prize" action="#{winnerDAO.payWinners()}" style="position: relative; left: 45%; width: 10%"/>
+            <p:outputLabel for="payWinnerButton" value="#{adminController.errorMsg}"/>
         </h:form>
     </h:body>
 </html>
