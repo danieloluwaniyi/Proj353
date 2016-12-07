@@ -32,7 +32,7 @@ public class WinnerDAO implements Serializable {
     private Email email = new Email();
 
     public double selectWinner(Date date) {
-        System.out.println(date);
+//        System.out.println(date);
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
         String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
