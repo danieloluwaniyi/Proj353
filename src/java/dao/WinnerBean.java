@@ -61,7 +61,7 @@ public class WinnerBean implements Serializable {
         return winner_id;
     }
 
-    public void setWinners() {
+    public String setWinners() {
       
         PreparedStatement ps;
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
@@ -103,6 +103,8 @@ public class WinnerBean implements Serializable {
             System.out.println("======");
             System.out.println("======");
         }
+        
+        return "paywinner?faces-redirect=true";
     }
 
     public List<String> getEmailWinners() {

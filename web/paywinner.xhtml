@@ -6,7 +6,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Royalty Payment</title>
+        <title>Winner Payment</title>
     </h:head>
     <h:body>
         <h:outputStylesheet library="css" name="admin.css"/>
@@ -24,7 +24,7 @@
             </p:toolbar>
         </h:form>
         <h:form class="form" style="position: relative; left: 0%">
-            <h1>Royalties to be Paid</h1>
+            <h1>Winners to be Paid</h1>
             <p:dataTable value="#{winnerBean.getWinnerList()}" var="w">
                 <p:column class="column">
                     <f:facet class="facet" name="header">
