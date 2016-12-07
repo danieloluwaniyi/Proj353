@@ -38,6 +38,7 @@
         </h:panelGrid>
         <h:form>
             <p:growl id="messages" showDetail="true" />
+            
             <p:toolbar class="toolBar" >
                 <f:facet name="left">
                     <p:outputLabel value="Submissions Portal" />
@@ -63,7 +64,9 @@
             </p:toolbar>
         </h:form>
         <h:form>
+            
             <p:dataTable value="#{sp.cart}" var="i" style="border-collapse: collapse; background-color: transparent" id="cartid">
+                
                 <p:column>
                     <f:facet name="header" >ID</f:facet>
                         #{i.item.submissionId}
@@ -92,9 +95,11 @@
                 <f:facet name="footer">Total: $#{sp.formattedtotal}</f:facet>
             </p:dataTable>
             <p:commandButton value="Update" action ="#{sp.update}" update="cartid" style="background-color: transparent; color: white"/>
-            <p:commandButton value="Checkout" action ="checkout?faces-redirect=true" update="cartid" style="background-color: transparent; color: white"/>
+            <p:commandButton value="Checkout" action ="#{sp.checkIfEmpty}" update="cartid" style="background-color: transparent; color: white"/>
+            
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
             <p:commandLink id="dashredirect" action="dashboard?faces-redirect=true" ajax="false"><br/>
-                <h:outputText value="Back to dashboard" />
+                <h:outputText style="color: white" value="Back to dashboard" />
             </p:commandLink>
         </h:form>
     </h:body>

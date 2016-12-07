@@ -18,6 +18,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import model.OrderItems;
 
@@ -67,6 +68,18 @@ public class CartController {
         cart.add(i);
         return "cart.xhtml?faces-redirect=true";
         
+    }
+    
+    public String checkIfEmpty(){
+        String retVal = "checkout.xhtml?faces-redirect=true";
+        if(cart.isEmpty()){
+       FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Oops you can't buy if you dont have any products buddy!"));
+
+            retVal = "";
+            
+        }
+        
+        return retVal;
     }
     
     public List getCart() {
