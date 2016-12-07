@@ -30,7 +30,7 @@ public class RoyaltyBean implements Serializable {
     public List<String> getEmail(){
         List<String> list = new ArrayList<String>();
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/project353";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         try {
             String sql = "select u.email from project353.users u join project353.ROYALTY r using(USER_ID) where r.ROYALTY_PAID = FALSE";
@@ -54,7 +54,7 @@ public class RoyaltyBean implements Serializable {
     public List<Royalty> getRoyaltyList() throws SQLException {
         List<Royalty> list = new ArrayList<Royalty>();
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/project353";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         try {
             String sql = "select * from project353.ROYALTY where ROYALTY_PAID = FALSE";
@@ -85,7 +85,7 @@ public class RoyaltyBean implements Serializable {
         
         String retVal = null;
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/project353";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         try {
             String sql = "update project353.ROYALTY set ROYALTY_PAID = TRUE where ROYALTY_PAID = FALSE";

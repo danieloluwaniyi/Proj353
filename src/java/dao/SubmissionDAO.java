@@ -41,7 +41,7 @@ public class SubmissionDAO {
             System.exit(0);
         }
         try {
-            String myDB = "jdbc:derby://localhost:1527/project353";
+            String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
 
             stmt = DBConn.prepareStatement("select * from project353.submissions where submission_Id=?");
@@ -71,7 +71,7 @@ public class SubmissionDAO {
             System.exit(0);
         }
         try {
-            String myDB = "jdbc:derby://localhost:1527/project353";
+            String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             if ((tags == null) || (tags.equals(""))) {
                 //do something
@@ -122,7 +122,7 @@ public class SubmissionDAO {
             System.exit(0);
         }
         try {
-            String myDB = "jdbc:derby://localhost:1527/project353";
+            String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
 
             PreparedStatement stmt = DBConn.prepareStatement(query);
@@ -169,7 +169,7 @@ public class SubmissionDAO {
         }
         int rowCount = 0;
         try {
-            String myDB = "jdbc:derby://localhost:1527/project353";
+            String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             String query = "update project353.submissions set rating = ?, raters =?";
             query += "where submission_id = ?";
@@ -192,7 +192,7 @@ public class SubmissionDAO {
         int retVal = 0;
         String query = "SELECT * FROM project353.ratedimages WHERE user_id = ? and submission_id=?";
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/project353";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
         try {
@@ -218,7 +218,7 @@ public class SubmissionDAO {
         
      
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/project353";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         
         try {

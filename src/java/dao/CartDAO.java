@@ -34,7 +34,7 @@ public class CartDAO {
     public boolean placeOrder(String buyerId, Order order, double price) throws SQLException {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/project353";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/doluwan_Fa2016_Project353";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         boolean retVal = false;
         String userId="";
