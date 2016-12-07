@@ -34,12 +34,13 @@
                     <f:validator validatorId="passwordChecker"/>
                     <f:attribute name="userID" value="#{userID}"/>
                 </p:password>
-                <p:message id="passMsg" for="password"/>                
-                <!--<p Click <a>here</a> if you forgot your password</p>-->
-                <p:commandButton class="button" id="submit" value="Login" action="#{loginController.login()}" update="passMsg"/>
-                <p:commandLink value="Forgot password?" action="passwordRetrieve?faces-redirect=true"/>
+                <p:message id="passMsg" for="password"/>
 
+                <p:commandButton class="button" id="submit" value="Login" action="#{loginController.login()}" update="passMsg"/>
             </h:panelGrid>
+        </h:form>
+        <h:form>
+            <p:commandLink value="Forgot password?" action="passwordRetrieve.xhtml" style="position: absolute; left: 42.5%; top: 58.5%"/>
         </h:form>
     </h:body>
 </html>
