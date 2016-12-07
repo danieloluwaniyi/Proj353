@@ -51,7 +51,7 @@ public class LoginController {
             profile.setLoggedIn(true);
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-            nav.performNavigation("userIndex?faces-redirect=true");
+            nav.performNavigation("dashboard?faces-redirect=true");
         } else {
             FacesContext fc = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
