@@ -50,7 +50,7 @@ and open the template in the editor.
                 </f:facet>
                 <f:facet name="right">
 
-                    <p:commandButton class="button" value="View Winners" style="background-color: transparent; color: white; font-size: 16px; width: 120px" />
+                    <p:commandButton class="button" value="View Winners" action="allwinners?faces-redirect=true" style="background-color: transparent; color: white; font-size: 16px; width: 120px" />
                     <p:commandButton class="button" value="Update Profile" action="update?faces-redirect=true" style="background-color: transparent; color: white; font-size: 16px; width: 120px; alignment-adjust: middle" />
                     <c:if test="#{loginController.profile.paid == true}">
                         <p:commandButton class="button" value="Upload Submission" action="UploadSubmission?faces-redirect=true" style="background-color: transparent; color: white; font-size: 16px; width: 150px "/></c:if>
