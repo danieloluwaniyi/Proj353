@@ -46,8 +46,8 @@
                     #{r.amount}
                 </p:column>
             </p:dataTable>
-            <p:commandButton id="payRoyaltyButton" class="button" value="Pay Royalty" action="#{adminController.payRoyalty()}" style="width: 300; left: 10%; position: relative"/>
-            <p:outputLabel for="payRoyaltyButton" value="#{adminController.errorMsg}"/>
+            <p:commandButton id="payRoyaltyButton" class="button" value="Pay Royalty" action="#{adminController.payRoyalty()}" style="width: 300; left: 10%; position: relative" update="payRoyaltyMsg"/>
+            <p:outputLabel id="payRoyaltyMsg" for="payRoyaltyButton" value="#{adminController.errorMsg}"/>
         </h:form>
     </h:body>
 </html>
