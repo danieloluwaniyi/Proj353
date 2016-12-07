@@ -66,4 +66,7 @@ body {
     height: 70px;
     font-size: 32px
 }
-
+.column {
+    background-color: transparent;
+    color: black;
+}
