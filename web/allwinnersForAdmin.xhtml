@@ -12,7 +12,7 @@
         <h:outputStylesheet library="css" name="admin.css"/>
         <h:form>
             <p:growl id="messages" showDetail="true" />
-            <p:toolbar style="background-color: transparent; color: white; height: 100; font-size: 32px" >
+            <p:toolbar style="background-color: transparent; color: white; font-size: 32px" >
                 <f:facet name="left">
                     <p:outputLabel value="Admin Page" />
                 </f:facet>
@@ -23,7 +23,6 @@
                 </f:facet>
             </p:toolbar>
         </h:form>
-
         <h1>Winners so far...</h1>
         <h:form>
             <p:dataTable value="#{winnerBean.getAllWinner()}" var="w">
