@@ -46,21 +46,42 @@ and open the template in the editor.
                 <!--Last name-->
                 <p:outputLabel class="outputLabel" value="Last Name" />
                 <p:inputText class="inputText"  id="lastName" value="#{profileController.profile.lastName}" required="true">
-                    
+                    <f:validateLength minimum="2" maximum="25"/>
+                </p:inputText>
+                <p:message id="lastNameMsg" for="lastName" class="warning"/>
+
+                <!--UserID-->
+                <p:outputLabel style="text-align: left" class="outputLabel" value="User ID" />
+                <p:inputText class="inputText"  id="userID" value="#{profileController.profile.userID}" required="true">
+                    <f:validateLength minimum="2" maximum="25"/>
+                    <f:ajax event="blur" render="idMessage"/>
+                    <f:validator validatorId="userIDValidator"/>
+                </p:inputText>
+                <p:message class="warning" id="idMessage" for="userID"/>
+
+                <!--Email-->
+                <p:outputLabel class="outputLabel" value="Email" />
+                <p:inputText class="inputText"  id="email" value="#{profileController.profile.email}" required="true">
+                    <f:ajax event="blur" render="emailMessage"/>
+                    <f:validator validatorId="emailValidator"/>
+                </p:inputText>
+                <p:message class="warning" id="emailMessage" for="email"/>
+
+                <!--Password-->
+                <p:outputLabel class="outputLabel" value="Password" />
+                <p:password class="inputText"  id="password" value="#{profileController.profile.password}" placeholder="At least 6 characters"  feedback="false" inline="true" binding="#{password}">
+                    <f:validator validatorId="passwordValidator" />
                     <f:attribute name="confirmPassword" value="#{confirmPassword}"/>
                 </p:password>
                 <p:messages class="warning" id="passwordMsg" for="password" escape="false"/>
 
                 <!--Confirm Password-->
                 <p:outputLabel class="outputLabel" value="Password again" />
-                                </p:inputText>
-
                 <p:password class="inputText" id="confirmPassword" required="true" binding="#{confirmPassword}">
                     <f:validator validatorId="passwordMatchChecker"/>
                     <f:attribute name="password" value="#{password}"/>
                 </p:password>
-                <p:message class="warning" id="passConfMsg" for="confirmPassword" escape="false"/>                
-
+                <p:message class="warning" id="passConfMsg" for="confirmPassword" escape="false"/> 
 
                 <p:commandButton class="button" id="submit" value="Sign Up" action="#{profileController.freeSingup()}" update="firstNameMsg lastNameMsg idMessage emailMessage passwordMsg passConfMsg" />
             </h:panelGrid>
