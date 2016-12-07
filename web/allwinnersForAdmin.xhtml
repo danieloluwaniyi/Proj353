@@ -26,13 +26,13 @@
         <h1>Winners so far...</h1>
         <h:form>
             <p:dataTable value="#{winnerBean.getAllWinner()}" var="w">
-                <p:column class="column">
+                <p:column class="column" style="color: black">
                     <f:facet class="facet" name="header">
                         User ID
                     </f:facet>
                     #{w.userID}
                 </p:column>
-                <p:column class="column">
+                <p:column class="column" >
                     <f:facet class="facet" name="header">
                         Submission ID
                     </f:facet>
