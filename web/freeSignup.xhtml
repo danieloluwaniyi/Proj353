@@ -32,7 +32,7 @@ and open the template in the editor.
                 </f:facet>
             </p:toolbar>
         </h:form>
-        <h:form id="freeSingupForm">
+        <h:form id="freeSignupForm">
             <p:outputLabel class="top" value="Free Account Sign Up"/>
             <h:panelGrid class="panelGrid" id="panel" columns="1" border="0" cellpadding="2"
                          cellspacing="0">
@@ -71,17 +71,16 @@ and open the template in the editor.
                 <p:outputLabel class="outputLabel" value="Password" />
                 <p:password class="inputText"  id="password" value="#{profileController.profile.password}" placeholder="At least 6 characters"  feedback="false" inline="true" binding="#{password}">
                     <f:validator validatorId="passwordValidator" />
-                    <f:attribute name="confirmPassword" value="#{confirmPassword}"/>
+                    <f:attribute name="passconf" value="#{confirmPassword}"/>
                 </p:password>
                 <p:messages class="warning" id="passwordMsg" for="password" escape="false"/>
 
                 <!--Confirm Password-->
                 <p:outputLabel class="outputLabel" value="Password again" />
-                                
-
                 <p:password class="inputText" id="confirmPassword" required="true" binding="#{confirmPassword}">
                     <f:validator validatorId="passwordMatchChecker"/>
                     <f:attribute name="password" value="#{password}"/>
+                    <!--<f:attribute name="password" value="#{password}"/>-->
                 </p:password>
                 <p:message class="warning" id="passConfMsg" for="confirmPassword" escape="false"/> 
 

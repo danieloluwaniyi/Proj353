@@ -29,31 +29,31 @@ public class PasswordChecker implements Validator {
 
     @ManagedProperty("#{profileDAO}")
     private ProfileDAO profileDAO = new ProfileDAO();
-    
+
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 
         String password = value.toString();
-    FacesContext fc = FacesContext.getCurrentInstance();
+        FacesContext fc = FacesContext.getCurrentInstance();
         UIInput uiUserID = (UIInput) component.getAttributes().get("userID");
 
         String userID = null;
         try {
             userID = uiUserID.getValue().toString();
         } catch (NullPointerException ne) {
-        Map<String,String> params =
-	fc.getExternalContext().getRequestParameterMap();
-        userID = params.get("userID");
+            Map<String, String> params
+                    = fc.getExternalContext().getRequestParameterMap();
+            userID = params.get("userID");
         }
 
         if (password == null || password.isEmpty()) {
             throw new ValidatorException(new FacesMessage("Please input values."));
         }
-        
+
         if (!profileDAO.checkPasswordExists(userID, password)) {
             throw new ValidatorException(new FacesMessage("User ID and Password doeesn't match or the ID doesn't exist."));
         }
-        
+
     }
 
     /**

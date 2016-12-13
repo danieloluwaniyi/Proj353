@@ -5,9 +5,11 @@
  */
 package model;
 
+import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
@@ -24,34 +26,34 @@ public class PasswordMatchChecker implements Validator {
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 
         String confirmPassword = value.toString();
-                
+        
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String, String> params
+                = fc.getExternalContext().getRequestParameterMap();
+        
+        String password = params.get("freeSignupForm:password");
         UIInput uiInputPassword = (UIInput) component.getAttributes().get("password");
-//        UIInput uiInputPassword = (UIInput) component.getAttributes().get("confirmPassword");
-        String password = null;
         
-        try {
-        password = uiInputPassword.getValue().toString(); 
-//        password = uiInputPassword.getSubmittedValue().toString();
-        } catch (NullPointerException ne) {                
-            System.out.println("NullPointerException was caught");
+//       try {
+//            password = uiInputPassword.getSubmittedValue().toString();
+//        } catch (NullPointerException ne) {
+//            System.out.println("NullPointerException was caught");
+//            uiInputPassword.setValid(false);
+//        }
+
+        if (confirmPassword == null || confirmPassword.isEmpty() || password == null || password.isEmpty()) {
             uiInputPassword.setValid(false);
-        }
-        
-        
-            if (confirmPassword == null || confirmPassword.isEmpty() || password == null || password.isEmpty()) {
-                uiInputPassword.setValid(false);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "info", "Password must match confirm password."));
             throw new ValidatorException(new FacesMessage(
-            "Something is null."));
+                    "- Null caught."));
         }
 
-        
         if (!confirmPassword.equals(password)) {
             uiInputPassword.setValid(false);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "info", "Password must match confirm password."));
             throw new ValidatorException(new FacesMessage(
-            "Password must match confirm password."));
-        }        
-        
+                    "Password must match confirm password."));
+        }
+
     }
 }

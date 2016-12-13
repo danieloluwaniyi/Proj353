@@ -24,6 +24,7 @@ and open the template in the editor.
                     color: white;
                 }*/
     </style>
+    <f:event listener="#{loginController.checkIfLoggedIn}" type="preRenderView" />
     <h:body>
         <h:outputStylesheet library="css" name="afterLogin.css"/>
         <h:panelGrid columns="4" >
@@ -61,7 +62,7 @@ and open the template in the editor.
                     <p:commandButton class="button" value="View Winners" action="allwinnersForUsers?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
                     <p:commandButton class="button" value="Update Profile" action="update?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 130px "/>
                     <c:if test="#{loginController.profile.paid == true}">
-                    <p:commandButton class="button" value="Upload Submission" action="UploadSubmission?faces-redirect=true" style="background-color: transparent; color: white; font-size: 16px; width: 150px "/></c:if>
+                        <p:commandButton class="button" value="Upload Submission" action="UploadSubmission?faces-redirect=true" style="background-color: transparent; color: white; font-size: 16px; width: 150px "/></c:if>
                     <p:commandButton class="button" value="View Dashboard" action="dashboard?faces-redirect=true" style="background-color: transparent; color: white; font-size: 20px; width: 140px "/>
 
                     <span class="ui-separator">    
