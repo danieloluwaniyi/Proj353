@@ -34,12 +34,6 @@ public class PasswordMatchChecker implements Validator {
         String password = params.get("freeSignupForm:password");
         UIInput uiInputPassword = (UIInput) component.getAttributes().get("password");
         
-//       try {
-//            password = uiInputPassword.getSubmittedValue().toString();
-//        } catch (NullPointerException ne) {
-//            System.out.println("NullPointerException was caught");
-//            uiInputPassword.setValid(false);
-//        }
 
         if (confirmPassword == null || confirmPassword.isEmpty() || password == null || password.isEmpty()) {
             uiInputPassword.setValid(false);
