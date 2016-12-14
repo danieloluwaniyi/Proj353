@@ -27,7 +27,10 @@
             <p:outputLabel class="top" value="Login"/>
             <h:panelGrid class="panelGrid" columns="1" >
                 <p:outputLabel class="outputLabel" value="User ID"/>
-                <p:inputText class="inputText" id="userID" value="#{loginController.profile.userID}" binding="#{userID}"/>
+                <p:inputText class="inputText" id="userID" value="#{loginController.profile.userID}" binding="#{userID}">
+                    <f:validator validatorId="userExistenceChecker"/>
+                </p:inputText>
+                <p:message id="userIDMsg" for="userID"/>
 
                 <p:outputLabel class="outputLabel" value="Password"/>
                 <p:password class="inputText" id="password" value="#{loginController.profile.password}" binding="#{password}">
@@ -36,11 +39,11 @@
                 </p:password>
                 <p:message id="passMsg" for="password"/>
 
-                <p:commandButton class="button" id="submit" value="Login" action="#{loginController.login()}" update="passMsg"/>
+                <p:commandButton class="button" id="submit" value="Login" action="#{loginController.login()}" update="userIDMsg passMsg"/>
             </h:panelGrid>
         </h:form>
         <h:form>
-            <p:commandLink value="Forgot password?" action="passwordRetrieve.xhtml" style="position: absolute; left: 42.5%; top: 58.5%"/>
+            <p:commandLink value="Forgot password?" action="passwordRetrieve.xhtml" style="position: absolute; left: 42.5%; top: 60.5%"/>
         </h:form>
     </h:body>
 </html>
