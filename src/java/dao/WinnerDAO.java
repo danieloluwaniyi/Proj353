@@ -44,7 +44,7 @@ public class WinnerDAO implements Serializable {
             ResultSet rs = s.executeQuery();
             Statement s1 = DBConn.createStatement();
           
-            while (rs.next()) {
+            if (rs.next()) {
                  winner_id = rs.getDouble("Submission_id");
                 String updateQuery = "UPDATE PROJECT353.SUBMISSIONS SET WINNER = TRUE WHERE SUBMISSION_ID = " + winner_id;
                 int i = s1.executeUpdate(updateQuery);

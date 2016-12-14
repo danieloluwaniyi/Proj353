@@ -48,6 +48,7 @@ public class Submission implements Serializable {
     private int searchParam;//1->all, 2->tags, 3->tbd
     private String formattedPrice;
     private Profile profile;
+    private String username;
     
 
     /**
@@ -59,13 +60,14 @@ public class Submission implements Serializable {
 
     }
 
-    public Submission(double rating, byte[] content, int submissionId, double price, int numRaters, String tags) {
+    public Submission(String username,double rating, byte[] content, int submissionId, double price, int numRaters, String tags) {
         this.submissionId = submissionId;
         this.rating = rating;
         this.content = content;
         this.price = price;
         this.tags = tags;
         this.numRaters = numRaters;
+        this.username = username;
     }
 
     public Profile getProfile() {
@@ -308,6 +310,14 @@ public class Submission implements Serializable {
 
     public void setSearchParam(int searchParam) {
         this.searchParam = searchParam;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 

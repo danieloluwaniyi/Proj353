@@ -28,7 +28,7 @@ public class Email implements Serializable {
         public void winnerEmail(String email) {
         String to = email;
         String username = "ccola2017@gmail.com";
-        String password = "String email";
+        String password = "Ccola2017!";
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");

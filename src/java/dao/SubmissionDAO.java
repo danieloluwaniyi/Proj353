@@ -146,7 +146,7 @@ public class SubmissionDAO {
                 image = rs.getBytes("submission_content");
                 tags = rs.getString("tags");
 
-                submission = new Submission(rating, image, id, price, raters, tags);
+                submission = new Submission(username,rating, image, id, price, raters, tags);
                 submissionCollection.add(submission);
             }
 
