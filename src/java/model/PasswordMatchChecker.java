@@ -9,7 +9,6 @@ import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
@@ -26,14 +25,16 @@ public class PasswordMatchChecker implements Validator {
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 
         String confirmPassword = value.toString();
-        
+
         FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String, String> params
-                = fc.getExternalContext().getRequestParameterMap();
-        
-        String password = params.get("freeSignupForm:password");
+        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        String password = null;
+        password = params.get("freeSignupForm:password");
+        if (password == null) {
+            password = params.get("paidSingupForm:password");
+        }
+
         UIInput uiInputPassword = (UIInput) component.getAttributes().get("password");
-        
 
         if (confirmPassword == null || confirmPassword.isEmpty() || password == null || password.isEmpty()) {
             uiInputPassword.setValid(false);
