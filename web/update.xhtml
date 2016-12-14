@@ -33,7 +33,7 @@ and open the template in the editor.
                 <p:imageSwitch class="switch" effect="fade" id="fadeEffect">
                     <ui:repeat value="#{imagesView.images}" var="image" id="fadeEffectImages">
                         <h:outputLink value="https://www.expedia.com/">
-                            <p:graphicImage name="DashImages/#{image}" id="image" width="600" height="100"/>
+                            <p:graphicImage alt="test" name="DashImages/#{image}" id="image" width="600" height="100"/>
                         </h:outputLink>
                     </ui:repeat>
                 </p:imageSwitch>
