@@ -26,15 +26,26 @@ public class PasswordMatchChecker implements Validator {
 
         String confirmPassword = value.toString();
 
+        UIInput uiInputPassword = (UIInput) component.getAttributes().get("password");
+        String password = null;
+        
+        try {
+            password = uiInputPassword.getSubmittedValue().toString();
+        } catch (NullPointerException ne) {
+            System.out.println("NullPointerException was caught");
+        }
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
-        String password = null;
-        password = params.get("freeSignupForm:password");
+        
+        if (password == null) {
+            password = params.get("updateForm:password");
+        }
+        if (password == null) {
+            password = params.get("freeSignupForm:password");
+        }
         if (password == null) {
             password = params.get("paidSingupForm:password");
         }
-
-        UIInput uiInputPassword = (UIInput) component.getAttributes().get("password");
 
         if (confirmPassword == null || confirmPassword.isEmpty() || password == null || password.isEmpty()) {
             uiInputPassword.setValid(false);
